@@ -9,6 +9,10 @@ namespace MiseEnSituation.Models
     public class TrainingCourse
     {
         public int? Id { get; set; }
+        
+        [Required]
+        [MaxLength(200)]
+        public string Name { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -21,15 +25,16 @@ namespace MiseEnSituation.Models
         [Required]
         public double DurationInHours { get; set; }
 
-        public double Price { get; set; }
+        public double? Price { get; set; }
 
         public List<Employee> EnrolledEmployees { get; set; }
 
         [Required]
         public List<Skill> TrainedSkills { get; set; }
 
-        public TrainingCourse(DateTime startingDate, DateTime endingDate, double durationInHours, List<Skill> trainedSkills)
+        public TrainingCourse(string name, DateTime startingDate, DateTime endingDate, double durationInHours, List<Skill> trainedSkills)
         {
+            Name = name;
             StartingDate = startingDate;
             EndingDate = endingDate;
             DurationInHours = durationInHours;
@@ -39,6 +44,8 @@ namespace MiseEnSituation.Models
 
         public TrainingCourse()
         {
+            EnrolledEmployees = new List<Employee>();
+            TrainedSkills = new List<Skill>();
         }
     }
 }

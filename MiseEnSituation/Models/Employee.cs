@@ -46,6 +46,8 @@ namespace MiseEnSituation.Models
 
         public Employee()
         {
+            Skills = new List<Skill>();
+            Courses = new List<TrainingCourse>();
         }
     }
 }
