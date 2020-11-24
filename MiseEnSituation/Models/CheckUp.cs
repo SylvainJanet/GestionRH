@@ -16,5 +16,10 @@ namespace MiseEnSituation.Models
         public Employee Manager { get; set; }
 
         public Employee RH { get; set; }
+
+        public CheckUp()
+        {
+            Employees = new List<Employee>();
+        }
     }
 }
