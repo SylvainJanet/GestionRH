@@ -7,6 +7,14 @@ using System.Web;
 
 namespace MiseEnSituation.Models
 {
+    public enum UserType
+    {
+        ADMIN,
+        EMPLOYEE,
+        MANAGER,
+        RH
+    }
+
     public class User
     {
         [Key] // pas obligatoire si le nom de l'attribut est Id ou UserId
@@ -22,6 +30,10 @@ namespace MiseEnSituation.Models
 
         //[DataType(DataType.Date)]
         public DateTime CreationDate { get; set; }
+
+        public string ProPhone { get; set; }
+
+        public UserType Type { get; set; }
 
         public User()
         {
