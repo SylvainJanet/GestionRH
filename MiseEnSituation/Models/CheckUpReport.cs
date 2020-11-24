@@ -20,6 +20,8 @@ namespace MiseEnSituation.Models
         public CheckUpReport(string content)
         {
             Content = content;
+            FinishedCourses = new List<TrainingCourse>();
+            WishedCourses = new List<TrainingCourse>();
         }
 
         public CheckUpReport()

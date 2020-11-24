@@ -57,6 +57,8 @@ namespace MiseEnSituation.Models
 
         public Post()
         {
+            Employees = new List<Employee>();
+            RequiredSkills = new List<Skill>();
         }
     }
 }
