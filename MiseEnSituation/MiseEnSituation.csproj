@@ -157,6 +157,10 @@
     <Compile Include="Migrations\202011241128469_AddedAnnotations.Designer.cs">
       <DependentUpon>202011241128469_AddedAnnotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011241248414_MohammedFix.cs" />
+    <Compile Include="Migrations\202011241248414_MohammedFix.Designer.cs">
+      <DependentUpon>202011241248414_MohammedFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\CheckUp.cs" />
@@ -251,6 +255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011241128469_AddedAnnotations.resx">
       <DependentUpon>202011241128469_AddedAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241248414_MohammedFix.resx">
+      <DependentUpon>202011241248414_MohammedFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

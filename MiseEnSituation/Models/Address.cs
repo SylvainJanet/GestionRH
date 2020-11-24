@@ -47,6 +47,10 @@ namespace MiseEnSituation.Models
             Country = country;
         }
 
+        public Address()
+        {
+        }
+
         public override bool Equals(object obj)
         {
             return obj is Address address &&

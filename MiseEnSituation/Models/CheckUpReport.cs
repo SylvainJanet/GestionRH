@@ -13,9 +13,19 @@ namespace MiseEnSituation.Models
         [Required]
         public string Content { get; set; }
 
+        public List<TrainingCourse> FinishedCourses { get; set; }
+
+        public List<TrainingCourse> WishedCourses { get; set; }
+
         public CheckUpReport(string content)
         {
             Content = content;
+        }
+
+        public CheckUpReport()
+        {
+            FinishedCourses = new List<TrainingCourse>();
+            WishedCourses = new List<TrainingCourse>();
         }
     }
 }
