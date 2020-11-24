@@ -36,5 +36,9 @@ namespace MiseEnSituation.Models
             TrainedSkills = trainedSkills;
             EnrolledEmployees = new List<Employee>();
         }
+
+        public TrainingCourse()
+        {
+        }
     }
 }

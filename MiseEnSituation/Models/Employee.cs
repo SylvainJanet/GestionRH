@@ -43,5 +43,9 @@ namespace MiseEnSituation.Models
             Post = post;
             Courses = new List<TrainingCourse>();
         }
+
+        public Employee()
+        {
+        }
     }
 }

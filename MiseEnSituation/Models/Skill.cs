@@ -20,5 +20,9 @@ namespace MiseEnSituation.Models
         {
             Description = description;
         }
+
+        public Skill()
+        {
+        }
     }
 }

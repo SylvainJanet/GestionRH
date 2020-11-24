@@ -54,5 +54,9 @@ namespace MiseEnSituation.Models
             Company = company;
             Employees = new List<Employee>();
         }
+
+        public Post()
+        {
+        }
     }
 }

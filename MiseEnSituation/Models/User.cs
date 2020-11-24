@@ -50,5 +50,10 @@ namespace MiseEnSituation.Models
             Type = type;
             CreationDate = DateTime.Now;
         }
+
+        public User()
+        {
+            CreationDate = DateTime.Now;
+        }
     }
 }

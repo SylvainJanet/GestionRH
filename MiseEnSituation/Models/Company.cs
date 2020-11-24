@@ -22,5 +22,9 @@ namespace MiseEnSituation.Models
             Name = name;
             Adress = adress;
         }
+
+        public Company()
+        {
+        }
     }
 }
