@@ -153,6 +153,10 @@
     <Compile Include="Migrations\202011241036334_InitialClassesBeforeMohammed.Designer.cs">
       <DependentUpon>202011241036334_InitialClassesBeforeMohammed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011241128469_AddedAnnotations.cs" />
+    <Compile Include="Migrations\202011241128469_AddedAnnotations.Designer.cs">
+      <DependentUpon>202011241128469_AddedAnnotations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\CheckUp.cs" />
@@ -244,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011241036334_InitialClassesBeforeMohammed.resx">
       <DependentUpon>202011241036334_InitialClassesBeforeMohammed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241128469_AddedAnnotations.resx">
+      <DependentUpon>202011241128469_AddedAnnotations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -43,8 +43,8 @@ namespace MiseEnSituation.Migrations
                         Post_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.TrainingCourses", t => t.TrainingCourse_Id)
-                .ForeignKey("dbo.Posts", t => t.Post_Id)
+                .ForeignKey("dbo.TrainingCourses", t => t.TrainingCourse_Id, cascadeDelete:false)
+                .ForeignKey("dbo.Posts", t => t.Post_Id, cascadeDelete: false)
                 .Index(t => t.TrainingCourse_Id)
                 .Index(t => t.Post_Id);
             
@@ -62,8 +62,8 @@ namespace MiseEnSituation.Migrations
                         Manage_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Companies", t => t.Company_Id)
-                .ForeignKey("dbo.Users", t => t.Manage_Id)
+                .ForeignKey("dbo.Companies", t => t.Company_Id, cascadeDelete: false)
+                .ForeignKey("dbo.Users", t => t.Manage_Id, cascadeDelete: false)
                 .Index(t => t.Company_Id)
                 .Index(t => t.Manage_Id);
             
@@ -75,8 +75,8 @@ namespace MiseEnSituation.Migrations
                         Employee_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.TrainingCourse_Id, t.Employee_Id })
-                .ForeignKey("dbo.TrainingCourses", t => t.TrainingCourse_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.Employee_Id, cascadeDelete: true)
+                .ForeignKey("dbo.TrainingCourses", t => t.TrainingCourse_Id, cascadeDelete: false)
+                .ForeignKey("dbo.Users", t => t.Employee_Id, cascadeDelete: false)
                 .Index(t => t.TrainingCourse_Id)
                 .Index(t => t.Employee_Id);
             
@@ -88,8 +88,8 @@ namespace MiseEnSituation.Migrations
                         Employee_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.Skill_Id, t.Employee_Id })
-                .ForeignKey("dbo.Skills", t => t.Skill_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.Employee_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Skills", t => t.Skill_Id, cascadeDelete: false)
+                .ForeignKey("dbo.Users", t => t.Employee_Id, cascadeDelete: false)
                 .Index(t => t.Skill_Id)
                 .Index(t => t.Employee_Id);
             
@@ -110,9 +110,9 @@ namespace MiseEnSituation.Migrations
             CreateIndex("dbo.Users", "Company_Id");
             CreateIndex("dbo.Users", "Post_Id");
             CreateIndex("dbo.Users", "Post_Id1");
-            AddForeignKey("dbo.Users", "Company_Id", "dbo.Companies", "Id");
-            AddForeignKey("dbo.Users", "Post_Id", "dbo.Posts", "Id");
-            AddForeignKey("dbo.Users", "Post_Id1", "dbo.Posts", "Id");
+            AddForeignKey("dbo.Users", "Company_Id", "dbo.Companies", "Id", cascadeDelete: false);
+            AddForeignKey("dbo.Users", "Post_Id", "dbo.Posts", "Id", cascadeDelete: false);
+            AddForeignKey("dbo.Users", "Post_Id1", "dbo.Posts", "Id", cascadeDelete: false);
         }
         
         public override void Down()

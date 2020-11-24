@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,15 +9,43 @@ namespace MiseEnSituation.Models
 {
     public class Address
     {
+        [Required]
+        [Key]
+        [Column(Order = 1)]
         public int Number { get; set; }
 
+        [Required]
+        [MaxLength(200)]
+        [Key]
+        [Column(Order = 2)]
         public string Street { get; set; }
 
+        [Required]
+        [MaxLength(200)]
+        [Key]
+        [Column(Order = 3)]
         public string City { get; set; }
 
+        [Required]
+        [DataType(DataType.PostalCode)]
+        [Key]
+        [Column(Order = 4)]
         public int ZipCode { get; set; }
 
+        [Required]
+        [MaxLength(200)]
+        [Key]
+        [Column(Order = 5)]
         public string Country { get; set; }
+
+        public Address(int number, string street, string city, int zipCode, string country)
+        {
+            Number = number;
+            Street = street;
+            City = city;
+            ZipCode = zipCode;
+            Country = country;
+        }
 
         public override bool Equals(object obj)
         {
