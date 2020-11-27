@@ -1,4 +1,5 @@
-﻿using MiseEnSituation.Models;
+﻿using MiseEnSituation.Exceptions;
+using MiseEnSituation.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -144,7 +145,7 @@ namespace MiseEnSituation.Repositories
 
         public override void Add(Skill t)
         {
-            base.Add(t);
+            throw new CascadeCreationInDBException(typeof(Skill));
         }
 
         public void Save(Skill skill, List<TrainingCourse> courses = null, List<Post> posts = null, List<Employee> employees = null)
@@ -171,7 +172,7 @@ namespace MiseEnSituation.Repositories
 
         public override void Modify(Skill t)
         {
-            base.Modify(t);
+            throw new CascadeCreationInDBException(typeof(Skill));
         }
 
         public void Update(Skill skill, List<TrainingCourse> courses = null, List<Post> posts = null, List<Employee> employees = null)
