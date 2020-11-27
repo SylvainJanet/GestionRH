@@ -113,7 +113,6 @@ namespace MiseEnSituation.Repositories
                     where s.Description.ToLower().Contains(searchField)
                     select s
                     ).ToList();
-
         }
 
         public List<Skill> SearchByDescriptionTracked(string searchField)

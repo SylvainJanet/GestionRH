@@ -21,7 +21,6 @@ namespace MiseEnSituation.Models
 
         public CheckUp()
         {
-        
         }
     }
 }

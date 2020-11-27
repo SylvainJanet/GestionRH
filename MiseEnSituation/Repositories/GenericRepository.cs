@@ -17,7 +17,6 @@ namespace MiseEnSituation.Repositories
         {
             this.DataContext = DataContext;
             this.dbSet = DataContext.Set<T>();
-
         }
 
         public virtual void Add(T t)

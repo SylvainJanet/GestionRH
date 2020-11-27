@@ -11,7 +11,7 @@ namespace MiseEnSituation.Repositories
         public MyDbContext()
             : base("name=MyDbContext")
         {
-            Database.Log = l => Debug.Write(l);
+            //Database.Log = l => Debug.Write(l);
         }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<CheckUp> CheckUps { get; set; }

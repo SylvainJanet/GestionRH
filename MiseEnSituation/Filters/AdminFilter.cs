@@ -12,7 +12,6 @@ namespace MiseEnSituation.Filters
         {
             if (HttpContext.Current.Session["user_connected"]==null)
             {
-                //HttpContext.Current.Response.Redirect("Home/Index");
                 filterContext.Result = new RedirectToRouteResult(
                     new System.Web.Routing.RouteValueDictionary
                     {

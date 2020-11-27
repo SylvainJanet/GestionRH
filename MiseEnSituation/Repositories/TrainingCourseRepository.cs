@@ -93,8 +93,6 @@ namespace MiseEnSituation.Repositories
             return req.ToList();
         }
 
-        
-
         public List<TrainingCourse> GetBySkillDescription(string searchField)
         {
             return (from tc in Collection().Include(tc => tc.EnrolledEmployees)
@@ -107,6 +105,7 @@ namespace MiseEnSituation.Repositories
                     select tc
                     ).ToList();
         }
+
         public List<TrainingCourse> GetBySkillDescriptionTracked(string searchField)
         {
             return (from tc in CollectionTracked().Include(tc=>tc.EnrolledEmployees)
