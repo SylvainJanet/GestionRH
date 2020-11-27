@@ -36,37 +36,21 @@ namespace MiseEnSituation.Repositories
 
         public override TrainingCourse FindById(int id)
         {
-            return Collection().Include(tc => tc.EnrolledEmployees)
-                               .Include(tc => tc.TrainedSkills)
-                               .Include(tc => tc.ReportsFinished)
-                               .Include(tc => tc.ReportsWished)
-                               .SingleOrDefault(tc => tc.Id == id);
+            return Collection().SingleOrDefault(tc => tc.Id == id);
         }
 
         public override TrainingCourse FindByIdTracked(int id)
         {
-            return CollectionTracked().Include(tc => tc.EnrolledEmployees)
-                                      .Include(tc => tc.TrainedSkills)
-                                      .Include(tc => tc.ReportsFinished)
-                                      .Include(tc => tc.ReportsWished)
-                                      .SingleOrDefault(tc => tc.Id == id);
+            return CollectionTracked().SingleOrDefault(tc => tc.Id == id);
         }
 
         public override List<TrainingCourse> GetAll(int start = 0, int maxByPage = int.MaxValue, Expression<Func<TrainingCourse, int?>> keyOrderBy = null, Expression<Func<TrainingCourse, bool>> predicateWhere = null)
         {
             IQueryable<TrainingCourse> req;
             if (keyOrderBy != null)
-                req = Collection().Include(tc => tc.EnrolledEmployees)
-                                  .Include(tc => tc.TrainedSkills)
-                                  .Include(tc => tc.ReportsFinished)
-                                  .Include(tc => tc.ReportsWished)
-                                  .OrderBy(keyOrderBy);
+                req = Collection().OrderBy(keyOrderBy);
             else
-                req = Collection().Include(tc => tc.EnrolledEmployees)
-                                  .Include(tc => tc.TrainedSkills)
-                                  .Include(tc => tc.ReportsFinished)
-                                  .Include(tc => tc.ReportsWished)
-                                  .OrderBy(t => t.Id);
+                req = Collection().OrderBy(t => t.Id);
 
             req = WhereSkipTake(req, start, maxByPage, predicateWhere);
 
@@ -77,17 +61,9 @@ namespace MiseEnSituation.Repositories
         {
             IQueryable<TrainingCourse> req;
             if (keyOrderBy != null)
-                req = CollectionTracked().Include(tc => tc.EnrolledEmployees)
-                                         .Include(tc => tc.TrainedSkills)
-                                         .Include(tc => tc.ReportsFinished)
-                                         .Include(tc => tc.ReportsWished)
-                                         .OrderBy(keyOrderBy);
+                req = CollectionTracked().OrderBy(keyOrderBy);
             else
-                req = CollectionTracked().Include(tc => tc.EnrolledEmployees)
-                                         .Include(tc => tc.TrainedSkills)
-                                         .Include(tc => tc.ReportsFinished)
-                                         .Include(tc => tc.ReportsWished)
-                                         .OrderBy(t => t.Id);
+                req = CollectionTracked().OrderBy(t => t.Id);
 
             req = WhereSkipTake(req, start, maxByPage, predicateWhere);
 
@@ -96,10 +72,7 @@ namespace MiseEnSituation.Repositories
 
         public List<TrainingCourse> GetBySkillDescription(string searchField)
         {
-            return (from tc in Collection().Include(tc => tc.EnrolledEmployees)
-                                           .Include(tc => tc.TrainedSkills)
-                                           .Include(tc => tc.ReportsFinished)
-                                           .Include(tc => tc.ReportsWished)
+            return (from tc in Collection()
                     where tc.TrainedSkills.Where(s =>
                                                  s.Description.Contains(searchField)
                                                  ).Count() != 0
@@ -109,10 +82,7 @@ namespace MiseEnSituation.Repositories
 
         public List<TrainingCourse> GetBySkillDescriptionTracked(string searchField)
         {
-            return (from tc in CollectionTracked().Include(tc=>tc.EnrolledEmployees)
-                                                  .Include(tc=>tc.TrainedSkills)
-                                                  .Include(tc => tc.ReportsFinished)
-                                                  .Include(tc => tc.ReportsWished)
+            return (from tc in CollectionTracked()
                     where tc.TrainedSkills.Where(s => 
                                                  s.Description.Contains(searchField)
                                                  ).Count() != 0 

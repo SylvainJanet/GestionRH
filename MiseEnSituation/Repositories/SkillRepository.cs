@@ -34,33 +34,21 @@ namespace MiseEnSituation.Repositories
 
         public override Skill FindById(int id)
         {
-            return Collection().Include(s => s.Employees)
-                               .Include(s => s.Courses)
-                               .Include(s => s.Posts)
-                               .SingleOrDefault(s => s.Id == id);
+            return Collection().SingleOrDefault(s => s.Id == id);
         }
 
         public override Skill FindByIdTracked(int id)
         {
-            return CollectionTracked().Include(s => s.Employees)
-                                      .Include(s => s.Courses)
-                                      .Include(s => s.Posts)
-                                      .SingleOrDefault(s => s.Id == id);
+            return CollectionTracked().SingleOrDefault(s => s.Id == id);
         }
 
         public override List<Skill> GetAll(int start = 0, int maxByPage = int.MaxValue, Expression<Func<Skill, int?>> keyOrderBy = null, Expression<Func<Skill, bool>> predicateWhere = null)
         {
             IQueryable<Skill> req;
             if (keyOrderBy != null)
-                req = Collection().Include(s => s.Employees)
-                                  .Include(s => s.Courses)
-                                  .Include(s => s.Posts)
-                                  .OrderBy(keyOrderBy);
+                req = Collection().OrderBy(keyOrderBy);
             else
-                req = Collection().Include(s => s.Employees)
-                                  .Include(s => s.Courses)
-                                  .Include(s => s.Posts)
-                                  .OrderBy(t => t.Id);
+                req = Collection().OrderBy(t => t.Id);
 
             req = WhereSkipTake(req, start, maxByPage, predicateWhere);
 
@@ -71,15 +59,9 @@ namespace MiseEnSituation.Repositories
         {
             IQueryable<Skill> req;
             if (keyOrderBy != null)
-                req = CollectionTracked().Include(s => s.Employees)
-                                         .Include(s => s.Courses)
-                                         .Include(s => s.Posts)
-                                         .OrderBy(keyOrderBy);
+                req = CollectionTracked().OrderBy(keyOrderBy);
             else
-                req = CollectionTracked().Include(s => s.Employees)
-                                         .Include(s => s.Courses)
-                                         .Include(s => s.Posts)
-                                         .OrderBy(t => t.Id);
+                req = CollectionTracked().OrderBy(t => t.Id);
 
             req = WhereSkipTake(req, start, maxByPage, predicateWhere);
 
@@ -108,9 +90,7 @@ namespace MiseEnSituation.Repositories
 
         public List<Skill> SearchByDescription(string searchField)
         {
-            return (from s in Collection().Include(s => s.Courses)
-                                          .Include(s => s.Employees)
-                                          .Include(s => s.Posts)
+            return (from s in Collection()
                     where s.Description.ToLower().Contains(searchField)
                     select s
                     ).ToList();
@@ -118,9 +98,7 @@ namespace MiseEnSituation.Repositories
 
         public List<Skill> SearchByDescriptionTracked(string searchField)
         {
-            return (from s in CollectionTracked().Include(s => s.Courses)
-                                                 .Include(s => s.Employees)
-                                                 .Include(s => s.Posts)
+            return (from s in CollectionTracked()
                     where s.Description.ToLower().Contains(searchField)
                     select s
                     ).ToList();
