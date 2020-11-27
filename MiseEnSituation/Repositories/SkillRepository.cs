@@ -32,42 +32,6 @@ namespace MiseEnSituation.Repositories
                         .AsQueryable();
         }
 
-        public override Skill FindById(int id)
-        {
-            return Collection().SingleOrDefault(s => s.Id == id);
-        }
-
-        public override Skill FindByIdTracked(int id)
-        {
-            return CollectionTracked().SingleOrDefault(s => s.Id == id);
-        }
-
-        public override List<Skill> GetAll(int start = 0, int maxByPage = int.MaxValue, Expression<Func<Skill, int?>> keyOrderBy = null, Expression<Func<Skill, bool>> predicateWhere = null)
-        {
-            IQueryable<Skill> req;
-            if (keyOrderBy != null)
-                req = Collection().OrderBy(keyOrderBy);
-            else
-                req = Collection().OrderBy(t => t.Id);
-
-            req = WhereSkipTake(req, start, maxByPage, predicateWhere);
-
-            return req.ToList();
-        }
-
-        public override List<Skill> GetAllTracked(int start = 0, int maxByPage = int.MaxValue, Expression<Func<Skill, int?>> keyOrderBy = null, Expression<Func<Skill, bool>> predicateWhere = null)
-        {
-            IQueryable<Skill> req;
-            if (keyOrderBy != null)
-                req = CollectionTracked().OrderBy(keyOrderBy);
-            else
-                req = CollectionTracked().OrderBy(t => t.Id);
-
-            req = WhereSkipTake(req, start, maxByPage, predicateWhere);
-
-            return req.ToList();
-        }
-
         public List<Skill> FindMany(int[] ids)
         {
             List<Skill> lst = new List<Skill>();

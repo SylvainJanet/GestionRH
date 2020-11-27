@@ -34,42 +34,6 @@ namespace MiseEnSituation.Repositories
                         .AsQueryable();
         }
 
-        public override TrainingCourse FindById(int id)
-        {
-            return Collection().SingleOrDefault(tc => tc.Id == id);
-        }
-
-        public override TrainingCourse FindByIdTracked(int id)
-        {
-            return CollectionTracked().SingleOrDefault(tc => tc.Id == id);
-        }
-
-        public override List<TrainingCourse> GetAll(int start = 0, int maxByPage = int.MaxValue, Expression<Func<TrainingCourse, int?>> keyOrderBy = null, Expression<Func<TrainingCourse, bool>> predicateWhere = null)
-        {
-            IQueryable<TrainingCourse> req;
-            if (keyOrderBy != null)
-                req = Collection().OrderBy(keyOrderBy);
-            else
-                req = Collection().OrderBy(t => t.Id);
-
-            req = WhereSkipTake(req, start, maxByPage, predicateWhere);
-
-            return req.ToList();
-        }
-
-        public override List<TrainingCourse> GetAllTracked(int start = 0, int maxByPage = int.MaxValue, Expression<Func<TrainingCourse, int?>> keyOrderBy = null, Expression<Func<TrainingCourse, bool>> predicateWhere = null)
-        {
-            IQueryable<TrainingCourse> req;
-            if (keyOrderBy != null)
-                req = CollectionTracked().OrderBy(keyOrderBy);
-            else
-                req = CollectionTracked().OrderBy(t => t.Id);
-
-            req = WhereSkipTake(req, start, maxByPage, predicateWhere);
-
-            return req.ToList();
-        }
-
         public List<TrainingCourse> GetBySkillDescription(string searchField)
         {
             return (from tc in Collection()
