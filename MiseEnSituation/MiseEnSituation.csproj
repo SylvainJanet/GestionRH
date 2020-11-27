@@ -135,6 +135,8 @@
     <Compile Include="Controllers\TestDataController.cs" />
     <Compile Include="Controllers\TrainingCoursesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Exceptions\IdNullException.cs" />
+    <Compile Include="Exceptions\_MyExceptionMessages.cs" />
     <Compile Include="Filters\AdminFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -175,8 +177,13 @@
     <Compile Include="Migrations\202011241618057_NulablePriceForTrainingCourse.Designer.cs">
       <DependentUpon>202011241618057_NulablePriceForTrainingCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.cs" />
+    <Compile Include="Migrations\202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.Designer.cs">
+      <DependentUpon>202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\CheckUp.cs" />
     <Compile Include="Models\CheckUpReport.cs" />
     <Compile Include="Models\Company.cs" />
@@ -186,6 +193,8 @@
     <Compile Include="Models\TrainingCourse.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\ISkillRepository.cs" />
     <Compile Include="Repositories\ITrainingCourseRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
@@ -193,6 +202,8 @@
     <Compile Include="Repositories\SkillRepository.cs" />
     <Compile Include="Repositories\TrainingCourseRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\GenericService.cs" />
+    <Compile Include="Services\IGenericService.cs" />
     <Compile Include="Services\ISkillService.cs" />
     <Compile Include="Services\ITrainingCourseService.cs" />
     <Compile Include="Services\IUserService.cs" />
@@ -299,6 +310,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011241618057_NulablePriceForTrainingCourse.resx">
       <DependentUpon>202011241618057_NulablePriceForTrainingCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.resx">
+      <DependentUpon>202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

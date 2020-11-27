@@ -6,29 +6,28 @@ using System.Web;
 
 namespace MiseEnSituation.Models
 {
-    public class Skill
+    public class Skill : BaseEntity
     {
-        public int? Id { get; set; }
-
-        public List<Employee> Employees { get; set; }
-
         [Required]
         [MaxLength(200)]
         public string Description { get; set; }
 
         public List<TrainingCourse> Courses { get; set; }
 
-        public Skill(string description)
+        public List<Post> Posts { get; set; }
+
+        public List<Employee> Employees { get; set; }
+
+        public Skill(string description) : this()
         {
             Description = description;
-            Employees = new List<Employee>();
-            Courses = new List<TrainingCourse>();
         }
 
         public Skill()
         {
             Employees = new List<Employee>();
             Courses = new List<TrainingCourse>();
+            Posts = new List<Post>();
         }
     }
 }

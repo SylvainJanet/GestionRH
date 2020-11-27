@@ -15,11 +15,8 @@ namespace MiseEnSituation.Models
         RH
     }
 
-    public class User
+    public class User : BaseEntity
     {
-        [Key] // pas obligatoire si le nom de l'attribut est Id ou UserId
-        public int? Id { get; set; }
-
         [Required]
         public string Name { get; set; }
 
@@ -42,13 +39,12 @@ namespace MiseEnSituation.Models
         [Required]
         public UserType Type { get; set; }
 
-        public User(string name, string email, string password, UserType type)
+        public User(string name, string email, string password, UserType type) : this()
         {
             Name = name;
             Email = email;
             Password = password;
             Type = type;
-            CreationDate = DateTime.Now;
         }
 
         public User()

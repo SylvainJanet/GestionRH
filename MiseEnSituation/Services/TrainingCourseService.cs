@@ -2,55 +2,70 @@
 using MiseEnSituation.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
 namespace MiseEnSituation.Services
 {
-    public class TrainingCourseService : ITrainingCourseService
+    public class TrainingCourseService : GenericService<TrainingCourse>, ITrainingCourseService
     {
-        private ITrainingCourseRepository _trainingCourseRepository;
+        private ITrainingCourseRepository _TrainingCourseRepository;
 
-        public TrainingCourseService(ITrainingCourseRepository trainingCourseRepository)
+        public TrainingCourseService(ITrainingCourseRepository trainingCourseRepository) : base(trainingCourseRepository)
         {
-            _trainingCourseRepository = trainingCourseRepository;
-        }
-
-        public TrainingCourse Find(int? id)
-        {
-            return _trainingCourseRepository.Find(id);
+            _TrainingCourseRepository = (ITrainingCourseRepository)_repository;
         }
 
         public List<TrainingCourse> FindAll(int page, int maxByPage, string searchField)
         {
             int start = (page - 1) * maxByPage;
-            return _trainingCourseRepository.FindAll(start, maxByPage, searchField);
+            searchField = searchField.Trim().ToLower();
+            return _TrainingCourseRepository.GetAll(start, maxByPage, null,
+                                                       tc => tc.TrainedSkills.Where(s =>
+                                                                                    s.Description.Contains(searchField)
+                                                                                    )
+                                                                            .Count() != 0);
+        }
+
+        public List<TrainingCourse> FindAllTracked(int page, int maxByPage, string searchField)
+        {
+            int start = (page - 1) * maxByPage;
+            searchField = searchField.Trim().ToLower();
+            return _TrainingCourseRepository.GetAllTracked(start, maxByPage, null,
+                                                       tc => tc.TrainedSkills.Where(s =>
+                                                                                    s.Description.Contains(searchField)
+                                                                                    )
+                                                                            .Count() != 0);
         }
 
         public bool NextExist(int page, int maxByPage, string searchField)
         {
-            return (page * maxByPage) < _trainingCourseRepository.Count(searchField);
-        }
-
-        public void Remove(int id)
-        {
-            _trainingCourseRepository.Remove(id);
-        }
-
-        public void Save(TrainingCourse tc)
-        {
-            _trainingCourseRepository.Save(tc);
-        }
-
-        public List<TrainingCourse> Search(string searchField)
-        {
             searchField = searchField.Trim().ToLower();
-            return _trainingCourseRepository.SearchByDescription(searchField);
+            return (page * maxByPage) < _TrainingCourseRepository.Count(tc => tc.TrainedSkills.Where(s =>
+                                                                                                    s.Description.Contains(searchField)
+                                                                                                    )
+                                                                                            .Count() != 0);
         }
 
-        public void Update(TrainingCourse tc)
+        public List<TrainingCourse> GetBySkillDescription(string searchField)
         {
-            _trainingCourseRepository.Update(tc);
+            return _TrainingCourseRepository.GetBySkillDescription(searchField.Trim().ToLower());
+        }
+
+        public List<TrainingCourse> GetBySkillDescriptionTracked(string searchField)
+        {
+            return _TrainingCourseRepository.GetBySkillDescriptionTracked(searchField.Trim().ToLower());
+        }
+
+        public void Save(TrainingCourse trainingCourse, List<Skill> skills, List<Employee> employees = null, List<CheckUpReport> reportsfinished = null, List<CheckUpReport> reportswished = null)
+        {
+            _TrainingCourseRepository.Save(trainingCourse, skills, employees, reportsfinished, reportswished);
+        }
+
+        public void Update(TrainingCourse trainingCourse, List<Skill> skills, List<Employee> employees = null, List<CheckUpReport> reportsfinished = null, List<CheckUpReport> reportswished = null)
+        {
+            _TrainingCourseRepository.Update(trainingCourse, skills, employees, reportsfinished, reportswished);
         }
     }
 }
