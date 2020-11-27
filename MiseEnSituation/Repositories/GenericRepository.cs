@@ -61,12 +61,12 @@ namespace MiseEnSituation.Repositories
             Commit();
         }
 
-        public virtual T FindById(int id)
+        public T FindById(int id)
         {
             return Collection().SingleOrDefault(t => t.Id == id);
         }
 
-        public virtual T FindByIdTracked(int id)
+        public T FindByIdTracked(int id)
         {
             return CollectionTracked().SingleOrDefault(t => t.Id == id);
         }
@@ -80,26 +80,26 @@ namespace MiseEnSituation.Repositories
             return orderedreq;
         }
 
-        public virtual List<T> GetAll(int start = 0, int maxByPage = int.MaxValue, Expression<Func<T, int?>> keyOrderBy = null, Expression<Func<T, bool>> predicateWhere = null)
+        public List<T> GetAll(int start = 0, int maxByPage = int.MaxValue, Expression<Func<T, int?>> keyOrderBy = null, Expression<Func<T, bool>> predicateWhere = null)
         {
             IQueryable<T> req;
             if (keyOrderBy != null)
-                req = dbSet.AsNoTracking().OrderBy(keyOrderBy);
+                req = Collection().OrderBy(keyOrderBy);
             else
-                req = dbSet.AsNoTracking().OrderBy(t => t.Id);
+                req = Collection().OrderBy(t => t.Id);
 
             req = WhereSkipTake(req, start, maxByPage, predicateWhere);
 
             return req.ToList();
         }
 
-        public virtual List<T> GetAllTracked(int start = 0, int maxByPage = int.MaxValue, Expression<Func<T, int?>> keyOrderBy = null, Expression<Func<T, bool>> predicateWhere = null)
+        public List<T> GetAllTracked(int start = 0, int maxByPage = int.MaxValue, Expression<Func<T, int?>> keyOrderBy = null, Expression<Func<T, bool>> predicateWhere = null)
         {
             IQueryable<T> req;
             if (keyOrderBy != null)
-                req = dbSet.OrderBy(keyOrderBy);
+                req = CollectionTracked().OrderBy(keyOrderBy);
             else
-                req = dbSet.OrderBy(t => t.Id);
+                req = CollectionTracked().OrderBy(t => t.Id);
 
             req = WhereSkipTake(req, start, maxByPage, predicateWhere);
 
