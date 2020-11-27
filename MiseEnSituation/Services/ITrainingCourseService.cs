@@ -3,14 +3,16 @@ using System.Collections.Generic;
 
 namespace MiseEnSituation.Services
 {
-    public interface ITrainingCourseService
+    public interface ITrainingCourseService : IGenericService<TrainingCourse>
     {
-        TrainingCourse Find(int? id);
         List<TrainingCourse> FindAll(int page, int maxByPage, string searchField);
+        List<TrainingCourse> FindAllTracked(int page, int maxByPage, string searchField);
+
         bool NextExist(int page, int maxByPage, string searchField);
-        void Remove(int id);
-        void Save(TrainingCourse tc);
-        List<TrainingCourse> Search(string searchField);
-        void Update(TrainingCourse tc);
+
+        List<TrainingCourse> GetBySkillDescription(string searchField);
+        List<TrainingCourse> GetBySkillDescriptionTracked(string searchField);
+        void Save(TrainingCourse trainingCourse, List<Skill> skills, List<Employee> employees = null, List<CheckUpReport> reportsfinished = null, List<CheckUpReport> reportswished = null);
+        void Update(TrainingCourse trainingCourse, List<Skill> skills, List<Employee> employees = null, List<CheckUpReport> reportsfinished = null, List<CheckUpReport> reportswished = null);
     }
 }

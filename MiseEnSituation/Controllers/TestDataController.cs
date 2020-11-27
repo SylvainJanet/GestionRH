@@ -33,7 +33,10 @@ namespace MiseEnSituation.Controllers
             User u15 = new User() { Name = "Tiitii", Email = "tiitii@dawan.fr", Password = HashTools.ComputeSha256Hash("tiitii"), Type = UserType.EMPLOYEE };
             User u16 = new User() { Name = "Tuutuu", Email = "tuutuu@dawan.fr", Password = HashTools.ComputeSha256Hash("tuutuu"), Type = UserType.EMPLOYEE };
 
-
+            foreach (User user in db.Users)
+            {
+                db.Users.Remove(user);
+            }
             db.Users.Add(u1);
             db.Users.Add(u2);
             db.Users.Add(u3);
@@ -69,6 +72,10 @@ namespace MiseEnSituation.Controllers
             Skill s15 = new Skill("TypeScript");
             Skill s16 = new Skill("Assembly");
 
+            foreach (Skill skill in db.Skills)
+            {
+                db.Skills.Remove(skill);
+            }
             db.Skills.Add(s1);
             db.Skills.Add(s2);
             db.Skills.Add(s3);
@@ -138,6 +145,10 @@ namespace MiseEnSituation.Controllers
             tc15.EnrolledEmployees = new List<Employee>();
             tc16.EnrolledEmployees = new List<Employee>();
 
+            foreach (TrainingCourse tc in db.TrainingCourses)
+            {
+                db.TrainingCourses.Remove(tc);
+            }
             db.TrainingCourses.Add(tc1);
             db.TrainingCourses.Add(tc2);
             db.TrainingCourses.Add(tc3);

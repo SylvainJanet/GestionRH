@@ -52,7 +52,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TrainingCourse trainingCourse = _trainingCourseService.Find(id);
+            TrainingCourse trainingCourse = _trainingCourseService.FindById(id);
             if (trainingCourse == null)
             {
                 return HttpNotFound();
@@ -78,27 +78,16 @@ namespace MiseEnSituation.Controllers
         [Route("Create")]
         public ActionResult Create([Bind(Include = "Id,Name,StartingDate,EndingDate,DurationInHours,Price")] TrainingCourse trainingCourse,/* int[] EnrolledEmployees,*/ int[] TrainedSkills)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && TrainedSkills!=null)
             {
                 List<Skill> skills = _skillService.FindMany(TrainedSkills);
-                foreach (var skill in skills)
-                {
-                    db.Entry(skill).State = EntityState.Unchanged;
-                }
-                trainingCourse.TrainedSkills = skills;
-
-
-                //List<Employee> employees = _employeService.FindMany(EnrolledEmployees);
-                //foreach (var employee in employees)
-                //{
-                //    db.Entry(employee).State = EntityState.Unchanged;
-                //}
-                //trainingCourse.EnrolledEmployees = employees;
-
-                _trainingCourseService.Save(trainingCourse);
+                _trainingCourseService.Save(trainingCourse,skills);
                 return RedirectToAction("Index");
             }
 
+            if (TrainedSkills == null)
+                ViewBag.ErrorSkillsMessage = "At least one skill must be selected";
+            ViewBag.Skills = _skillService.FindAll(1, int.MaxValue, "");
             return View(trainingCourse);
         }
 
@@ -111,7 +100,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TrainingCourse trainingCourse = _trainingCourseService.Find(id);
+            TrainingCourse trainingCourse = _trainingCourseService.FindById(id);
             if (trainingCourse == null)
             {
                 return HttpNotFound();
@@ -127,28 +116,17 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit")]
-        public ActionResult Edit([Bind(Include = "Id,Name,StartingDate,EndingDate,DurationInHours,Price")] TrainingCourse trainingCourse,/* int[] EnrolledEmployees,*/ int[] TrainedSkills)
+        public ActionResult Edit([Bind(Include = "Id,Name,StartingDate,EndingDate,DurationInHours,Price",Exclude ="TrainedSkills")] TrainingCourse trainingCourse,/* int[] EnrolledEmployees,*/ int[] EditTrainedSkills)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && EditTrainedSkills != null)
             {
-                List<Skill> skills = _skillService.FindMany(TrainedSkills);
-                foreach (var skill in skills)
-                {
-                    db.Entry(skill).State = EntityState.Unchanged;
-                }
-                trainingCourse.TrainedSkills = skills;
-
-
-                //List<Employee> employees = _employeService.FindMany(EnrolledEmployees);
-                //foreach (var employee in employees)
-                //{
-                //    db.Entry(employee).State = EntityState.Unchanged;
-                //}
-                //trainingCourse.EnrolledEmployees = employees;
-
-                _trainingCourseService.Update(trainingCourse);
+                List<Skill> skills = _skillService.FindMany(EditTrainedSkills);
+                _trainingCourseService.Update(trainingCourse, skills);
                 return RedirectToAction("Index");
             }
+            if (EditTrainedSkills == null)
+                ViewBag.ErrorSkillsMessage = "At least one skill must be selected";
+            ViewBag.Skills = _skillService.FindAll(1, int.MaxValue, "");
             return View(trainingCourse);
         }
 
@@ -161,7 +139,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TrainingCourse trainingCourse = _trainingCourseService.Find(id);
+            TrainingCourse trainingCourse = _trainingCourseService.FindById(id);
             if (trainingCourse == null)
             {
                 return HttpNotFound();
@@ -175,7 +153,7 @@ namespace MiseEnSituation.Controllers
         [Route("Delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
-            _trainingCourseService.Remove(id);
+            _trainingCourseService.Delete(id);
             return RedirectToAction("Index");
         }
 

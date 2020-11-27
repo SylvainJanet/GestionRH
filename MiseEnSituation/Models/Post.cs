@@ -15,10 +15,8 @@ namespace MiseEnSituation.Models
         APPRENTISSAGE
     }
     
-    public class Post
+    public class Post : BaseEntity
     {
-        public int? Id { get; set; }
-
         [Required]
         [DataType(DataType.Date)]
         public DateTime HiringDate { get; set; }
@@ -44,7 +42,7 @@ namespace MiseEnSituation.Models
 
         public List<Employee> Employees { get; set; }
 
-        public Post(DateTime hiringDate, ContractType contractType, double weeklyWorkLoad, string fileForContract, Company company, List<Skill> requiredSkills)
+        public Post(DateTime hiringDate, ContractType contractType, double weeklyWorkLoad, string fileForContract, Company company, List<Skill> requiredSkills) : this()
         {
             RequiredSkills = requiredSkills;
             HiringDate = hiringDate;
@@ -52,7 +50,6 @@ namespace MiseEnSituation.Models
             WeeklyWorkLoad = weeklyWorkLoad;
             FileForContract = fileForContract;
             Company = company;
-            Employees = new List<Employee>();
         }
 
         public Post()

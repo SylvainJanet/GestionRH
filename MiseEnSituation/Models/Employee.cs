@@ -44,7 +44,7 @@ namespace MiseEnSituation.Models
             Courses = new List<TrainingCourse>();
         }
 
-        public Employee()
+        public Employee() : base()
         {
             Skills = new List<Skill>();
             Courses = new List<TrainingCourse>();

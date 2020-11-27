@@ -48,7 +48,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Skill skill = _skillService.Find(id);
+            Skill skill = _skillService.FindById(id);
             if (skill == null)
             {
                 return HttpNotFound();
@@ -90,7 +90,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Skill skill = _skillService.Find(id);
+            Skill skill = _skillService.FindById(id);
             if (skill == null)
             {
                 return HttpNotFound();
@@ -123,7 +123,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Skill skill = _skillService.Find(id);
+            Skill skill = _skillService.FindById(id);
             if (skill == null)
             {
                 return HttpNotFound();
@@ -137,7 +137,7 @@ namespace MiseEnSituation.Controllers
         [Route("Delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
-            _skillService.Remove(id);
+            _skillService.Delete(id);
             return RedirectToAction("Index");
         }
 

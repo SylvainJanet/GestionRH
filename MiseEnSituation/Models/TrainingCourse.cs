@@ -6,10 +6,8 @@ using System.Web;
 
 namespace MiseEnSituation.Models
 {
-    public class TrainingCourse
+    public class TrainingCourse : BaseEntity
     {
-        public int? Id { get; set; }
-        
         [Required]
         [MaxLength(200)]
         public string Name { get; set; }
@@ -32,20 +30,25 @@ namespace MiseEnSituation.Models
         [Required]
         public List<Skill> TrainedSkills { get; set; }
 
-        public TrainingCourse(string name, DateTime startingDate, DateTime endingDate, double durationInHours, List<Skill> trainedSkills)
+        public List<CheckUpReport> ReportsFinished { get; set; }
+
+        public List<CheckUpReport> ReportsWished { get; set; }
+
+        public TrainingCourse(string name, DateTime startingDate, DateTime endingDate, double durationInHours, List<Skill> trainedSkills) : this()
         {
             Name = name;
             StartingDate = startingDate;
             EndingDate = endingDate;
             DurationInHours = durationInHours;
             TrainedSkills = trainedSkills;
-            EnrolledEmployees = new List<Employee>();
         }
 
         public TrainingCourse()
         {
             EnrolledEmployees = new List<Employee>();
             TrainedSkills = new List<Skill>();
+            ReportsFinished = new List<CheckUpReport>();
+            ReportsWished = new List<CheckUpReport>();
         }
     }
 }
