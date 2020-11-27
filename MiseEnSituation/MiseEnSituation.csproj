@@ -135,6 +135,7 @@
     <Compile Include="Controllers\TestDataController.cs" />
     <Compile Include="Controllers\TrainingCoursesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Exceptions\CascadeCreationInDBException.cs" />
     <Compile Include="Exceptions\IdNullException.cs" />
     <Compile Include="Exceptions\_MyExceptionMessages.cs" />
     <Compile Include="Filters\AdminFilter.cs" />
