@@ -13,7 +13,7 @@ namespace MiseEnSituation.Repositories
         //Create
         //no Commit / Commit
         void Add(T t);
-        void Save(T t);
+        void Save(T t, params object[] objs);
 
         //Read
         //IQueryable List no tracking / tracking  //  page query no tracking / page query tracked  //  id no tracking / id tracked
@@ -29,7 +29,7 @@ namespace MiseEnSituation.Repositories
         //Update
         //no Commit / Commit
         void Modify(T t);
-        void Update(T t);
+        void Update(T t, params object[] objs);
 
         //Delete
         //id / T  //  no Commit / Commit
@@ -41,10 +41,8 @@ namespace MiseEnSituation.Repositories
         //Count
         long Count(Expression<Func<T, bool>> predicateWhere = null);
 
-        //Tools to Add/Update when T is in Many-to-Many relationship (private and virtual but necessary to override
-        //along with add, save, modify and update)
-
-        //List<TT> GetFromNewContext<TT>(List<TT> ts, MyDbContext newdbContext) where TT : BaseEntity;
-        //void DetachProperties(T t);
+        //override these methods to give PropertyName, Type of Many-to-Many or one-to-Many relationship
+        //protected abstract Dictionary<string, Type> SetDynamicDBListTypes();
+        //protected abstract Dictionary<string, Type> SetDynamicDBTypes();
     }
 }

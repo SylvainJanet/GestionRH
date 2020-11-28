@@ -135,6 +135,8 @@
     <Compile Include="Controllers\TestDataController.cs" />
     <Compile Include="Controllers\TrainingCoursesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="EntityConfigurations\SkillConfiguration.cs" />
+    <Compile Include="EntityConfigurations\TrainingCourseConfiguration.cs" />
     <Compile Include="Exceptions\CascadeCreationInDBException.cs" />
     <Compile Include="Exceptions\IdNullException.cs" />
     <Compile Include="Exceptions\_MyExceptionMessages.cs" />
@@ -211,6 +213,7 @@
     <Compile Include="Services\SkillService.cs" />
     <Compile Include="Services\TrainingCourseService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Tools\GenericTools.cs" />
     <Compile Include="Tools\HashTools.cs" />
   </ItemGroup>
   <ItemGroup>

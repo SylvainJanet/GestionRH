@@ -7,7 +7,5 @@ namespace MiseEnSituation.Repositories
     {
         List<TrainingCourse> GetBySkillDescription(string searchField);
         List<TrainingCourse> GetBySkillDescriptionTracked(string searchField);
-        void Save(TrainingCourse trainingCourse, List<Skill> skills, List<Employee> employees = null, List<CheckUpReport> reportsfinished = null, List<CheckUpReport> reportswished = null);
-        void Update(TrainingCourse trainingCourse, List<Skill> skills, List<Employee> employees = null, List<CheckUpReport> reportsfinished = null, List<CheckUpReport> reportswished = null);
     }
 }
