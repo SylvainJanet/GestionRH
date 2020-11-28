@@ -25,14 +25,14 @@ namespace MiseEnSituation.Models
 
         public double? Price { get; set; }
 
-        public List<Employee> EnrolledEmployees { get; set; }
+        public IList<Employee> EnrolledEmployees { get; set; }
 
         [Required]
-        public List<Skill> TrainedSkills { get; set; }
+        public IList<Skill> TrainedSkills { get; set; }
 
-        public List<CheckUpReport> ReportsFinished { get; set; }
+        public IList<CheckUpReport> ReportsFinished { get; set; }
 
-        public List<CheckUpReport> ReportsWished { get; set; }
+        public IList<CheckUpReport> ReportsWished { get; set; }
 
         public TrainingCourse(string name, DateTime startingDate, DateTime endingDate, double durationInHours, List<Skill> trainedSkills) : this()
         {

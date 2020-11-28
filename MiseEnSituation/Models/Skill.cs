@@ -12,11 +12,11 @@ namespace MiseEnSituation.Models
         [MaxLength(200)]
         public string Description { get; set; }
 
-        public List<TrainingCourse> Courses { get; set; }
+        public IList<TrainingCourse> Courses { get; set; }
 
-        public List<Post> Posts { get; set; }
+        public IList<Post> Posts { get; set; }
 
-        public List<Employee> Employees { get; set; }
+        public IList<Employee> Employees { get; set; }
 
         public Skill(string description) : this()
         {
