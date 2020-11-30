@@ -13,7 +13,6 @@ namespace MiseEnSituation.Controllers
     {
         private MyDbContext db = new MyDbContext();
 
-        // GET: TestData
         public ActionResult Index()
         {
             User u1 = new User() { Name = "Toto", Email = "toto@dawan.fr", Password = HashTools.ComputeSha256Hash("toto"), Type = UserType.ADMIN };

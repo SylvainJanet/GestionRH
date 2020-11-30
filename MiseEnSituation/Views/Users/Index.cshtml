@@ -44,6 +44,12 @@
         <th>
             @Html.DisplayNameFor(model => model.CreationDate)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProPhone)
+        </th>
         <th></th>
     </tr>
 
@@ -59,6 +65,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.CreationDate)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProPhone)
+            </td>
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |

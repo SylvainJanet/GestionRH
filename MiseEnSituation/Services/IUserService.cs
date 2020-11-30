@@ -5,7 +5,7 @@ namespace MiseEnSituation.Services
 {
     public interface IUserService
     {
-        User CheckLogin(string email, string password);
+        User CheckLogin(string email, string password, UserType type);
         bool NextExist(int page, int maxByPage, string searchField);
         List<User> FindAll(int page, int maxByPage, string searchField);
         void Save(User user);
