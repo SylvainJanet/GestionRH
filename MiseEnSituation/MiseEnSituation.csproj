@@ -139,7 +139,7 @@
     <Compile Include="EntityConfigurations\TrainingCourseConfiguration.cs" />
     <Compile Include="Exceptions\CascadeCreationInDBException.cs" />
     <Compile Include="Exceptions\IdListEmptyForClassException.cs" />
-    <Compile Include="Exceptions\IdNullException.cs" />
+    <Compile Include="Exceptions\IdNullForClassException.cs" />
     <Compile Include="Exceptions\InvalidArgumentsForClassException.cs" />
     <Compile Include="Exceptions\_MyExceptionMessages.cs" />
     <Compile Include="Filters\AdminFilter.cs" />

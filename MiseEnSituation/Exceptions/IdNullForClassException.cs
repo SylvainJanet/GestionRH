@@ -5,9 +5,9 @@ using System.Web;
 
 namespace MiseEnSituation.Exceptions
 {
-    public class IdNullException : Exception
+    public class IdNullForClassException : Exception
     {
-        public IdNullException(Type t) : base(_MyExceptionMessages.IdNull(t))
+        public IdNullForClassException(Type t) : base(_MyExceptionMessages.IdNullForClass(t))
         {
 
         }
