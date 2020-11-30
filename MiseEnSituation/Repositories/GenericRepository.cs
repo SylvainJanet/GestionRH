@@ -694,7 +694,7 @@ namespace MiseEnSituation.Repositories
             T res = t;
             foreach (var p in typeof(T).GetProperties())
             {
-                if (!props.Select(cp => cp.Prop).Contains(p))
+                if (!props.Select(cp => cp.Prop).Contains(p) && p.CanWrite)
                     p.SetValue(res, p.GetValue(newt));
             }
             return res;

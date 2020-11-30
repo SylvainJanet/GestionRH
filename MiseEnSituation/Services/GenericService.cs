@@ -46,7 +46,7 @@ namespace MiseEnSituation.Services
         public void Delete(int? id)
         {
             if (!id.HasValue)
-                throw new IdNullException(typeof(T));
+                throw new IdNullExceptionForClass(typeof(T));
             _repository.Delete(id.Value);
         }
 
@@ -58,74 +58,82 @@ namespace MiseEnSituation.Services
         public T FindByIdExcludes(int? id)
         {
             if (!id.HasValue)
-                throw new IdNullException(typeof(T));
+                throw new IdNullExceptionForClass(typeof(T));
             return _repository.FindByIdIncludes(id.Value);
         }
 
         public T FindByIdExcludesTracked(int? id)
         {
             if (!id.HasValue)
-                throw new IdNullException(typeof(T));
+                throw new IdNullExceptionForClass(typeof(T));
             return _repository.FindByIdIncludesTracked(id.Value);
         }
 
         public T FindByIdIncludes(int? id)
         {
             if (!id.HasValue)
-                throw new IdNullException(typeof(T));
+                throw new IdNullExceptionForClass(typeof(T));
             return _repository.FindByIdIncludes(id.Value);
         }
 
         public T FindByIdIncludesTracked(int? id)
         {
             if (!id.HasValue)
-                throw new IdNullException(typeof(T));
+                throw new IdNullExceptionForClass(typeof(T));
             return _repository.FindByIdIncludesTracked(id.Value);
         }
 
         public List<T> FindManyByIdExcludes(int?[] ids)
         {
+            if (ids.Length == 0)
+                throw new IdListEmptyForClassException(typeof(T));
             List<T> lst = new List<T>();
             foreach (var id in ids)
             {
                 if (!id.HasValue)
-                    throw new IdNullException(typeof(T));
+                    throw new IdNullExceptionForClass(typeof(T));
                 lst.Add(_repository.FindByIdExcludes(id.Value));
             }
             return lst;
         }
 
-        public List<T> FindManByIdExcludesTracked(int?[] ids)
+        public List<T> FindManyByIdExcludesTracked(int?[] ids)
         {
+            if (ids.Length == 0)
+                throw new IdListEmptyForClassException(typeof(T));
             List<T> lst = new List<T>();
             foreach (var id in ids)
             {
                 if (!id.HasValue)
-                    throw new IdNullException(typeof(T));
+                    throw new IdNullExceptionForClass(typeof(T));
                 lst.Add(_repository.FindByIdExcludesTracked(id.Value));
             }
             return lst;
         }
 
-        public List<T> FindManByIdIncludes(int?[] ids)
+        public List<T> FindManyByIdIncludes(int?[] ids)
         {
+            if (ids.Length == 0)
+                throw new IdListEmptyForClassException(typeof(T));
             List<T> lst = new List<T>();
             foreach (var id in ids)
             {
                 if (!id.HasValue)
-                    throw new IdNullException(typeof(T));
+                    throw new IdNullExceptionForClass(typeof(T));
                 lst.Add(_repository.FindByIdIncludes(id.Value));
             }
             return lst;
         }
 
-        public List<T> FindManByIdIncludesTracked(int?[] ids)
+        public List<T> FindManyByIdIncludesTracked(int?[] ids)
         {
+            if (ids.Length == 0)
+                throw new IdListEmptyForClassException(typeof(T));
             List<T> lst = new List<T>();
             foreach (var id in ids)
             {
                 if (!id.HasValue)
-                    throw new IdNullException(typeof(T));
+                    throw new IdNullExceptionForClass(typeof(T));
                 lst.Add(_repository.FindByIdIncludesTracked(id.Value));
             }
             return lst;
