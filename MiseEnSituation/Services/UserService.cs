@@ -17,16 +17,17 @@ namespace MiseEnSituation.Services
             _userRepository = userRepository;
         }
 
-        public User CheckLogin(string email, string password)
+        public User CheckLogin(string email, string password, UserType type)
         {
             string msg = "Erreur : identifiants incorrects !"; // il vaudrait mieux externaliser le message plutôt que de le coder en dur ici (faire sa propre exception et mettre les messages
                                                                // dans des constantes)
             // hasher le mot de passe
             string cryptedPwd = HashTools.ComputeSha256Hash(password);
+            
             // récupérer l'utilisateur qui a cet email
             User u = _userRepository.FindByEmail(email);
             // tester si il est correct ou pas
-            if (u == null || !u.Password.Equals(cryptedPwd))
+            if (u == null || !u.Password.Equals(cryptedPwd) ||  !u.Type.Equals(UserType.ADMIN))
                 throw new Exception(msg);
             return u;
         }

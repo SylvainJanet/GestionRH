@@ -45,8 +45,8 @@ namespace MiseEnSituation.Controllers
             //utilisiation du IUserService
             try
             {
-                User foundedUser = _userService.CheckLogin(u.Email, u.Password);
-                if (foundedUser!=null)
+                User foundedUser = _userService.CheckLogin(u.Email, u.Password, u.Type);
+                if (foundedUser!=null && u.Type == UserType.ADMIN)
                 {
                     Session["user_id"] = foundedUser.Id;
                     Session["user_connected"] = true;

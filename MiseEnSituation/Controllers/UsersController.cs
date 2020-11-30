@@ -70,7 +70,7 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create")]
-        public ActionResult Create([Bind(Include = "Id,Name,Email,Password")] User user)
+        public ActionResult Create([Bind(Include = "Id,Name,Email,Password,Type")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +104,7 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit")]
-        public ActionResult Edit([Bind(Include = "Id,Name,Email,Password")] User user)
+        public ActionResult Edit([Bind(Include = "Id,Name,Email,Password,Type")] User user)
         {
             if (ModelState.IsValid)
             {
