@@ -1,7 +1,7 @@
 ﻿using MiseEnSituation.Models;
 using System.Collections.Generic;
 
-namespace MiseEnSituation.Services
+namespace MiseEnSituation.Repositories
 {
     public interface ICheckUpReportRepository
     {

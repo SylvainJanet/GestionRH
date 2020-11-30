@@ -1,5 +1,6 @@
 ﻿using MiseEnSituation.Controllers;
 using MiseEnSituation.Models;
+using MiseEnSituation.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +9,7 @@ using System.Web;
 
 namespace MiseEnSituation.Repositories
 {
-    public class CheckUpReportRepository : ICheckUpRepository
+    public class CheckUpReportRepository : ICheckUpReportRepository
     {
         MyDbContext db;
         public CheckUpReportRepository(MyDbContext db)
