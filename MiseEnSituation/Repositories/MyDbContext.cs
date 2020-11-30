@@ -1,4 +1,5 @@
-﻿using MiseEnSituation.Models;
+﻿using MiseEnSituation.EntityConfigurations;
+using MiseEnSituation.Models;
 using System;
 using System.Data.Entity;
 using System.Diagnostics;
@@ -11,7 +12,7 @@ namespace MiseEnSituation.Repositories
         public MyDbContext()
             : base("name=MyDbContext")
         {
-            Database.Log = l => Debug.Write(l);
+            //Database.Log = l => Debug.Write(l);
         }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<CheckUp> CheckUps { get; set; }
@@ -21,5 +22,12 @@ namespace MiseEnSituation.Repositories
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<TrainingCourse> TrainingCourses { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new SkillConfiguration());
+            modelBuilder.Configurations.Add(new TrainingCourseConfiguration());
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

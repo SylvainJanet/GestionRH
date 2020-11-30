@@ -1,0 +1,106 @@
+﻿@model IEnumerable<MiseEnSituation.Models.TrainingCourse>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des Training Courses</h2>
+
+@using (Html.BeginForm("Search", "TrainingCourse", FormMethod.Get))
+{
+    //@Html.AntiForgeryToken()
+    <input type="hidden" name="page" value="@ViewBag.Page" />
+    <input type="hidden" name="maxByPage" value="@ViewBag.MaxByPage" />
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label for="SearchField" class="'control-label col-md-2">Recherche par Skill</label>
+            <div class="col-md-10">
+                @Html.Editor("SearchField", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Rechercher" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<p class="text-danger">@ViewBag.Msg</p>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndingDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DurationInHours)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndingDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DurationInHours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        @if (ViewBag.Page > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index",new { page = ViewBag.Page - 1 , maxByPage=ViewBag.MaxByPage, searchField = ViewBag.SearchField })" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+        }
+        <li class="page-item-active"><a class="page-link" href="#">@ViewBag.Page</a></li>
+        @if (ViewBag.NextExist)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.Page + 1 , maxByPage=ViewBag.MaxByPage, searchField = ViewBag.SearchField})" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

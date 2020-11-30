@@ -6,10 +6,8 @@ using System.Web;
 
 namespace MiseEnSituation.Models
 {
-    public class CheckUp
+    public class CheckUp : BaseEntity
     {
-        public int? Id { get; set; }
-
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
@@ -23,9 +21,6 @@ namespace MiseEnSituation.Models
 
         public CheckUp()
         {
-        
         }
-
-
     }
 }

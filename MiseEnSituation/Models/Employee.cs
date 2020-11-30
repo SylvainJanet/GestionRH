@@ -32,7 +32,6 @@ namespace MiseEnSituation.Models
         [Required]
         public Post Post { get; set; }
 
-
         public Employee(string name, string email, string password, UserType type, DateTime birthDate, string personalPhone, Company company, bool isManager, List<Skill> skills, Post post) : base(name, email, password, type)
         {
             BirthDate = birthDate;
@@ -44,8 +43,10 @@ namespace MiseEnSituation.Models
             Courses = new List<TrainingCourse>();
         }
 
-        public Employee()
+        public Employee() : base()
         {
+            Skills = new List<Skill>();
+            Courses = new List<TrainingCourse>();
         }
     }
 }

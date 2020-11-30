@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace MiseEnSituation.Models
 {
-    public class CheckUpReport
+    public class CheckUpReport : BaseEntity
     {
-        public int? Id { get; set; }
-
         [Required]
         public string Content { get; set; }
 
+        [InverseProperty("ReportsFinished")]
         public List<TrainingCourse> FinishedCourses { get; set; }
 
+        [InverseProperty("ReportsWished")]
         public List<TrainingCourse> WishedCourses { get; set; }
 
-        public CheckUpReport(string content)
+        public CheckUpReport(string content) : this()
         {
             Content = content;
         }

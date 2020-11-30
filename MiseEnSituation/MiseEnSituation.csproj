@@ -131,8 +131,17 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MyConstants.cs" />
+    <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\TestDataController.cs" />
+    <Compile Include="Controllers\TrainingCoursesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="EntityConfigurations\SkillConfiguration.cs" />
+    <Compile Include="EntityConfigurations\TrainingCourseConfiguration.cs" />
+    <Compile Include="Exceptions\CascadeCreationInDBException.cs" />
+    <Compile Include="Exceptions\IdListEmptyForClassException.cs" />
+    <Compile Include="Exceptions\IdNullException.cs" />
+    <Compile Include="Exceptions\InvalidArgumentsForClassException.cs" />
+    <Compile Include="Exceptions\_MyExceptionMessages.cs" />
     <Compile Include="Filters\AdminFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -161,8 +170,25 @@
     <Compile Include="Migrations\202011241248414_MohammedFix.Designer.cs">
       <DependentUpon>202011241248414_MohammedFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011241449452_AddNameTrainingCourse.cs" />
+    <Compile Include="Migrations\202011241449452_AddNameTrainingCourse.Designer.cs">
+      <DependentUpon>202011241449452_AddNameTrainingCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011241544135_CorrectedManyToManySkillTrainingCourses.cs" />
+    <Compile Include="Migrations\202011241544135_CorrectedManyToManySkillTrainingCourses.Designer.cs">
+      <DependentUpon>202011241544135_CorrectedManyToManySkillTrainingCourses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011241618057_NulablePriceForTrainingCourse.cs" />
+    <Compile Include="Migrations\202011241618057_NulablePriceForTrainingCourse.Designer.cs">
+      <DependentUpon>202011241618057_NulablePriceForTrainingCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.cs" />
+    <Compile Include="Migrations\202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.Designer.cs">
+      <DependentUpon>202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\CheckUp.cs" />
     <Compile Include="Models\CheckUpReport.cs" />
     <Compile Include="Models\Company.cs" />
@@ -172,11 +198,24 @@
     <Compile Include="Models\TrainingCourse.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\IGenericRepository.cs" />
+    <Compile Include="Repositories\ISkillRepository.cs" />
+    <Compile Include="Repositories\ITrainingCourseRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Repositories\MyDbContext.cs" />
+    <Compile Include="Repositories\SkillRepository.cs" />
+    <Compile Include="Repositories\TrainingCourseRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Services\GenericService.cs" />
+    <Compile Include="Services\IGenericService.cs" />
+    <Compile Include="Services\ISkillService.cs" />
+    <Compile Include="Services\ITrainingCourseService.cs" />
     <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\SkillService.cs" />
+    <Compile Include="Services\TrainingCourseService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Tools\GenericTools.cs" />
     <Compile Include="Tools\HashTools.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +261,16 @@
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Skills\Create.cshtml" />
+    <Content Include="Views\Skills\Delete.cshtml" />
+    <Content Include="Views\Skills\Details.cshtml" />
+    <Content Include="Views\Skills\Edit.cshtml" />
+    <Content Include="Views\Skills\Index.cshtml" />
+    <Content Include="Views\TrainingCourses\Create.cshtml" />
+    <Content Include="Views\TrainingCourses\Delete.cshtml" />
+    <Content Include="Views\TrainingCourses\Details.cshtml" />
+    <Content Include="Views\TrainingCourses\Edit.cshtml" />
+    <Content Include="Views\TrainingCourses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -258,6 +307,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011241248414_MohammedFix.resx">
       <DependentUpon>202011241248414_MohammedFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241449452_AddNameTrainingCourse.resx">
+      <DependentUpon>202011241449452_AddNameTrainingCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241544135_CorrectedManyToManySkillTrainingCourses.resx">
+      <DependentUpon>202011241544135_CorrectedManyToManySkillTrainingCourses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011241618057_NulablePriceForTrainingCourse.resx">
+      <DependentUpon>202011241618057_NulablePriceForTrainingCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.resx">
+      <DependentUpon>202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

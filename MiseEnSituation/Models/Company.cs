@@ -6,10 +6,8 @@ using System.Web;
 
 namespace MiseEnSituation.Models
 {
-    public class Company
+    public class Company : BaseEntity
     {
-        public int? Id { get; set; }
-
         [Required]
         [MaxLength(200)]
         public string Name { get; set; }
