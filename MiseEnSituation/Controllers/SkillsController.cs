@@ -31,7 +31,7 @@ namespace MiseEnSituation.Controllers
         [Route("{page?}/{maxByPage?}/{searchField?}")]
         public ActionResult Index(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE, string SearchField = "")
         {
-            List<Skill> lstSkills = _skillService.FindAll(page, maxByPage, SearchField);
+            List<Skill> lstSkills = _skillService.FindAllExcludes(page, maxByPage, SearchField);
             ViewBag.NextExist = _skillService.NextExist(page, maxByPage, SearchField);
             ViewBag.Page = page;
             ViewBag.MaxByPage = maxByPage;
@@ -48,7 +48,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Skill skill = _skillService.FindById(id);
+            Skill skill = _skillService.FindByIdIncludes(id);
             if (skill == null)
             {
                 return HttpNotFound();
@@ -90,7 +90,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Skill skill = _skillService.FindById(id);
+            Skill skill = _skillService.FindByIdIncludes(id);
             if (skill == null)
             {
                 return HttpNotFound();
@@ -123,7 +123,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Skill skill = _skillService.FindById(id);
+            Skill skill = _skillService.FindByIdIncludes(id);
             if (skill == null)
             {
                 return HttpNotFound();
