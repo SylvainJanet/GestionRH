@@ -34,9 +34,9 @@ namespace MiseEnSituation.Services
         T FindByIdIncludes(int? id);
         T FindByIdIncludesTracked(int? id);
         List<T> FindManyByIdExcludes(int?[] ids);
-        List<T> FindManByIdExcludesTracked(int?[] ids);
-        List<T> FindManByIdIncludes(int?[] ids);
-        List<T> FindManByIdIncludesTracked(int?[] ids);
+        List<T> FindManyByIdExcludesTracked(int?[] ids);
+        List<T> FindManyByIdIncludes(int?[] ids);
+        List<T> FindManyByIdIncludesTracked(int?[] ids);
 
         //Update
         void Update(T t, params object[] objs);

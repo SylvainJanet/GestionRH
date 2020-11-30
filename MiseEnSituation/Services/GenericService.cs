@@ -46,7 +46,7 @@ namespace MiseEnSituation.Services
         public void Delete(int? id)
         {
             if (!id.HasValue)
-                throw new IdNullExceptionForClass(typeof(T));
+                throw new IdNullForClassException(typeof(T));
             _repository.Delete(id.Value);
         }
 
@@ -58,28 +58,28 @@ namespace MiseEnSituation.Services
         public T FindByIdExcludes(int? id)
         {
             if (!id.HasValue)
-                throw new IdNullExceptionForClass(typeof(T));
+                throw new IdNullForClassException(typeof(T));
             return _repository.FindByIdIncludes(id.Value);
         }
 
         public T FindByIdExcludesTracked(int? id)
         {
             if (!id.HasValue)
-                throw new IdNullExceptionForClass(typeof(T));
+                throw new IdNullForClassException(typeof(T));
             return _repository.FindByIdIncludesTracked(id.Value);
         }
 
         public T FindByIdIncludes(int? id)
         {
             if (!id.HasValue)
-                throw new IdNullExceptionForClass(typeof(T));
+                throw new IdNullForClassException(typeof(T));
             return _repository.FindByIdIncludes(id.Value);
         }
 
         public T FindByIdIncludesTracked(int? id)
         {
             if (!id.HasValue)
-                throw new IdNullExceptionForClass(typeof(T));
+                throw new IdNullForClassException(typeof(T));
             return _repository.FindByIdIncludesTracked(id.Value);
         }
 
@@ -91,7 +91,7 @@ namespace MiseEnSituation.Services
             foreach (var id in ids)
             {
                 if (!id.HasValue)
-                    throw new IdNullExceptionForClass(typeof(T));
+                    throw new IdNullForClassException(typeof(T));
                 lst.Add(_repository.FindByIdExcludes(id.Value));
             }
             return lst;
@@ -105,7 +105,7 @@ namespace MiseEnSituation.Services
             foreach (var id in ids)
             {
                 if (!id.HasValue)
-                    throw new IdNullExceptionForClass(typeof(T));
+                    throw new IdNullForClassException(typeof(T));
                 lst.Add(_repository.FindByIdExcludesTracked(id.Value));
             }
             return lst;
@@ -119,7 +119,7 @@ namespace MiseEnSituation.Services
             foreach (var id in ids)
             {
                 if (!id.HasValue)
-                    throw new IdNullExceptionForClass(typeof(T));
+                    throw new IdNullForClassException(typeof(T));
                 lst.Add(_repository.FindByIdIncludes(id.Value));
             }
             return lst;
@@ -133,7 +133,7 @@ namespace MiseEnSituation.Services
             foreach (var id in ids)
             {
                 if (!id.HasValue)
-                    throw new IdNullExceptionForClass(typeof(T));
+                    throw new IdNullForClassException(typeof(T));
                 lst.Add(_repository.FindByIdIncludesTracked(id.Value));
             }
             return lst;

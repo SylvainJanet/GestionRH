@@ -7,7 +7,7 @@ namespace MiseEnSituation.Exceptions
 {
     public abstract class _MyExceptionMessages
     {
-        public static string IdNull(Type t)
+        public static string IdNullForClass(Type t)
         {
             return "Object of class " + t.Name + " has null Id";
         }
