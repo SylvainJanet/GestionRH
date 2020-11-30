@@ -16,5 +16,10 @@ namespace MiseEnSituation.Exceptions
         {
             return "The class " + t.Name + "cannot be added or changed in DB that way : cascade creation will occur";
         }
+
+        public static string InvalidArgumentsForClass(Type t)
+        {
+            return "Invalid arguments for class " + t.Name;
+        }
     }
 }

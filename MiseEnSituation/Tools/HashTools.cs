@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MiseEnSituation.Tools
 {
-    public class HashTools
+    public abstract class HashTools
     {
         public static string ComputeSha256Hash(string rawData)
         {
