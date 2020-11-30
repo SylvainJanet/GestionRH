@@ -21,5 +21,10 @@ namespace MiseEnSituation.Exceptions
         {
             return "Invalid arguments for class " + t.Name;
         }
+
+        public static string IdListEmptyForClass(Type t)
+        {
+            return "List of Ids is empty for class " + t.Name;
+        }
     }
 }
