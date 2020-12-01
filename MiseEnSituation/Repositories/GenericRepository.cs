@@ -29,7 +29,7 @@ namespace MiseEnSituation.Repositories
 
         /// <summary>
         /// An object <c>obj</c> of class <typeparamref name="T"/> has properties <c>obj.PropName</c> of
-        /// class <c>ClassType</c> which is in a <see cref="DbSet"/> of the generic repository 
+        /// class <see cref="IList"/>&lt;<c>ClassType</c>&gt; where <c>ClassType</c> is in a <see cref="DbSet"/> of the generic repository 
         /// <see cref="DataContext"/>. 
         /// <br/>
         /// This is every { PropName : ClassType }
@@ -38,7 +38,7 @@ namespace MiseEnSituation.Repositories
 
         /// <summary>
         /// An object <c>obj</c> of class <typeparamref name="T"/> has properties <c>obj.PropName</c> of
-        /// class <see cref="IList"/>&lt;<c>ClassType</c>&gt; where <c>ClassType</c> is in a <see cref="DbSet"/> of the generic repository 
+        /// class <c>ClassType</c> which is in a <see cref="DbSet"/> of the generic repository 
         /// <see cref="DataContext"/>. 
         /// <br/>
         /// This is every { PropName : ClassType }
@@ -78,7 +78,7 @@ namespace MiseEnSituation.Repositories
         /// </list> </para>
         /// <remark>
         /// Code could be refactored and dismiss this class, since <see cref="GenericTools.TryListOfWhat(Type, out Type)"/> does the job <br/>
-        /// I didn't know it was possible when I coded the handling of relationships
+        /// I didn't know it was possible when I coded the handling of relationships and found out about that possibility when I was about to finish this code
         /// </remark>
         /// </summary>
         private class CustomParam
@@ -88,7 +88,8 @@ namespace MiseEnSituation.Repositories
             ///</summary>
             public object Value { get; set; }
             /// <summary>
-            /// The property of <typeparamref name="T"/> is of type <see cref="IList"/>&lt;<see cref="TypeofElement"/>&gt;
+            /// The property of <typeparamref name="T"/> is of type <see cref="IList"/>&lt;<see cref="TypeofElement"/>&gt; if <see cref="IsList"/> is true, and it is of 
+            /// type <see cref="TypeofElement"/> if <see cref="IsList"/> is false.
             /// </summary>
             public Type TypeofElement { get; set; }
             /// <summary>
@@ -615,7 +616,7 @@ namespace MiseEnSituation.Repositories
             List<string> lkeysfortypes = _DynamicDBTypes.Keys.ToList();
             List<Type> lTtypes = _DynamicDBTypes.Values.ToList();
 
-            foreach (object obj in objs)
+            foreach (object obj in objs.Where(o => o != null))
             {
                 bool isFound = false;
                 int i = 0;
@@ -624,6 +625,8 @@ namespace MiseEnSituation.Repositories
                     try
                     {
                         var test = Convert.ChangeType(obj, typ);
+                        if (((IList)test).Count == 0)
+                            throw new Exception();
                         isFound = true;
                         res[resindex] = CreateListCustomParamFromKey(lkeysforlisttypes[i], obj);
                         resindex++;

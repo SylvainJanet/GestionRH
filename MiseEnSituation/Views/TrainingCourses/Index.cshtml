@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Liste des Training Courses</h2>
+<h2>Index Training Courses</h2>
 
 @using (Html.BeginForm("Search", "TrainingCourse", FormMethod.Get))
 {
@@ -50,6 +50,18 @@
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrainedSkills)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Owners)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Owners)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Owners)
+        </th>*@
         <th></th>
     </tr>
 
@@ -71,6 +83,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
+            <td>
+                @Html.DropDownListFor(modelItem => item.TrainedSkills, new SelectList(item.TrainedSkills.Select(o => o.Description), null, item.TrainedSkills.Select(o => o.Description)), htmlAttributes: new { @class = "form-control" });
+            </td>
+            @*<td>
+                @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+            </td>
+            <td>
+                @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+            </td>
+            <td>
+                @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+            </td>*@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |

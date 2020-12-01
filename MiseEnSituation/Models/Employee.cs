@@ -24,7 +24,6 @@ namespace MiseEnSituation.Models
         [Required]
         public bool IsManager { get; set; }
 
-        [Required]
         public List<Skill> Skills { get; set; }
 
         public List<TrainingCourse> Courses { get; set; }

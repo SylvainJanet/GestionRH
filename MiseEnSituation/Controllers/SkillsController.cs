@@ -20,10 +20,12 @@ namespace MiseEnSituation.Controllers
     {
         private MyDbContext db = new MyDbContext();
         private ISkillService _skillService;
+        private ITrainingCourseService _TrainingCourseService;
 
         public SkillsController()
         {
             _skillService = new SkillService(new SkillRepository(db));
+            _TrainingCourseService = new TrainingCourseService(new TrainingCourseRepository(db));
         }
 
         // GET: Users
@@ -31,7 +33,7 @@ namespace MiseEnSituation.Controllers
         [Route("{page?}/{maxByPage?}/{searchField?}")]
         public ActionResult Index(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE, string SearchField = "")
         {
-            List<Skill> lstSkills = _skillService.FindAllExcludes(page, maxByPage, SearchField);
+            List<Skill> lstSkills = _skillService.FindAllIncludes(page, maxByPage, SearchField);
             ViewBag.NextExist = _skillService.NextExist(page, maxByPage, SearchField);
             ViewBag.Page = page;
             ViewBag.MaxByPage = maxByPage;
@@ -61,6 +63,7 @@ namespace MiseEnSituation.Controllers
         [Route("Create")]
         public ActionResult Create()
         {
+            ViewBag.TrainingCourses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
             return View();
         }
 
@@ -70,14 +73,15 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create")]
-        public ActionResult Create([Bind(Include = "Id,Description")] Skill skill)
+        public ActionResult Create([Bind(Include = "Id,Description")] Skill skill, int?[] TrainingCourses)
         {
             if (ModelState.IsValid)
             {
-                _skillService.Save(skill);
+                List<TrainingCourse> tcs = TrainingCourses != null ? _TrainingCourseService.FindManyByIdExcludes(TrainingCourses) : null;
+                _skillService.Save(skill,tcs);
                 return RedirectToAction("Index");
             }
-
+            ViewBag.TrainingCourses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
             return View(skill);
         }
 
@@ -95,6 +99,7 @@ namespace MiseEnSituation.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Courses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null, skill.Courses.Select(i => i.Id));
             return View(skill);
         }
 
@@ -104,13 +109,19 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit")]
-        public ActionResult Edit([Bind(Include = "Id,Description")] Skill skill)
+        public ActionResult Edit([Bind(Include = "Id,Description")] Skill skill, int?[] Courses)
         {
             if (ModelState.IsValid)
             {
-                _skillService.Update(skill);
+                foreach (TrainingCourse trainingCourse in _TrainingCourseService.GetAllExcludes(1, int.MaxValue, null, t => !Courses.Contains(t.Id) && t.TrainedSkills.Count() == 1 && t.TrainedSkills.Where(s => s.Id == skill.Id).Count() == 1))
+                {
+                    _TrainingCourseService.Delete(trainingCourse);
+                }
+                List<TrainingCourse> tcs = Courses != null ? _TrainingCourseService.FindManyByIdExcludes(Courses) : null;
+                _skillService.Update(skill,tcs);
                 return RedirectToAction("Index");
             }
+            ViewBag.Courses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null, skill.Courses.Select(i => i.Id));
             return View(skill);
         }
 
@@ -137,12 +148,15 @@ namespace MiseEnSituation.Controllers
         [Route("Delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
+            foreach (TrainingCourse trainingCourse in _TrainingCourseService.GetAllExcludes(1, int.MaxValue, null, t => t.TrainedSkills.Count() == 1 && t.TrainedSkills.Where(s => s.Id == id).Count() == 1))
+            {
+                _TrainingCourseService.Delete(trainingCourse);
+            }
             _skillService.Delete(id);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
-        //[ValidateAntiForgeryToken]
         [Route("Search")]
         public ActionResult Search([Bind(Include = ("page, maxByPage, SearchField"))] int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE, string searchField = "")
         {

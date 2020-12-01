@@ -18,6 +18,28 @@
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Courses)
+        </dt>
+        <dd>
+            @Html.DropDownListFor(model => model.Courses, new SelectList(Model.Courses.Select(o => o.Name), null, Model.Courses.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+        </dd>
+
+        @* Posts Employees
+            
+            <dt>
+            @Html.DisplayNameFor(model => model.Courses)
+        </dt>
+        <dd>
+            @Html.DropDownListFor(model => model.Courses, new SelectList(Model.Courses.Select(o => o.Name), null, Model.Courses.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Courses)
+        </dt>
+        <dd>
+            @Html.DropDownListFor(model => model.Courses, new SelectList(Model.Courses.Select(o => o.Name), null, Model.Courses.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+        </dd>*@
 
     </dl>
 

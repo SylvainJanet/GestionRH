@@ -37,7 +37,6 @@ namespace MiseEnSituation.Models
 
         public Employee Manager { get; set; }
 
-        [Required]
         public List<Skill> RequiredSkills { get; set; }
 
         public List<Employee> Employees { get; set; }

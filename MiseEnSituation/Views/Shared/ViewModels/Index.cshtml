@@ -1,20 +1,21 @@
-﻿@model IEnumerable<MiseEnSituation.Models.Skill>
+﻿@model IEnumerable<MiseEnSituation.Models.CLASS>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index Skills</h2>
+<h2>Index CLASS NAME</h2>
 
-@using (Html.BeginForm("Search", "Skills", FormMethod.Get))
+@using (Html.BeginForm("Search", "Brains", FormMethod.Get))
 {
+    //@Html.AntiForgeryToken()
     <input type="hidden" name="page" value="@ViewBag.Page" />
     <input type="hidden" name="maxByPage" value="@ViewBag.MaxByPage" />
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            <label for="SearchField" class="'control-label col-md-2">Recherche par Description</label>
+            <label for="SearchField" class="'control-label col-md-2">Recherche par Name</label>
             <div class="col-md-10">
                 @Html.Editor("SearchField", new { htmlAttributes = new { @class = "form-control" } })
             </div>
@@ -34,42 +35,58 @@
 </p>
 <table class="table">
     <tr>
+        @*Not in a relationship*@s
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
+        @*ClassOneToOneRequired*@
         <th>
-            @Html.DisplayNameFor(model => model.Courses)
+            @Html.DisplayNameFor(model => model.Owner.Name)
         </th>
-        @*<th>
+        @*ManyToOneRequired*@
+        <th>
+            @Html.DisplayNameFor(model => model.Owner.Name)
+        </th>
+        @*ManyToMany*@
+        <th>
             @Html.DisplayNameFor(model => model.Owners)
         </th>
+        @* OneRequiredToMany *@
         <th>
             @Html.DisplayNameFor(model => model.Owners)
-        </th>*@
+        </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DropDownListFor(modelItem => item.Courses, new SelectList(item.Courses.Select(o => o.Name), null, item.Courses.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
-            </td>
-            @*<td>
-                @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
-            </td>
-            <td>
-                @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
-            </td>*@
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
+<tr>
+    @*Not in a relationship*@s
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    @*ClassOneToOneRequired*@
+    <td>
+        @Html.DisplayFor(modelItem => item.Owner.Name)
+    </td>
+    @*ManyToOneRequired*@
+    <td>
+        @Html.DisplayFor(modelItem => item.Owner.Name)
+    </td>
+    @*ManyToMany*@
+    <td>
+        @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+    </td>
+    @* OneRequiredToMany *@
+    <td>
+        @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </td>
+</tr>
     }
 
 </table>
