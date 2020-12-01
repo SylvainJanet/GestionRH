@@ -86,7 +86,7 @@ namespace MiseEnSituation.Controllers
             }
             //if (TrainedSkills == null)
             //    ViewBag.ErrorSkillsMessage = "At least one skill must be selected";
-            ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Name", null, trainingCourse.TrainedSkills.Select(i => i.Id));
+            ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
             return View(trainingCourse);
         }
 
@@ -105,7 +105,7 @@ namespace MiseEnSituation.Controllers
                 return HttpNotFound();
             }
             //ViewBag.Employees = _employeeService.FindAll(1,int.MaxValue,"");
-            ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null, trainingCourse.TrainedSkills.Select(i => i.Id));
+            ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
             return View(trainingCourse);
         }
 
@@ -125,7 +125,7 @@ namespace MiseEnSituation.Controllers
             }
             //if (EditTrainedSkills == null)
             //    ViewBag.ErrorSkillsMessage = "At least one skill must be selected";
-            ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null, trainingCourse.TrainedSkills.Select(i => i.Id));
+            ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
             return View(trainingCourse);
         }
 

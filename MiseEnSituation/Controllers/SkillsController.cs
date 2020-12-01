@@ -99,7 +99,7 @@ namespace MiseEnSituation.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Courses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null, skill.Courses.Select(i => i.Id));
+            ViewBag.Courses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
             return View(skill);
         }
 
@@ -121,7 +121,7 @@ namespace MiseEnSituation.Controllers
                 _skillService.Update(skill,tcs);
                 return RedirectToAction("Index");
             }
-            ViewBag.Courses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null, skill.Courses.Select(i => i.Id));
+            ViewBag.Courses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
             return View(skill);
         }
 

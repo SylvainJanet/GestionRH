@@ -120,6 +120,7 @@ namespace MiseEnSituation.Repositories
                 PropertyName = propertyName;
                 Prop = prop;
                 IsList = isList;
+                //IsRequired = Attribute.IsDefined(typeof(T).GetProperty(propertyName), typeof(RequiredAttribute);
             }
         }
 
@@ -625,8 +626,6 @@ namespace MiseEnSituation.Repositories
                     try
                     {
                         var test = Convert.ChangeType(obj, typ);
-                        if (((IList)test).Count == 0)
-                            throw new Exception();
                         isFound = true;
                         res[resindex] = CreateListCustomParamFromKey(lkeysforlisttypes[i], obj);
                         resindex++;
