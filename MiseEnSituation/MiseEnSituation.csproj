@@ -304,6 +304,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ControllerModel.cs" />
     <Compile Include="Controllers\CheckUpController.cs" />
     <Compile Include="Controllers\CheckUpReportsController.cs" />
     <Compile Include="Repositories\CheckUpReportRepository.cs" />
@@ -456,6 +457,11 @@
     <Content Include="Views\TrainingCourses\Details.cshtml" />
     <Content Include="Views\TrainingCourses\Edit.cshtml" />
     <Content Include="Views\TrainingCourses\Index.cshtml" />
+    <Content Include="Views\Shared\ViewModels\Create.cshtml" />
+    <Content Include="Views\Shared\ViewModels\Delete.cshtml" />
+    <Content Include="Views\Shared\ViewModels\Details.cshtml" />
+    <Content Include="Views\Shared\ViewModels\Edit.cshtml" />
+    <Content Include="Views\Shared\ViewModels\Index.cshtml" />
     <Content Include="Views\CheckUp\Create.cshtml" />
     <Content Include="Views\CheckUp\Delete.cshtml" />
     <Content Include="Views\CheckUp\Details.cshtml" />

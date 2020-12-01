@@ -1,4 +1,4 @@
-﻿@model MiseEnSituation.Models.Skill
+﻿@model MiseEnSituation.Models.CLASS
 
 @{
     ViewBag.Title = "Details";
@@ -7,38 +7,52 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Skill</h4>
+    <h4>CLASS NAME</h4>
     <hr />
     <dl class="dl-horizontal">
+
+        @*Not in a relationship*@s
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Name)
         </dd>
 
+        @*ClassOneToOneRequired*@
         <dt>
-            @Html.DisplayNameFor(model => model.Courses)
+            @Html.DisplayNameFor(model => model.Owner.Name)
         </dt>
+
         <dd>
-            @Html.DropDownListFor(model => model.Courses, new SelectList(Model.Courses.Select(o => o.Name), null, Model.Courses.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+            @Html.DisplayFor(model => model.Owner.Name)
         </dd>
 
-        @* posts employees
-            <dt>
+        @*ManyToOneRequired*@
+        <dt>
+            @Html.DisplayNameFor(model => model.Owner.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Owner.Name)
+        </dd>
+
+        @*ManyToMany*@
+        <dt>
             @Html.DisplayNameFor(model => model.Owners)
         </dt>
         <dd>
             @Html.DropDownListFor(model => model.Owners, new SelectList(Model.Owners.Select(o => o.Name), null, Model.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
         </dd>
 
+        @*OneRequiredToMany*@
         <dt>
             @Html.DisplayNameFor(model => model.Owners)
         </dt>
         <dd>
             @Html.DropDownListFor(model => model.Owners, new SelectList(Model.Owners.Select(o => o.Name), null, Model.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
-        </dd>*@
+        </dd>
 
     </dl>
 </div>

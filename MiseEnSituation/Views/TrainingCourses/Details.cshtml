@@ -49,33 +49,34 @@
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
-        @for (int i = 0; i < Model.EnrolledEmployees.Count(); i++)
-        {
-            <dt>
-                @if (i == 0)
-                {
-                    <span>Employees</span>
-                }
-            </dt>
-            <dd>
-                @Model.EnrolledEmployees[i].Name
-            </dd>
-        }
 
+        <dt>
+            @Html.DisplayNameFor(model => model.TrainedSkills)
+        </dt>
+        <dd>
+            @Html.DropDownListFor(model => model.TrainedSkills, new SelectList(Model.TrainedSkills.Select(o => o.Description), null, Model.TrainedSkills.Select(o => o.Description)), htmlAttributes: new { @class = "form-control" });
+        </dd>
 
-        @for (int i = 0; i < Model.TrainedSkills.Count(); i++)
-        {
-            <dt>
-                @if (i == 0)
-                {
-                    <span>Trained Skills</span>
-                }
-            </dt>
-            <dd>
-                @Model.TrainedSkills[i].Description
-            </dd>
-        }
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Owners)
+        </dt>
+        <dd>
+            @Html.DropDownListFor(model => model.Owners, new SelectList(Model.Owners.Select(o => o.Name), null, Model.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+        </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.Owners)
+        </dt>
+        <dd>
+            @Html.DropDownListFor(model => model.Owners, new SelectList(Model.Owners.Select(o => o.Name), null, Model.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Owners)
+        </dt>
+        <dd>
+            @Html.DropDownListFor(model => model.Owners, new SelectList(Model.Owners.Select(o => o.Name), null, Model.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+        </dd>*@
 
 
     </dl>
