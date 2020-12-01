@@ -18,7 +18,7 @@
 //        //private IClassOneToOneRequiredService _ClassOneToOneRequiredService;
 //        //private IClassManyToOneRequiredService _ClassManyToOneService;
 //        //private IClassOneRequiredToManyService _ClassOneRequiredToManyService
-//        //#endregion
+//        #endregion
 
 //        public ClassController()
 //        {
@@ -90,10 +90,10 @@
 //        public ActionResult Create(object element)
 //        {
 //            #region ClassManyToMany
-//            //if (ModelState.IsValid)
+//            //if (ModelState.IsValid && RequiredOwners!=null)
 //            //{
 //            //    List<ClassManyToMany> owners =  Owners != null ? _ClassManyToManyService.FindManyByIdExcludes(Owners) : null;
-//            //    _ClassService.Save(person, owners);
+//            //    _ClassService.Save(element, owners);
 //            //    return RedirectToAction("Index");
 //            //}
 //            #endregion
@@ -123,10 +123,9 @@
 //            //}
 //            #endregion
 
-//            //ViewBag.ClassManyToMany = new MultiSelectList(_ClassManyToManyService.GetAllExcludes(), "Id", "Name", null, Class.ClassManyToMany.Select(i => i.Id));
+//            //ViewBag.ClassManyToMany = new MultiSelectList(_ClassManyToManyService.GetAllExcludes(), "Id", "Name", null);
 //            //ViewBag.ClassOneToOneRequiredId = new SelectList(_ClassOneToOneRequired.GetAllExcludes(1, int.MaxValue, null, c => c.Class == null), "Id", "Name");
-//            //ViewBag.ManyToOneRequiredOwnerId = new SelectList(_ClassManyToOneRequired.GetAllExcludes(), "Id", "Name", Class.OwnerId);
-//            //return View(person);
+//            //ViewBag.ManyToOneRequiredOwnerId = new SelectList(_ClassManyToOneRequired.GetAllExcludes(), "Id", "Name");
 //            return View(element);
 //        }
 
@@ -144,8 +143,8 @@
 //            {
 //                return HttpNotFound();
 //            }
-//            //ViewBag.ClassManyToMany = new MultiSelectList(_ClassManyToManyRequired.GetAllExcludes(), "Id", "Name", null, Class.ClassManyToMany.Select(i => i.Id));
-//            //ViewBag.ManyToOneRequiredOwnerId = new SelectList(_ClassManyToOneRequired.GetAllExcludes(), "Id", "Name", Class.OwnerId);
+//            //ViewBag.ClassManyToMany = new MultiSelectList(_ClassManyToMany.GetAllExcludes(), "Id", "Name", null);
+//            //ViewBag.ManyToOneRequiredOwnerId = new SelectList(_ClassManyToOneRequired.GetAllExcludes(), "Id", "Name");
 //            //TempData["OneRequiredToOne"] = element.OneRequireToOne;
 //            //TempData["OneRequiredToMany"] = element.OneRequiredToMany;
 //            //TempData.Keep();
@@ -170,14 +169,14 @@
 //        public ActionResult Edit()
 //        {
 //            #region ClassManyToMany
-//            //if (ModelState.IsValid)
+//            //if (ModelState.IsValid && RequiredOwners!=null)
 //            //{
 //            //    foreach (ClassManyRequiredToMany el in _ClassManyRequiredToManyService.GetAllExcludes(1, int.MaxValue, null, t => !Owners.Contains(t.Id) && t.Owners.Count() == 1 && t.Owners.Where(s => s.Id == element.Id).Count() == 1))
 //            //    {
 //            //        _ClassManyRequiredToManyService.Delete(el);
 //            //    }
 //            //    List<ClassManyToMany> owners =  Owners != null ? _ClassManyToManyService.FindManyByIdExcludes(Owners) : null;
-//            //    _ClassService.Update(person, owners);
+//            //    _ClassService.Update(element, owners);
 //            //    return RedirectToAction("Index");
 //            //}
 //            #endregion
@@ -186,6 +185,10 @@
 //            //if (ModelState.IsValid)
 //            //{
 //            //    List<ClassOneRequiredToMany> objs = TempData["ClassOneRequiredToMany"] as List<ClassOneRequiredToMany>
+//            //    foreach (ClassOneRequiredToMany el in _OneRequiredToManyService.GetAllExcludes(1, int.MaxValue, null, o => o.OwnerId == element.Id && objs.Where(oo => oo.Id == o.Id).Count() == 0))
+//            //    {
+//            //        _OneRequiredToManyService.Delete(el);
+//            //    }   
 //            //    _ClassService.Update(element, objs);
 //            //    return RedirectToAction("Index");
 //            //}
@@ -220,12 +223,11 @@
 //            //}
 //            #endregion
 
-//            //ViewBag.ClassManyToMany = new MultiSelectList(_ClassManyToManyService.GetAllExcludes(), "Id", "Name", null, Class.ClassManyToMany.Select(i => i.Id));
-//            //ViewBag.ManyToOneRequiredOwnerId = new SelectList(_ClassManyToOneRequired.GetAllExcludes(), "Id", "Name", Class.OwnerId);
+//            //ViewBag.ClassManyToMany = new MultiSelectList(_ClassManyToManyService.GetAllExcludes(), "Id", "Name", null);
+//            //ViewBag.ManyToOneRequiredOwnerId = new SelectList(_ClassManyToOneRequired.GetAllExcludes(), "Id", "Name");
 //            #region ClassOneRequiredToMany, ClassOneRequiredToOne
 //            //TempDate.Keep()
 //            #endregion
-//            //return View(element);
 //            return View();
 //        }
 
@@ -260,7 +262,7 @@
 //            //{
 //            //    _ManyRequiredToManyService.Delete(el);
 //            //}
-//            //_ClassnService.Delete(id);
+//            //_ClassService.Delete(id);
 //            return RedirectToAction("Index");
 //        }
 

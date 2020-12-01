@@ -16,7 +16,7 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
 
-    @*Not in a relationship*@s
+    @*Not in a relationship*@
     <div class="form-group">
         @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -24,9 +24,6 @@
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    @*ClassOneToOneRequired*@
-    TO DO
 
     @*ManyToOneRequired*@
     <div class="form-group">
