@@ -4,7 +4,16 @@
 
 
 <div class="jumbotron">
-    <h4>Page ADMIN</h4>
+    <h4></h4>
 
-    @Html.ActionLink("Gestion des utilisateurs","Index","Users")
+    <div class="container">
+        <div class="page-header">
+            <h2>Page d'administration</h2>
+        </div>
+
+        <img src="~/Content/Image/IconAdmin.png" alt="Management image" />
+
+        @Html.ActionLink("Gestion des utilisateurs", "Index", "Users")
+    </div>
+
 </div>
