@@ -308,6 +308,8 @@
     <Compile Include="Controllers\ControllerModel.cs" />
     <Compile Include="Controllers\CheckUpController.cs" />
     <Compile Include="Controllers\CheckUpReportsController.cs" />
+    <Compile Include="Exceptions\CannotWriteReadOnlyPropertyException.cs" />
+    <Compile Include="Exceptions\PropertyNameNotFoundException.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Repositories\CheckUpReportRepository.cs" />

@@ -26,5 +26,15 @@ namespace MiseEnSituation.Exceptions
         {
             return "List of Ids is empty for class " + t.Name;
         }
+
+        public static string PropertyNameNotFoundForClass(Type t, string nameNotFound)
+        {
+            return "Property with name " + nameNotFound + " not found for class " + t.Name;
+        }
+
+        public static string CannotWriteReadOnlyProperty(Type t, string propertyName)
+        {
+            return "Cannot write property " + propertyName + "of class " + t.Name + " : it is ReadOnly";
+        }
     }
 }

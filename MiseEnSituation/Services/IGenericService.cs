@@ -40,6 +40,7 @@ namespace MiseEnSituation.Services
 
         //Update
         void Update(T t, params object[] objs);
+        void UpdateOne(T t, string properyname, object newValue);
 
         //Delete
         //id / T

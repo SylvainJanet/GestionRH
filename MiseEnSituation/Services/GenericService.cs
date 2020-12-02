@@ -193,6 +193,11 @@ namespace MiseEnSituation.Services
             _repository.Update(t, objs);
         }
 
+        public void UpdateOne(T t, string propertyName, object newValue)
+        {
+            _repository.UpdateOne(t, propertyName, newValue);
+        }
+
         public List<T> FindAllExcludes(int page = 1, int maxByPage = int.MaxValue, string searchField = "")
         {
             return GetAllExcludes(page, maxByPage, OrderExpression(), SearchExpression(searchField));

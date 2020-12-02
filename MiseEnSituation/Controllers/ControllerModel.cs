@@ -6,7 +6,7 @@
 
 //namespace WebApp.Controllers
 //{
-//    [RoutePrefix("class")]
+//    [RoutePrefix("classes")]
 //    [Route("{action=index}")]
 //    public class ClassController : Controller
 //    {
@@ -17,7 +17,7 @@
 //        //private IClassOneRequiredToManyService _ClassOneRequiredToManyService;
 //        //private IClassOneToOneRequiredService _ClassOneToOneRequiredService;
 //        //private IClassManyToOneRequiredService _ClassManyToOneService;
-//        //private IClassOneRequiredToManyService _ClassOneRequiredToManyService
+//        //private IClassOneToManyService _ClassOneRequiredToManyService
 //        #endregion
 
 //        public ClassController()
@@ -28,7 +28,7 @@
 //            //_ClassOneRequiredToManyService = new ClassOneRequiredToManyService(new ClassOneRequiredToManyRepository(db));            
 //            //_ClassOneToOneRequiredService = new ClassOneToOneRequiredService(new _ClassOneToOneRequiredRepository(db));
 //            //_ClassManyToOneRequiredService = new ClassManyToOneRequiredService(new ClassManyToOneRepository(db));
-//            //_ClassOneRequiredToManyService = new ClassOneRequiredToManyService(new ClassOneRequiredToManyRepository(db));
+//            //_ClassOneToManyService = new ClassOneToManyService(new ClassToManyRepository(db));
 //            #endregion
 //        }
 
@@ -69,7 +69,8 @@
 //            //ViewBag.ClassManyToMany = new MultiSelectList(_ClassManyToManyService.GetAllExcludes(), "Id", "Name", null);
 //            //ViewBag.ClassOneToOneRequiredId = new SelectList(_ClassOneToOneRequired.GetAllExcludes(1, int.MaxValue, null, c => c.Class == null), "Id", "Name");
 //            //ViewBag.ManyToOneRequiredOwnerId = new SelectList(_ClassManyToOneRequired.GetAllExcludes(), "Id", "Name");
-//            return View();
+//            //ViewBag.OneNotRequiredToMany = new SelectList(_OneNotRequiredToManyService.GetAllExcludes(), "Id", "Name", null);
+//            //return View();
 //        }
 
 //        [HttpPost]
@@ -78,8 +79,8 @@
 //        #region ClassManyToMany
 //        //public ActionResult Create([Bind(Include = "Id,Name")] Class element, int?[] Owners)
 //        #endregion
-//        #region OneRequiredToMany
-//        //public ActionResult Create([Bind(Include = "Id,Name")] Class element, int?[] Owners)
+//        #region OneNotRequiredToMany
+//        //public ActionResult Create([Bind(Include = "Id,Name")] Class element, int? objId)
 //        #endregion
 //        #region ManyToOneRequired
 //        //public ActionResult Edit([Bind(Include = "Id,Name")] Class element, int? OwnerId)
@@ -115,10 +116,18 @@
 //            //    return RedirectToAction("Index");
 //            //}
 //            #endregion
-//            #region ClassOneRequiredToMany
+//            #region ClassOneToMany
 //            //if (ModelState.IsValid)
 //            //{
 //            //    _ClassService.Save(element);
+//            //    return RedirectToAction("Index");
+//            //}
+//            #endregion
+//            #region ClassOneNotRequiredToMany
+//            //if (ModelState.IsValid)
+//            //{
+//            //    ClassOneNotRequiredToMany obj = objId != null ? _OneNotRequiredToManyService.FindByIdExcludesTracked(objId) : null;
+//            //    _ClassService.Save(element,obj);
 //            //    return RedirectToAction("Index");
 //            //}
 //            #endregion
@@ -126,7 +135,8 @@
 //            //ViewBag.ClassManyToMany = new MultiSelectList(_ClassManyToManyService.GetAllExcludes(), "Id", "Name", null);
 //            //ViewBag.ClassOneToOneRequiredId = new SelectList(_ClassOneToOneRequired.GetAllExcludes(1, int.MaxValue, null, c => c.Class == null), "Id", "Name");
 //            //ViewBag.ManyToOneRequiredOwnerId = new SelectList(_ClassManyToOneRequired.GetAllExcludes(), "Id", "Name");
-//            return View(element);
+//            //ViewBag.OneNotRequiredToMany = new SelectList(_OneNotRequiredToManyService.GetAllExcludes(), "Id", "Name", null);
+//            //return View(element);
 //        }
 
 //        [HttpGet]
@@ -145,6 +155,7 @@
 //            }
 //            //ViewBag.ClassManyToMany = new MultiSelectList(_ClassManyToMany.GetAllExcludes(), "Id", "Name", null);
 //            //ViewBag.ManyToOneRequiredOwnerId = new SelectList(_ClassManyToOneRequired.GetAllExcludes(), "Id", "Name");
+//            //ViewBag.OneNotRequiredToMany = new SelectList(_OneNotRequiredToManyService.GetAllExcludes(), "Id", "Name", null);
 //            //TempData["OneRequiredToOne"] = element.OneRequireToOne;
 //            //TempData["OneRequiredToMany"] = element.OneRequiredToMany;
 //            //TempData.Keep();
@@ -157,8 +168,8 @@
 //        #region ClassManyToMany
 //        //public ActionResult Edit([Bind(Include = "Id,Name")] Class element, int?[] Owners)
 //        #endregion
-//        #region ClassOneRequiredToMany
-//        //public ActionResult Edit([Bind(Include = "Id,Name")] Class element)
+//        #region ClassOneNotRequiredToMany
+//        //public ActionResult Edit([Bind(Include = "Id,Name")] Class element int? objId)
 //        #endregion
 //        #region ClassManyToOneRequired
 //        //public ActionResult Edit([Bind(Include = "Id,Name")] Class element, int? OwnerId)
@@ -223,8 +234,18 @@
 //            //}
 //            #endregion
 
+//            #region OneNotRequiredToMany 
+//            //if (ModelState.IsValid)
+//            //{
+//            //    ClassOneNotRequiredToMany obj = _OneNotRequiredToManyService.FindByIdExcludesTracked(objId);
+//            //    _ClassService.Save(element,obj);
+//            //    return RedirectToAction("Index");
+//            //}
+//            #endregion
+
 //            //ViewBag.ClassManyToMany = new MultiSelectList(_ClassManyToManyService.GetAllExcludes(), "Id", "Name", null);
 //            //ViewBag.ManyToOneRequiredOwnerId = new SelectList(_ClassManyToOneRequired.GetAllExcludes(), "Id", "Name");
+//            //ViewBag.OneNotRequiredToMany = new SelectList(_OneNotRequiredToManyService.GetAllExcludes(), "Id", "Name", null);
 //            #region ClassOneRequiredToMany, ClassOneRequiredToOne
 //            //TempDate.Keep()
 //            #endregion

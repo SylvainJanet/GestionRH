@@ -11,53 +11,71 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>CLASS NAME</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>CLASS NAME</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    @*Not in a relationship*@
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        @*Not in a relationship*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*ClassOneToOneRequired*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Id, "Id", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Id", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*ManyToOneRequired*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.OwnerId, "OwnerId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("OwnerId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OwnerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*ManyToMany*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Owners, "Owners", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBox("Owners", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Owners, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @* OneNotRequiredToMany *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.Obj, "Obj", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ObjId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Obj, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @* OneToManyNotProp  *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.OneToManyNotProp, "Vision", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("OneToManyNotPropId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OneToManyNotProp.Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
     </div>
-
-    @*ClassOneToOneRequired*@ 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Id, "Id", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("Id", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-     @*ManyToOneRequired*@ 
-    <div class="form-group">
-        @Html.LabelFor(model => model.OwnerId, "OwnerId", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("OwnerId", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.OwnerId, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-     @*ManyToMany*@ 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Owners, "Owners", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.ListBox("Owners", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Owners, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
@@ -66,4 +84,6 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @* OneToManyNotProp  *@
+    <script>document.getElementById("OneToManyNotPropId").selectedIndex = -1;</script>
 }
