@@ -1,0 +1,58 @@
+﻿@model MiseEnSituation.Models.Post
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Post</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HiringDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HiringDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContractType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WeeklyWorkLoad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WeeklyWorkLoad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FileForContract)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileForContract)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
