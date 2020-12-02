@@ -53,10 +53,18 @@
         <dd>
             @Html.DropDownListFor(model => model.Owners, new SelectList(Model.Owners.Select(o => o.Name), null, Model.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
         </dd>
+        @* OneToManyNotProp*@
+        <dt>
+            @Html.DisplayNameFor(model => model.OneToManyNotProp)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.OneToManyNotProp.Name)
+        </dd>
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+

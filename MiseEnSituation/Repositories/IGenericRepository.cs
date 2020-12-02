@@ -38,6 +38,7 @@ namespace MiseEnSituation.Repositories
         //no Commit / Commit
         void Modify(T t);
         void Update(T t, params object[] objs);
+        void UpdateOne(T t, string propertyName, object newValue);
 
         //Delete
         //id / T  //  no Commit / Commit

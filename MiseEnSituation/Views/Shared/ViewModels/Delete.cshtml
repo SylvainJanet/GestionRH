@@ -52,8 +52,14 @@
         <dd>
             @Html.DropDownListFor(model => model.Owners, new SelectList(Model.Owners.Select(o => o.Name), null, Model.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
         </dd>
+        @* OneToManyNotProp*@
+        <dt>
+            @Html.DisplayNameFor(model => model.OneToManyNotProp)
+        </dt>
 
-
+        <dd>
+            @Html.DisplayFor(model => model.OneToManyNotProp.Name)
+        </dd>
     </dl>
 
     @using (Html.BeginForm())
@@ -66,3 +72,4 @@
         </div>
     }
 </div>
+

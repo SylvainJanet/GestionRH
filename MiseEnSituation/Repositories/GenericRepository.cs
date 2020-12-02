@@ -778,6 +778,35 @@ namespace MiseEnSituation.Repositories
         }
 
         /// <summary>
+        /// Updates the property with name <paramref name="propertyName"/> of an bject <paramref name="t"/> with value <paramref name="newValue"/> of class <typeparamref name="T"/> in DB.
+        /// </summary>
+        /// <param name="t">Object to update</param>
+        /// <param name="propertyName">Name of the property to change </param>
+        /// <param name="newValue">New value</param>
+        public void UpdateOne(T t, string propertyName, object newValue)
+        {
+            using (MyDbContext newContext = new MyDbContext())
+            {
+                T tToChange = FindByIdIncludesTrackedInNewContext(t.Id.Value, newContext);
+
+                PropertyInfo propToChange = typeof(T).GetProperty(propertyName);
+
+                if (propToChange == null)
+                    throw new PropertyNameNotFoundException(typeof(T), propertyName);
+                if (!propToChange.CanWrite)
+                    throw new CannotWriteReadOnlyPropertyException(typeof(T), propertyName);
+                if (newValue != null && !propToChange.PropertyType.IsAssignableFrom(newValue.GetType()))
+                    throw new InvalidArgumentsForClassException(typeof(T));
+
+                typeof(T).GetProperty(propertyName).SetValue(tToChange, Convert.ChangeType(newValue, propToChange.PropertyType));
+
+                newContext.Entry(tToChange).State = EntityState.Modified;
+
+                newContext.SaveChanges();
+            }
+        }
+
+        /// <summary>
         /// Updates an object <paramref name="t"/> of class <typeparamref name="T"/> in DB.
         /// <br/>
         /// <remark>Assumes every property representing a relationships involving <typeparamref name="T"/> has a corresponding <see cref="CustomParam"/> in <paramref name="propss"/></remark>
