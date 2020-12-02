@@ -6,11 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MiseEnSituation.Filters;
 using MiseEnSituation.Models;
 using MiseEnSituation.Repositories;
 
 namespace MiseEnSituation.Controllers
 {
+    [AdminFilter]
+    [RoutePrefix("CheckUpReports")]
+    [Route("{action=index}")]
     public class CheckUpReportsController : Controller
     {
         private MyDbContext db = new MyDbContext();
