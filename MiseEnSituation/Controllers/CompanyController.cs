@@ -14,7 +14,7 @@ using MiseEnSituation.Services;
 namespace MiseEnSituation.Controllers
 {
     [AdminFilter]
-    [RoutePrefix("Company")]
+    [RoutePrefix("Companies")]
     [Route("{action=index}")]
     public class CompanyController : Controller
     {
