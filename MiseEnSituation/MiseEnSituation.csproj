@@ -420,6 +420,8 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Tools\GenericTools.cs" />
     <Compile Include="Tools\HashTools.cs" />
+    <Compile Include="ValidationAttributes\EmployeeIsManager.cs" />
+    <Compile Include="ValidationAttributes\EmployeeIsRH.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

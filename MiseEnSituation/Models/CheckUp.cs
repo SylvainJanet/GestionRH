@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiseEnSituation.ValidationAttributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,8 +16,10 @@ namespace MiseEnSituation.Models
 
         public Employee Employee { get; set; }
 
+        [EmployeeIsManager]
         public Employee Manager { get; set; }
 
+        [EmployeeIsRH]
         public Employee RH { get; set; }
 
         public CheckUp()
