@@ -27,10 +27,17 @@ namespace MiseEnSituation.Services
             // récupérer l'utilisateur qui a cet email
             User u = _userRepository.FindByEmail(email);
             // tester si il est correct ou pas
-            if (u == null || !u.Password.Equals(cryptedPwd) ||  !u.Type.Equals(UserType.ADMIN))
+            if (u == null || !u.Password.Equals(cryptedPwd) || !u.Type.Equals(UserType.ADMIN)) //Si UserType = Admin 
                 throw new Exception(msg);
+            //if (u == null || !u.Password.Equals(cryptedPwd) || !u.Type.Equals(UserType.EMPLOYEE)) //Si UserType = Employee 
+            //    return u;
+            //if (u == null || !u.Password.Equals(cryptedPwd) || !u.Type.Equals(UserType.MANAGER)) //Si UserType = Manager 
+            //    return u;
+            //if (u == null || !u.Password.Equals(cryptedPwd) || !u.Type.Equals(UserType.RH)) //Si UserType = Rh 
+            //    return u;
             return u;
         }
+
 
         public User Find(int? id)
         {
@@ -42,6 +49,11 @@ namespace MiseEnSituation.Services
             //return from u in use
             int start = (page - 1) * maxByPage;
             return _userRepository.FindAll(start, maxByPage, searchField);
+        }
+
+        public User FindByType(UserType userType)
+        {
+            return _userRepository.FindByType(userType);
         }
 
         public bool NextExist(int page, int maxByPage, string searchField)

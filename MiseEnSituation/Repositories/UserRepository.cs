@@ -84,5 +84,10 @@ namespace MiseEnSituation.Repositories
             return (from u in db.Users.AsNoTracking() where u.Name.ToLower().Contains(searchField) || u.Email.ToLower().Contains(searchField) select u).ToList();
 
         }
+
+        public User FindByType(UserType userType)
+        {
+            return db.Users.Find(userType);
+        }
     }
 }

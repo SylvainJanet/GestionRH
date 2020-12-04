@@ -46,12 +46,28 @@ namespace MiseEnSituation.Controllers
             try
             {
                 User foundedUser = _userService.CheckLogin(u.Email, u.Password, u.Type);
-                if (foundedUser!=null && u.Type == UserType.ADMIN)
+                if (foundedUser != null && u.Type == UserType.ADMIN)
                 {
                     Session["user_id"] = foundedUser.Id;
                     Session["user_connected"] = true;
+                    //ViewBag.UserType = UserType.ADMIN;
                     return RedirectToAction("Index", "Admin"); // /Admin/Index
+                    
                 }
+
+                //else
+                //{
+                //    u.Type.Equals(UserType.EMPLOYEE);
+                //    ViewBag.UserType = UserType.EMPLOYEE;
+                //    return RedirectToAction("Index", "Employee"); // /Employee/Index
+                //    u.Type.Equals(UserType.RH);
+                //    ViewBag.UserType = UserType.RH;
+                //    return RedirectToAction("Index", "RH"); // /RH/Index
+                //    u.Type.Equals(UserType.MANGAGER);
+                //    ViewBag.UserType = UserType.MANGAGER;
+                //    return RedirectToAction("Index", "Manager"); // /Manager/Index
+
+                //}
             }
             catch (Exception ex)
             {

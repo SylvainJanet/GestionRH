@@ -13,5 +13,6 @@ namespace MiseEnSituation.Repositories
         void Update(User user);
         void Remove(int id);
         List<User> SearchByNameOrEmail(string searchField);
+        User FindByType(UserType userType);
     }
 }
