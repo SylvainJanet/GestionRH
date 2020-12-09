@@ -8,20 +8,14 @@ using System.Web;
 
 namespace MiseEnSituation.Services
 {
-    public class EmployeeService : GenericService<Employee>
+    public class EmployeeService : GenericService<Employee>,IEmployeeService
     {
-        private IEmployeeRepository _companyRepository;
+        private IEmployeeRepository _employeeRepo;
 
-        public EmployeeService(IGenericRepository<Employee> genericRepository) : base(genericRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository) : base(employeeRepository)
         {
-            _companyRepository = (IEmployeeRepository)_repository;
+            _employeeRepo = (IEmployeeRepository)_repository;
         }
-
-        public EmployeeService(IEmployeeRepository companyRepository, IGenericRepository<Employee> genericRepository) : base(genericRepository)
-        {
-            this._companyRepository = companyRepository;
-        }
-
         public override Expression<Func<IQueryable<Employee>, IOrderedQueryable<Employee>>> OrderExpression()
         {
             return req => req.OrderBy(s => s.Name);
