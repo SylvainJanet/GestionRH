@@ -23,11 +23,11 @@ namespace MiseEnSituation.Repositories
         public virtual DbSet<Skill> Skills { get; set; }
         public virtual DbSet<TrainingCourse> TrainingCourses { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Configurations.Add(new SkillConfiguration());
-            modelBuilder.Configurations.Add(new TrainingCourseConfiguration());
-            base.OnModelCreating(modelBuilder);
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Configurations.Add(new SkillConfiguration());
+        //    modelBuilder.Configurations.Add(new TrainingCourseConfiguration());
+        //    base.OnModelCreating(modelBuilder);
+        //}
     }
 }
