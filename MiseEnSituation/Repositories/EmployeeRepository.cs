@@ -6,10 +6,10 @@ using System.Web;
 
 namespace MiseEnSituation.Repositories
 {
-    public class EmployeeRepository : GenericRepository<Employee>
+    public class EmployeeRepository : GenericRepository<Employee>,IEmployeeRepository
     {
 
-        public EmployeeRepository(MyDbContext DataContext) : base(DataContext)
+        public EmployeeRepository(MyDbContext db) : base(db)
         {
 
         }

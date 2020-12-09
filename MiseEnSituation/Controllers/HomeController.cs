@@ -18,6 +18,10 @@ namespace MiseEnSituation.Controllers
         {
             _userService = new UserService(new UserRepository(db));
         }
+        public ActionResult Home()
+        {
+            return View();
+        }
 
         public ActionResult Index()
         {
@@ -37,10 +41,26 @@ namespace MiseEnSituation.Controllers
 
             return View();
         }
+        [HttpGet]
+        [Route("Account")]
         public ActionResult Account()
         {
 
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Account")]
+        public ActionResult Account([Bind(Include = "Id,Name,Email,Password,ProPhone,Type")] User user)
+        {
+            if (ModelState.IsValid)
+            {
+                user.Type = UserType.EMPLOYEE;
+                _userService.Save(user);
+                return RedirectToAction("Index");
+            }
+
+            return View(user);
         }
 
         [HttpPost]
@@ -84,7 +104,7 @@ namespace MiseEnSituation.Controllers
         public ActionResult Logout()
         {
             Session.Abandon();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Home");
         }
 
 
