@@ -37,7 +37,12 @@ namespace MiseEnSituation.Controllers
 
             return View();
         }
-        
+        public ActionResult Account()
+        {
+
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(User u)
