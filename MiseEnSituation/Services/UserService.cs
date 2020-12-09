@@ -38,6 +38,10 @@ namespace MiseEnSituation.Services
             return u;
         }
 
+        public User FindByEmail(string email)
+        {
+            return _userRepository.FindByEmail(email);
+        }
 
         public User Find(int? id)
         {
