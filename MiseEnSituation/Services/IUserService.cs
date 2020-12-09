@@ -13,6 +13,6 @@ namespace MiseEnSituation.Services
         void Update(User user);
         void Remove(int id);
         List<User> Search(string searchField);
-        User FindByType(UserType userType);
+        List<User> FindByType(UserType userType);
     }
 }

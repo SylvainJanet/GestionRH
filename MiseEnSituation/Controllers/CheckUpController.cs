@@ -19,11 +19,15 @@ namespace MiseEnSituation.Controllers
     public class CheckUpController : Controller
     {
         private MyDbContext db = new MyDbContext();
+        UserService userService;
+        EmployeeService employeeService; 
 
         private ICheckUpService _checkUpService;
 
         public CheckUpController()
         {
+            employeeService = new EmployeeService(new EmployeeRepository(db));
+            userService = new UserService(new UserRepository(db));
             _checkUpService = new CheckUpService(new CheckUpRepository(db));
         }
       
@@ -63,31 +67,12 @@ namespace MiseEnSituation.Controllers
         public ActionResult Create(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE)
         {
             UserService userService = new UserService(new UserRepository(db));
-            List<User> users = userService.FindAll(page, maxByPage, "");
-
-            List<SelectListItem> employe = new List<SelectListItem>();
-            List<SelectListItem> manager = new List<SelectListItem>();
-            List<SelectListItem> rh = new List<SelectListItem>();
-
-            foreach (var item in users)
-            {
-                if (item.Type.Equals(UserType.EMPLOYEE))
-                {
-
-                    employe.Add(new SelectListItem { Text = item.Name, Value = Convert.ToString(item.Id) });
-                }
-                else if (item.Type.Equals(UserType.MANAGER))
-                {
-                    manager.Add(new SelectListItem { Text = item.Name, Value=Convert.ToString(item.Id )});
-                }
-                else if (item.Type.Equals(UserType.RH))
-                {
-                    rh.Add(new SelectListItem { Text = item.Name, Value = Convert.ToString(item.Id) });
-                }
-
-            }
-
-            ViewBag.EmployeeList = employe;
+           
+            List<User> employee = userService.FindByType(UserType.EMPLOYEE);
+            List<User> manager = userService.FindByType(UserType.MANAGER);
+            List<User> rh = userService.FindByType(UserType.RH);
+           
+            ViewBag.EmployeeList = employee;
             ViewBag.ManagerList = manager;
             ViewBag.RHList = rh;
 
@@ -102,6 +87,18 @@ namespace MiseEnSituation.Controllers
         [Route("Create")]
         public ActionResult Create([Bind(Include = "Id,Date,Employee,Manager,RH")] CheckUp checkUp)
         {
+            if (checkUp.Employee.Id.HasValue)
+            {
+                checkUp.Employee = (Employee)userService.Find(checkUp.Employee.Id);//employeeService.FindByIdExcludes(checkUp.Employee.Id);
+            }
+            if (checkUp.Manager.Id.HasValue)
+            {
+                checkUp.Manager = (Employee)userService.Find(checkUp.Manager.Id);//employeeService.FindByIdExcludes(checkUp.Manager.Id);
+            }
+            if (checkUp.Employee.Id.HasValue)
+            {
+                checkUp.RH = (Employee)userService.Find(checkUp.RH.Id);//employeeService.FindByIdExcludes(checkUp.RH.Id);
+            }
             if (ModelState.IsValid)
             {
                 _checkUpService.Save(checkUp);

@@ -51,7 +51,7 @@ namespace MiseEnSituation.Services
             return _userRepository.FindAll(start, maxByPage, searchField);
         }
 
-        public User FindByType(UserType userType)
+        public List<User> FindByType(UserType userType)
         {
             return _userRepository.FindByType(userType);
         }
