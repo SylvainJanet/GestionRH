@@ -51,34 +51,9 @@
     </div>
 
     <div class="form-group">
-        @{
-            List<SelectListItem> listItems = new List<SelectListItem>();
-            listItems.Add(new SelectListItem
-            {
-                Text = "EMPLOYEE",
-                Value = "EMPLOYEE"
-            });
-            listItems.Add(new SelectListItem
-            {
-                Text = "ADMIN",
-                Value = "ADMIN"
-            });
-            listItems.Add(new SelectListItem
-            {
-                Text = "MANAGER",
-                Value = "MANAGER"
-            });
-            listItems.Add(new SelectListItem
-            {
-                Text = "RH",
-                Value = "RH"
-            });
-
-        }
         @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-
-            @Html.DropDownList("yourDropName", listItems, new { @class = "form-control" })
+            @Html.EnumDropDownListFor(model => model.Type, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
         </div>
     </div>

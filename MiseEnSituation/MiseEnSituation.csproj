@@ -259,6 +259,9 @@
     <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -329,6 +332,7 @@
     <Compile Include="Controllers\ControllerModel.cs" />
     <Compile Include="Controllers\CheckUpController.cs" />
     <Compile Include="Controllers\CheckUpReportsController.cs" />
+    <Compile Include="Controllers\RHController.cs" />
     <Compile Include="Exceptions\CannotWriteReadOnlyPropertyException.cs" />
     <Compile Include="Exceptions\PropertyNameNotFoundException.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
@@ -343,6 +347,7 @@
     <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Repositories\IPostRepository.cs" />
     <Compile Include="Repositories\PostRepository.cs" />
+    <Compile Include="Repositories\RhRepository.cs" />
     <Compile Include="Services\CheckUpReportService.cs" />
     <Compile Include="Services\CheckUpService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -437,6 +442,7 @@
     <Compile Include="Services\ITrainingCourseService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\PostService.cs" />
+    <Compile Include="Services\RhService.cs" />
     <Compile Include="Services\SkillService.cs" />
     <Compile Include="Services\TrainingCourseService.cs" />
     <Compile Include="Services\UserService.cs" />
@@ -451,6 +457,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Image\IconCompany.png" />
+    <Content Include="Content\Image\IconJob.png" />
     <Content Include="Content\Image\IconAdmin.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -534,6 +542,7 @@
     <Content Include="Views\RH\Index.cshtml" />
     <Content Include="Views\Home\Account.cshtml" />
     <Content Include="Views\Manager\index.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
