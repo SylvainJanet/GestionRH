@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Welcome Page";
+}
+
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-10">
+            <h1>Interface de Home page </h1>
+
+        </div>
+
+    </div>
+    @Html.ActionLink("Créer un compte", "Account", "Home")
+    <hr />
+
+    <div class="card mb-3">
+        <img src="~/Content/Image/IconCompany.png" class="card-img-top" alt="ImageCompanies">
+
+        <div class="card-body">
+            <h2 class="card-title">Présentation des companies</h2>
+            <p class="card-text">Contenu de la présentaion des companies</p>
+        </div>
+    </div>
+    <hr />
+    <div class="card">
+        <img src="~/Content/Image/IconJob.png" class="card-img-top" alt="ImagePoste">
+        <div class="card-body">
+            <h2 class="card-title">Postes ouverts au recrutement</h2>
+            <p class="card-text">Contenu des postes ouverts au recrutement</p>
+        </div>
+        @*<img src="~/Content/Image/IconJob.png" class="card-img-bottom" alt="ImagePoste">*@
+    </div>
+  
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
