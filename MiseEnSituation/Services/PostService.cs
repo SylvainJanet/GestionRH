@@ -10,17 +10,16 @@ namespace MiseEnSituation.Services
 {
     public class PostService : GenericService<Post>
     {
-        private IPostRepository _postRepository;
+        private IGenericRepository<Post> _genericRepository;
 
         public PostService(IGenericRepository<Post> genericRepository) : base(genericRepository)
         {
-            _postRepository = (IPostRepository)_repository;
-
+            this._genericRepository = genericRepository;
         }
 
         public PostService(IPostRepository postRepository, IGenericRepository<Post> genericRepository) : base(genericRepository)
         {
-            this._postRepository = postRepository;
+            this._genericRepository = postRepository;
         }
 
         public override Expression<Func<IQueryable<Post>, IOrderedQueryable<Post>>> OrderExpression()
