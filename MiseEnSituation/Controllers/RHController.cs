@@ -23,8 +23,13 @@ namespace MiseEnSituation.Controllers
                 //_rhService = new RhService(new UserRepository(db));
             }
 
-            // GET: Users/Create
-            [HttpGet]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        // GET: Users/Create
+        [HttpGet]
             [Route("Create")]
             public ActionResult Create()
             {
