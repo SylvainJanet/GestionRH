@@ -30,7 +30,7 @@ namespace MiseEnSituation.Services
         public override Expression<Func<Post, bool>> SearchExpression(string searchField = "")
         {
             searchField = searchField.Trim().ToLower();
-            return s => s.Id.Equals(Convert.ToInt32(searchField));
+            return s => s.FileForContract.Trim().ToLower().Contains(searchField); ;
         }
 
 
