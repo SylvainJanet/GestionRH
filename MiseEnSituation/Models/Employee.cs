@@ -1,26 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace MiseEnSituation.Models
 {
+    
     public class Employee : User
     {
         [Required]
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
+       // [ForeignKey("AdresseId")]
         public Address PersonalAdress { get; set; }
-
+       // public int? AdresseId { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]
         public string PersonalPhone { get; set; }
 
         [Required]
+       // [ForeignKey("CompagnyId")]
         public Company Company { get; set; }
 
+       // public int? CompagnyId { get; set; }
         [Required]
         public bool IsManager { get; set; }
 
@@ -47,5 +52,6 @@ namespace MiseEnSituation.Models
             Skills = new List<Skill>();
             Courses = new List<TrainingCourse>();
         }
+        
     }
 }

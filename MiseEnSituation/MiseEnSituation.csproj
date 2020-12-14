@@ -328,9 +328,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CheckUpController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ControllerModel.cs" />
-    <Compile Include="Controllers\CheckUpController.cs" />
     <Compile Include="Controllers\CheckUpReportsController.cs" />
     <Compile Include="Controllers\RHController.cs" />
     <Compile Include="Exceptions\CannotWriteReadOnlyPropertyException.cs" />
@@ -338,6 +338,10 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Filters\JWTFilterAttribute.cs" />
+    <Compile Include="Migrations\202012141345375_AddForeignKeyCheckUp.cs" />
+    <Compile Include="Migrations\202012141345375_AddForeignKeyCheckUp.Designer.cs">
+      <DependentUpon>202012141345375_AddForeignKeyCheckUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\CheckUpReportRepository.cs" />
     <Compile Include="Repositories\CheckUpRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
@@ -513,11 +517,6 @@
     <Content Include="Views\Shared\ViewModels\Details.cshtml" />
     <Content Include="Views\Shared\ViewModels\Edit.cshtml" />
     <Content Include="Views\Shared\ViewModels\Index.cshtml" />
-    <Content Include="Views\CheckUp\Create.cshtml" />
-    <Content Include="Views\CheckUp\Delete.cshtml" />
-    <Content Include="Views\CheckUp\Details.cshtml" />
-    <Content Include="Views\CheckUp\Edit.cshtml" />
-    <Content Include="Views\CheckUp\Index.cshtml" />
     <Content Include="Views\CheckUpReports\Create.cshtml" />
     <Content Include="Views\CheckUpReports\Delete.cshtml" />
     <Content Include="Views\CheckUpReports\Details.cshtml" />
@@ -543,6 +542,11 @@
     <Content Include="Views\Home\Account.cshtml" />
     <Content Include="Views\Manager\index.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\CheckUp\Create.cshtml" />
+    <Content Include="Views\CheckUp\Delete.cshtml" />
+    <Content Include="Views\CheckUp\Details.cshtml" />
+    <Content Include="Views\CheckUp\Edit.cshtml" />
+    <Content Include="Views\CheckUp\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -591,6 +595,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.resx">
       <DependentUpon>202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141345375_AddForeignKeyCheckUp.resx">
+      <DependentUpon>202012141345375_AddForeignKeyCheckUp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
