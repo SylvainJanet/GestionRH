@@ -67,14 +67,18 @@ namespace MiseEnSituation.Controllers
         public ActionResult Create(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE)
         {
             UserService userService = new UserService(new UserRepository(db));
+            
+            //List<Employee> employee = employeeService.GetAllIncludesTracked(page, maxByPage, null, e => e.Type == UserType.EMPLOYEE);
+            //List<Employee> manager = employeeService.GetAllIncludesTracked(page, maxByPage, null, e => e.Type == UserType.MANAGER);
+            //List<Employee> rh = employeeService.GetAllIncludesTracked(page, maxByPage, null, e => e.Type == UserType.RH);
+
+            //List<User> manager = userService.FindByType(UserType.MANAGER);
+            //List<User> rh = userService.FindByType(UserType.RH);
+            //List<User> employee = userService.FindByType(UserType.EMPLOYEE);
            
-            List<User> employee = userService.FindByType(UserType.EMPLOYEE);
-            List<User> manager = userService.FindByType(UserType.MANAGER);
-            List<User> rh = userService.FindByType(UserType.RH);
-           
-            ViewBag.EmployeeList = employee;
-            ViewBag.ManagerList = manager;
-            ViewBag.RHList = rh;
+            ViewBag.Employee = userService.FindByType(UserType.EMPLOYEE); 
+            ViewBag.Manager = userService.FindByType(UserType.MANAGER); ;
+            ViewBag.RH = userService.FindByType(UserType.RH); ;
 
             return View();
         }
