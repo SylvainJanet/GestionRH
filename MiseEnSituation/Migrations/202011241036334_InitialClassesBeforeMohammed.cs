@@ -81,7 +81,7 @@ namespace MiseEnSituation.Migrations
                 .Index(t => t.Employee_Id);
             
             CreateTable(
-                "dbo.SkillEmployees",
+                "dbo.SkillsEmployees",
                 c => new
                     {
                         Skill_Id = c.Int(nullable: false),

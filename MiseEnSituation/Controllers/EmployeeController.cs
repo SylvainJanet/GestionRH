@@ -14,6 +14,7 @@ using MiseEnSituation.Services;
 namespace MiseEnSituation.Controllers
 {
     [AdminFilter]
+    //[EmployeFilter]
     [RoutePrefix("Employees")]
     [Route("{action=index}")]
     public class EmployeeController : Controller
@@ -28,10 +29,10 @@ namespace MiseEnSituation.Controllers
         // GET: Employee
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View(db.Employees.ToList());
         }
 
-        [HttpGet] //localhost:xxx/users/1/15
+        [HttpGet]
         [Route("{page?}/{maxByPage?}/{searchField?}")]
         public ActionResult Index(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE, string SearchField = "")
         {
@@ -58,7 +59,8 @@ namespace MiseEnSituation.Controllers
             }
             return View(employee);
         }
-
+        [HttpGet]
+        [Route("Create")]
         // GET: Employee/Create
         public ActionResult Create()
         {
@@ -133,7 +135,7 @@ namespace MiseEnSituation.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Employee employee = _employeeService.FindByIdIncludes(id);
-           _employeeService.Delete(employee);
+            _employeeService.Delete(employee);
             return RedirectToAction("Index");
         }
 
