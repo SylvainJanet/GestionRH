@@ -13,7 +13,7 @@ using MiseEnSituation.Services;
 
 namespace MiseEnSituation.Controllers
 {
-    [AdminFilter]
+    //[AdminFilter]
     [RoutePrefix("Companies")]
     [Route("{action=index}")]
     public class CompanyController : Controller
@@ -28,16 +28,17 @@ namespace MiseEnSituation.Controllers
         // GET: Company
         public ActionResult Index()
         {
+
             return View(db.Companies.ToList());
         }
 
-        [HttpGet] //localhost:xxx/users/1/15
+        [HttpGet]
         [Route("{page?}/{maxByPage?}/{searchField?}")]
         public ActionResult Index(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE, string SearchField = "")
         {
-            List<Company> lstCompanies= _companyService.FindAllIncludes(page, maxByPage, SearchField);
+            List<Company> lstCompanies = _companyService.FindAllIncludes(page, maxByPage, SearchField);
 
-            ViewBag.NextExist =  _companyService.NextExist(page, maxByPage, SearchField);
+            ViewBag.NextExist = _companyService.NextExist(page, maxByPage, SearchField);
             ViewBag.Page = page;
             ViewBag.MaxByPage = maxByPage;
             ViewBag.SearchField = SearchField;
@@ -61,6 +62,8 @@ namespace MiseEnSituation.Controllers
         }
 
         // GET: Company/Create
+        [HttpGet]
+        [Route("Create")]
         public ActionResult Create()
         {
             return View();
@@ -71,7 +74,7 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Company company)
+        public ActionResult Create([Bind(Include = "Id,Name,Adress")] Company company)
         {
             if (ModelState.IsValid)
             {

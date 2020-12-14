@@ -13,7 +13,7 @@ using MiseEnSituation.Services;
 
 namespace MiseEnSituation.Controllers
 {
-    [AdminFilter]
+    //[AdminFilter]
     [RoutePrefix("Posts")]
     [Route("{action=index}")]
     public class PostController : Controller
@@ -58,6 +58,8 @@ namespace MiseEnSituation.Controllers
         }
 
         // GET: Post/Create
+        [HttpGet]
+        [Route("Create")]
         public ActionResult Create()
         {
             return View();

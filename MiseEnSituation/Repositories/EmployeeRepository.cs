@@ -6,7 +6,7 @@ using System.Web;
 
 namespace MiseEnSituation.Repositories
 {
-    public class EmployeeRepository : GenericRepository<Employee>,IEmployeeRepository
+    public class EmployeeRepository : GenericRepository<Employee>
     {
 
         public EmployeeRepository(MyDbContext db) : base(db)
