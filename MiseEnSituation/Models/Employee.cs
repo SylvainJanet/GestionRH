@@ -26,8 +26,21 @@ namespace MiseEnSituation.Models
         public Company Company { get; set; }
 
        // public int? CompagnyId { get; set; }
+        
+       // public bool IsManager { get; set; }
+        private bool isManager;
         [Required]
-        public bool IsManager { get; set; }
+        public bool IsManager
+        {
+            get { return isManager; }
+            set 
+            { 
+                if (Type.Equals(UserType.MANAGER))
+                    isManager = true;
+                else isManager = false;
+            }
+        }
+
 
         public List<Skill> Skills { get; set; }
 

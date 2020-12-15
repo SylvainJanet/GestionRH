@@ -63,8 +63,6 @@ namespace MiseEnSituation.Controllers
         {
             if (checkUp.EmployeeId.HasValue)
             {
-               
-              
                 checkUp.Employee = db.Users.OfType<Employee>().Single(e => e.Id == checkUp.EmployeeId);
             }
             if (checkUp.ManagerId.HasValue)
