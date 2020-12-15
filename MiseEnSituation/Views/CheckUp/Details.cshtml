@@ -13,9 +13,27 @@
         <dt>
             @Html.DisplayNameFor(model => model.Date)
         </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Employee)
+        </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Manager)
+        </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.RH)
+        </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Name)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Manager.Name)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.RH.Name)
         </dd>
 
     </dl>

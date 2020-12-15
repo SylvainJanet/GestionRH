@@ -6,7 +6,6 @@
 
 <h2>Create</h2>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -25,22 +24,23 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Employee, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("EmployeeList")
-            @Html.ValidationMessageFor(model => model.Employee, "", new { @class = "text-danger" })
+           
+            @Html.DropDownListFor(model => model.EmployeeId, new SelectList(ViewBag.Employee, "Id", "Name"), new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(model => model.Manager, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("ManagerList")
-            @Html.ValidationMessageFor(model => model.Manager, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.ManagerId, new SelectList(ViewBag.Manager, "Id", "Name"), new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ManagerId, "", new { @class = "text-danger" })
         </div>
     </div>
-    <div class="form-group">
+   *<div class="form-group">
         @Html.LabelFor(model => model.RH, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("RHList")
-            @Html.ValidationMessageFor(model => model.RH, "", new { @class = "text-danger" })
+            @Html.DropDownListFor(model => model.RHId,new SelectList(ViewBag.RH,"Id","Name") ,new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RHId, "", new { @class = "text-danger" })
         </div>
     </div>
 
@@ -55,7 +55,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

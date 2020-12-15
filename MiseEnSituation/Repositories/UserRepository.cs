@@ -85,9 +85,12 @@ namespace MiseEnSituation.Repositories
 
         }
 
-        public User FindByType(UserType userType)
+        public List<User> FindByType(UserType userType)
         {
-            return db.Users.Find(userType);
+            IQueryable<User> req = db.Users.AsNoTracking().OrderBy(u => u.Name);
+            req = req.Where(u=>u.Type.ToString().Equals(userType.ToString()));
+            
+            return req.ToList();
         }
     }
 }

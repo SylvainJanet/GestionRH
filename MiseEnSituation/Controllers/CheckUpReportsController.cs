@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MiseEnSituation.Filters;
 using MiseEnSituation.Models;
 using MiseEnSituation.Repositories;
+using MiseEnSituation.Services;
 
 namespace MiseEnSituation.Controllers
 {
@@ -18,11 +19,19 @@ namespace MiseEnSituation.Controllers
     public class CheckUpReportsController : Controller
     {
         private MyDbContext db = new MyDbContext();
-
+        ICheckUpReportService _checkUpReport;
+        ITrainingCourseService trainingCourseService;
+        ITrainingCourseService _TrainedCoursesService;
+        public CheckUpReportsController()
+        {
+            _checkUpReport = new CheckUpReportService(new CheckUpReportRepository(db));
+            trainingCourseService = new TrainingCourseService(new TrainingCourseRepository(db));
+            _TrainedCoursesService = new TrainingCourseService(new TrainingCourseRepository(db));
+        }
         // GET: CheckUpReports
         public ActionResult Index()
         {
-            return View(db.CheckUpReports.ToList());
+            return View(_checkUpReport.FindAllExcludes());
         }
 
         // GET: CheckUpReports/Details/5
@@ -32,7 +41,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CheckUpReport checkUpReport = db.CheckUpReports.Find(id);
+            CheckUpReport checkUpReport = _checkUpReport.FindByIdExcludes(id);
             if (checkUpReport == null)
             {
                 return HttpNotFound();
@@ -43,6 +52,9 @@ namespace MiseEnSituation.Controllers
         // GET: CheckUpReports/Create
         public ActionResult Create()
         {
+            ViewBag.FinishedCourses = new MultiSelectList(trainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            ViewBag.WishedCourses = new MultiSelectList(trainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            
             return View();
         }
 
@@ -51,12 +63,13 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Content")] CheckUpReport checkUpReport)
+        public ActionResult Create([Bind(Include = "Id,Content,TrainedCourses,WishedCourses")] CheckUpReport checkUpReport, int?[] FinishedCourses,int?[] WishedCourses)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && FinishedCourses!= null && WishedCourses!=null)
             {
-                db.CheckUpReports.Add(checkUpReport);
-                db.SaveChanges();
+                List<TrainingCourse> _finishedCourses = _TrainedCoursesService.FindManyByIdExcludes(FinishedCourses);
+                List<TrainingCourse>_whishedCourses = _TrainedCoursesService.FindManyByIdExcludes(WishedCourses);
+                _checkUpReport.Update(checkUpReport, _finishedCourses, _whishedCourses);
                 return RedirectToAction("Index");
             }
 
@@ -70,7 +83,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CheckUpReport checkUpReport = db.CheckUpReports.Find(id);
+            CheckUpReport checkUpReport = _checkUpReport.FindByIdExcludes(id);
             if (checkUpReport == null)
             {
                 return HttpNotFound();
@@ -87,8 +100,7 @@ namespace MiseEnSituation.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(checkUpReport).State = EntityState.Modified;
-                db.SaveChanges();
+                _checkUpReport.Update(checkUpReport);
                 return RedirectToAction("Index");
             }
             return View(checkUpReport);
@@ -101,7 +113,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CheckUpReport checkUpReport = db.CheckUpReports.Find(id);
+            CheckUpReport checkUpReport = _checkUpReport.FindByIdExcludes(id);
             if (checkUpReport == null)
             {
                 return HttpNotFound();
@@ -114,9 +126,7 @@ namespace MiseEnSituation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CheckUpReport checkUpReport = db.CheckUpReports.Find(id);
-            db.CheckUpReports.Remove(checkUpReport);
-            db.SaveChanges();
+            _checkUpReport.Delete(id);
             return RedirectToAction("Index");
         }
 

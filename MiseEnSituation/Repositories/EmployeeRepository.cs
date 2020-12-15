@@ -9,7 +9,7 @@ namespace MiseEnSituation.Repositories
     public class EmployeeRepository : GenericRepository<Employee>
     {
 
-        public EmployeeRepository(MyDbContext DataContext) : base(DataContext)
+        public EmployeeRepository(MyDbContext db) : base(db)
         {
 
         }
