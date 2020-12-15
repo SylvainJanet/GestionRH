@@ -25,13 +25,6 @@ namespace MiseEnSituation.Controllers
             _companyService = new CompanyService(new CompanyRepository(db));
         }
 
-        // GET: Company
-        public ActionResult Index()
-        {
-
-            return View(db.Companies.ToList());
-        }
-
         [HttpGet]
         [Route("{page?}/{maxByPage?}/{searchField?}")]
         public ActionResult Index(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE, string SearchField = "")
@@ -47,6 +40,7 @@ namespace MiseEnSituation.Controllers
         }
 
         // GET: Company/Details/5
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -86,6 +80,8 @@ namespace MiseEnSituation.Controllers
         }
 
         // GET: Company/Edit/5
+        [HttpGet]
+        [Route("Edit/{id?}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -98,6 +94,9 @@ namespace MiseEnSituation.Controllers
                 return HttpNotFound();
             }
             return View(company);
+
+
+
         }
 
         // POST: Company/Edit/5
@@ -105,7 +104,9 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Company company)
+        [Route("Edit")]
+
+        public ActionResult Edit([Bind(Include = "Id,Name,Number,Street,ZipCode,City,Country")] Company company)
         {
             if (ModelState.IsValid)
             {
@@ -113,10 +114,14 @@ namespace MiseEnSituation.Controllers
                 _companyService.Update(company);
                 return RedirectToAction("Index");
             }
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+
             return View(company);
         }
 
         // GET: Company/Delete/5
+        [HttpGet]
+        [Route("Delete/{id}")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -134,10 +139,10 @@ namespace MiseEnSituation.Controllers
         // POST: Company/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Route("Delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Company company = _companyService.FindByIdIncludes(id);
-            _companyService.Delete(company);
+            _companyService.Delete(id);
             return RedirectToAction("Index");
         }
 
