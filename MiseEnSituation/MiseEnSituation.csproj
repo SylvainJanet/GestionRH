@@ -336,7 +336,6 @@
     <Compile Include="Controllers\RHController.cs" />
     <Compile Include="Exceptions\CannotWriteReadOnlyPropertyException.cs" />
     <Compile Include="Exceptions\PropertyNameNotFoundException.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Filters\JWTFilterAttribute.cs" />
     <Compile Include="Migrations\202012141345375_AddForeignKeyCheckUp.cs" />
