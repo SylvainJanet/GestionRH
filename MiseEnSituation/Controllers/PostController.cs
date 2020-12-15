@@ -26,7 +26,6 @@ namespace MiseEnSituation.Controllers
             _postService = new PostService(new PostRepository(db));
         }
         // GET: Post
-        [HttpGet]
         public ActionResult Index()
         {
             return View(db.Posts.ToList());
@@ -78,13 +77,11 @@ namespace MiseEnSituation.Controllers
                 _postService.Save(post);
                 return RedirectToAction("Index");
             }
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
+
             return View(post);
         }
 
         // GET: Post/Edit/5
-        [HttpGet]
-        [Route("Edit/{id?}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -104,23 +101,18 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Edit")]
         public ActionResult Edit([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract")] Post post)
         {
-            
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
             return View(post);
         }
 
         // GET: Post/Delete/5
-        [HttpGet]
-        [Route("Delete/{id?}")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -138,10 +130,10 @@ namespace MiseEnSituation.Controllers
         // POST: Post/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Route("Delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
-            _postService.Delete(id);
+            Post post = _postService.FindByIdIncludes(id);
+            _postService.Delete(post);
             return RedirectToAction("Index");
         }
 
