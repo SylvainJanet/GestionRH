@@ -92,7 +92,7 @@ namespace MiseEnSituation.Controllers
                     {
                         Session["user_id"] = fu.Id;
                         Session["user_connected"] = true;
-                        return RedirectToAction("Index", "Employee"); // /Employee/Index    
+                        return RedirectToAction("Home", "Employee"); // /Employee/Index    
                 }
                     else if (fu != null && fu.Type == UserType.RH)
                     {

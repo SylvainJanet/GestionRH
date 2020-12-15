@@ -44,6 +44,11 @@ namespace MiseEnSituation.Controllers
             ViewBag.SearchField = SearchField;
             return View("Index", lstEmployees);
         }
+        [HttpGet]
+        public ActionResult Home()
+        {
+           return View();
+        }
 
         // GET: Employee/Details/5
         public ActionResult Details(int? id)
