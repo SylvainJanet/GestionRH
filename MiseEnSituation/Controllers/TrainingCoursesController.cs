@@ -81,7 +81,7 @@ namespace MiseEnSituation.Controllers
             if (ModelState.IsValid && TrainedSkills!=null)
             {
                 List<Skill> skills = _SkillService.FindManyByIdExcludes(TrainedSkills);
-                _TrainingCourseService.Save(trainingCourse,skills);
+               // _TrainingCourseService.Save(trainingCourse,skills);
                 return RedirectToAction("Index");
             }
             //if (TrainedSkills == null)
@@ -120,7 +120,7 @@ namespace MiseEnSituation.Controllers
             if (ModelState.IsValid && TrainedSkills != null)
             {
                 List<Skill> skills = _SkillService.FindManyByIdExcludes(TrainedSkills);
-                _TrainingCourseService.Update(trainingCourse, skills);
+                //_TrainingCourseService.Update(trainingCourse, skills);
                 return RedirectToAction("Index");
             }
             //if (EditTrainedSkills == null)

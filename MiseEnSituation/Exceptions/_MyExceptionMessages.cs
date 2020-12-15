@@ -12,6 +12,16 @@ namespace MiseEnSituation.Exceptions
             return "Object of class " + t.Name + " has null Id";
         }
 
+        public static string HasNoPropertyRelation(Type t1, Type t2)
+        {
+            return "Class " + t1.Name + " has no property related with class " + t2.Name;
+        }
+
+        public static string CannotWriteReadOnlyProperty(Type t, string propertyName)
+        {
+            return "Cannot write property " + propertyName + "of class " + t.Name + " : it is ReadOnly";
+        }
+
         public static string CascadeCreationInDB(Type t)
         {
             return "The class " + t.Name + "cannot be added or changed in DB that way : cascade creation will occur";
@@ -32,9 +42,9 @@ namespace MiseEnSituation.Exceptions
             return "Property with name " + nameNotFound + " not found for class " + t.Name;
         }
 
-        public static string CannotWriteReadOnlyProperty(Type t, string propertyName)
+        public static string InvalidKeyForClass(Type t)
         {
-            return "Cannot write property " + propertyName + "of class " + t.Name + " : it is ReadOnly";
+            return "Invalid key for class " + t.Name;
         }
     }
 }

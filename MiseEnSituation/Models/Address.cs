@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MiseEnSituation.Models
 {
-    public class Address
+    public class Address : EntityWithKeys
     {
         [Required]
         [Key]
@@ -70,6 +70,29 @@ namespace MiseEnSituation.Models
             hashCode = hashCode * -1521134295 + ZipCode.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Country);
             return hashCode;
+        }
+
+        public override string KeysToDisplayString()
+        {
+            string res = "";
+            res += Number.ToString();
+            res += "\t" + Street;
+            res += "\t" + City;
+            res += "\t" + ZipCode.ToString();
+            res += "\t" + Country;
+            return res;
+        }
+
+        public static new object[] DisplayStringToKeys(string s)
+        {
+            string[] resstring = s.Split('\t');
+            int number = Convert.ToInt32(resstring[0]);
+            string street = resstring[1];
+            string city = resstring[2];
+            int zipcode = Convert.ToInt32(resstring[3]);
+            string country = resstring[4];
+            object[] res = new object[] { number, street, city, zipcode, country };
+            return res;
         }
     }
 }

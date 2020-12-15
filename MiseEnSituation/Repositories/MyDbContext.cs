@@ -25,9 +25,9 @@ namespace MiseEnSituation.Repositories
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Configurations.Add(new SkillConfiguration());
-            //modelBuilder.Configurations.Add(new TrainingCourseConfiguration());
-            //base.OnModelCreating(modelBuilder);
+            modelBuilder.Configurations.Add(new SkillConfiguration());
+            modelBuilder.Configurations.Add(new TrainingCourseConfiguration());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

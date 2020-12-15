@@ -7,7 +7,7 @@ namespace MiseEnSituation.Exceptions
 {
     public class InvalidArgumentsForClassException : Exception
     {
-        public InvalidArgumentsForClassException(Type type) : base (_MyExceptionMessages.InvalidArgumentsForClass(type))
+        public InvalidArgumentsForClassException(Type type) : base(_MyExceptionMessages.InvalidArgumentsForClass(type))
         {
         }
     }

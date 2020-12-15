@@ -78,7 +78,7 @@ namespace MiseEnSituation.Controllers
             if (ModelState.IsValid)
             {
                 List<TrainingCourse> tcs = TrainingCourses != null ? _TrainingCourseService.FindManyByIdExcludes(TrainingCourses) : null;
-                _skillService.Save(skill,tcs);
+                //_skillService.Save(skill,tcs);
                 return RedirectToAction("Index");
             }
             ViewBag.TrainingCourses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
@@ -118,7 +118,7 @@ namespace MiseEnSituation.Controllers
                     _TrainingCourseService.Delete(trainingCourse);
                 }
                 List<TrainingCourse> tcs = Courses != null ? _TrainingCourseService.FindManyByIdExcludes(Courses) : null;
-                _skillService.Update(skill,tcs);
+                //_skillService.Update(skill,tcs);
                 return RedirectToAction("Index");
             }
             ViewBag.Courses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);

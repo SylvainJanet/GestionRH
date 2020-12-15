@@ -69,7 +69,7 @@ namespace MiseEnSituation.Controllers
             {
                 List<TrainingCourse> _finishedCourses = _TrainedCoursesService.FindManyByIdExcludes(FinishedCourses);
                 List<TrainingCourse>_whishedCourses = _TrainedCoursesService.FindManyByIdExcludes(WishedCourses);
-                _checkUpReport.Update(checkUpReport, _finishedCourses, _whishedCourses);
+               // _checkUpReport.Update(checkUpReport, _finishedCourses, _whishedCourses);
                 return RedirectToAction("Index");
             }
 
