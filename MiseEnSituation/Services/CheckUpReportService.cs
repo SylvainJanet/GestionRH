@@ -3,49 +3,28 @@ using MiseEnSituation.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 namespace MiseEnSituation.Services
 {
-    public class CheckUpReportService : ICheckUpReportService
+    public class CheckUpReportService : GenericService<CheckUpReport>, ICheckUpReportService
     {
-        private ICheckUpReportRepository _checkUpReportRepository;
+        private ICheckUpReportRepository _CheckUpReportRepository;
 
-        public CheckUpReportService(ICheckUpReportRepository _checkUpReportRepository)
+        public CheckUpReportService(ICheckUpReportRepository CheckUpReportRepository) : base(CheckUpReportRepository)
         {
-            this._checkUpReportRepository = _checkUpReportRepository;
+            _CheckUpReportRepository = (ICheckUpReportRepository)_repository;
+        }
+        public override Expression<Func<IQueryable<CheckUpReport>, IOrderedQueryable<CheckUpReport>>> OrderExpression()
+        {
+            return req => req.OrderBy(s => s.Id);
         }
 
-        public CheckUpReport Find(int? id)
+        public override Expression<Func<CheckUpReport, bool>> SearchExpression(string searchField = "")
         {
-            return _checkUpReportRepository.Find(id);
-        }
-
-        public List<CheckUpReport> FindAll(int page, int maxByPage)
-        {
-            int start = (page - 1) * maxByPage;
-            return _checkUpReportRepository.FindAll(start, maxByPage);
-        }
-
-        public bool NextExist(int page, int maxByPage)
-        {
-            return (page * maxByPage) < _checkUpReportRepository.Count();
-        }
-
-        public void Remove(int id)
-        {
-            _checkUpReportRepository.Remove(id);
-        }
-
-        public void Save(CheckUpReport checkUpReport)
-        {
-            _checkUpReportRepository.Save(checkUpReport);
-        }
-
-        public void Update(CheckUpReport checkUpReport)
-        {
-            _checkUpReportRepository.Update(checkUpReport);
-
+            searchField = searchField.Trim().ToLower();
+            return s => s.Content.Trim().ToLower().Contains(searchField);
         }
     }
 }
