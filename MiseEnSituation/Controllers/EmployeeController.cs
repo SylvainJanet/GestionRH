@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Linq;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -18,23 +17,19 @@ namespace MiseEnSituation.Controllers
     //[EmployeFilter]
     [RoutePrefix("Employees")]
     [Route("{action=index}")]
-    public class EmployeesController : Controller
+    public class EmployeeController : Controller
     {
         private MyDbContext db = new MyDbContext();
         private IGenericService<Employee> _employeeService;
 
-
-        public EmployeesController()
+        public EmployeeController()
         {
             _employeeService = new EmployeeService(new EmployeeRepository(db));
-
         }
         // GET: Employee
-
         public ActionResult Index()
         {
-            var test = db.Employees.ToList();
-            return View(test);
+            return View(db.Employees.ToList());
         }
 
         [HttpGet]
@@ -47,7 +42,6 @@ namespace MiseEnSituation.Controllers
             ViewBag.Page = page;
             ViewBag.MaxByPage = maxByPage;
             ViewBag.SearchField = SearchField;
-
             return View("Index", lstEmployees);
         }
 
