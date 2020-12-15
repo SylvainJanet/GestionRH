@@ -8,14 +8,21 @@ using System.Web;
 
 namespace MiseEnSituation.Services
 {
-    public class EmployeeService : GenericService<Employee>,IEmployeeService
+    public class EmployeeService : GenericService<Employee>, IEmployeeService
     {
-        private IEmployeeRepository _employeeRepo;
+        protected IGenericRepository<Employee> _genericRepository;
 
-        public EmployeeService(IEmployeeRepository employeeRepository) : base(employeeRepository)
+        public EmployeeService(IGenericRepository<Employee> genericRepository) : base(genericRepository)
         {
-            _employeeRepo = (IEmployeeRepository)_repository;
+            this._genericRepository = genericRepository;
+
         }
+
+        public EmployeeService(IEmployeeRepository employeeRepository, IGenericRepository<Employee> genericRepository) : base(genericRepository)
+        {
+            this._genericRepository = employeeRepository;
+        }
+
         public override Expression<Func<IQueryable<Employee>, IOrderedQueryable<Employee>>> OrderExpression()
         {
             return req => req.OrderBy(s => s.Name);
@@ -26,9 +33,8 @@ namespace MiseEnSituation.Services
             searchField = searchField.Trim().ToLower();
             return s => s.Name.Trim().ToLower().Contains(searchField);
         }
-
         //ajouter les implémentations spécifiques des méthodes ajoutées dans IEmployeeService
-        //on pourra utiliser le companyRepository comme le genericRepository pour faire le job
+        //on pourra utiliser le employeeRepository comme le genericRepository pour faire le job
 
     }
 }

@@ -14,5 +14,6 @@ namespace MiseEnSituation.Services
         void Remove(int id);
         List<User> Search(string searchField);
         List<User> FindByType(UserType userType);
+        User FindByEmail(string email);
     }
 }

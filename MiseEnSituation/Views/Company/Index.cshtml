@@ -14,20 +14,49 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adress.Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adress.Street)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adress.ZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adress.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adress.Country)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Adress.Number)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Adress.Street)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Adress.ZipCode)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Adress.City)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Adress.Country)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+    </td>
+</tr>
 }
 
 </table>

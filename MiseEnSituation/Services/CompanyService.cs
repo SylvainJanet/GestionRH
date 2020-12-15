@@ -8,19 +8,19 @@ using System.Web;
 
 namespace MiseEnSituation.Services
 {
-    public class CompanyService : GenericService<Company>
+    public class CompanyService : GenericService<Company>, ICompanyService
     {
-        private ICompanyRepository _companyRepository;
+        protected IGenericRepository<Company> _genericRepository;
 
         public CompanyService(IGenericRepository<Company> genericRepository) : base(genericRepository)
         {
-            _companyRepository = (ICompanyRepository)_repository;
+            this._genericRepository = genericRepository;
 
         }
 
         public CompanyService(ICompanyRepository companyRepository, IGenericRepository<Company> genericRepository) : base(genericRepository)
         {
-            this._companyRepository = companyRepository;
+            this._genericRepository = companyRepository;
         }
 
         public override Expression<Func<IQueryable<Company>, IOrderedQueryable<Company>>> OrderExpression()

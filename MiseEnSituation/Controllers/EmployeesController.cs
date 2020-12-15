@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Linq;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,24 +15,29 @@ using MiseEnSituation.Services;
 namespace MiseEnSituation.Controllers
 {
     [AdminFilter]
+    //[EmployeFilter]
     [RoutePrefix("Employees")]
     [Route("{action=index}")]
-    public class EmployeeController : Controller
+    public class EmployeesController : Controller
     {
         private MyDbContext db = new MyDbContext();
         private IGenericService<Employee> _employeeService;
 
-        public EmployeeController()
+
+        public EmployeesController()
         {
             _employeeService = new EmployeeService(new EmployeeRepository(db));
+
         }
         // GET: Employee
+
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            var test = db.Employees.ToList();
+            return View(test);
         }
 
-        [HttpGet] //localhost:xxx/users/1/15
+        [HttpGet]
         [Route("{page?}/{maxByPage?}/{searchField?}")]
         public ActionResult Index(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE, string SearchField = "")
         {
@@ -41,6 +47,7 @@ namespace MiseEnSituation.Controllers
             ViewBag.Page = page;
             ViewBag.MaxByPage = maxByPage;
             ViewBag.SearchField = SearchField;
+
             return View("Index", lstEmployees);
         }
 
@@ -58,7 +65,8 @@ namespace MiseEnSituation.Controllers
             }
             return View(employee);
         }
-
+        [HttpGet]
+        [Route("Create")]
         // GET: Employee/Create
         public ActionResult Create()
         {
@@ -133,7 +141,7 @@ namespace MiseEnSituation.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Employee employee = _employeeService.FindByIdIncludes(id);
-           _employeeService.Delete(employee);
+            _employeeService.Delete(employee);
             return RedirectToAction("Index");
         }
 
