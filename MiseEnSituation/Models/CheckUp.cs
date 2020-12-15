@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -13,17 +14,23 @@ namespace MiseEnSituation.Models
         public DateTime Date { get; set; }
 
         public CheckUpReport Report { get; set; }
-
+        [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }
+        public int? EmployeeId { get; set; }
 
-        [EmployeeIsManager]
+        // [EmployeeIsManager]
+        [ForeignKey("ManagerId")]
         public Employee Manager { get; set; }
+        public int? ManagerId { get; set; }
 
-        [EmployeeIsRH]
+       // [EmployeeIsRH]
+        [ForeignKey("RHId")]
         public Employee RH { get; set; }
+        public int? RHId { get; set; }
 
         public CheckUp()
         {
         }
+
     }
 }

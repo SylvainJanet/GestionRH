@@ -6,54 +6,37 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MiseEnSituation.Filters;
 using MiseEnSituation.Models;
 using MiseEnSituation.Repositories;
 using MiseEnSituation.Services;
 
 namespace MiseEnSituation.Controllers
 {
-    [AdminFilter]
-    [RoutePrefix("CheckUps")]
-    [Route("{action=index}")]
     public class CheckUpController : Controller
     {
-        private MyDbContext db = new MyDbContext();
-        UserService userService;
-        EmployeeService employeeService; 
-
-        private ICheckUpService _checkUpService;
+        public MyDbContext db = new MyDbContext();
+        ICheckUpService _checkUpService;
+        IUserService userService;
 
         public CheckUpController()
         {
-            employeeService = new EmployeeService(new EmployeeRepository(db));
-            userService = new UserService(new UserRepository(db));
             _checkUpService = new CheckUpService(new CheckUpRepository(db));
+            userService = new UserService(new UserRepository(db));
         }
-      
         // GET: CheckUp
-        [HttpGet] //localhost:xxx/checkup/1/15
-        [Route("{page?}/{maxByPage?}")]
-        public ActionResult Index(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE)
+        public ActionResult Index()
         {
-            List<CheckUp> lstCheckUps = _checkUpService.FindAll(page, maxByPage);
-            ViewBag.NextExist = _checkUpService.NextExist(page, maxByPage);
-            ViewBag.Page = page;
-            ViewBag.MaxByPage = maxByPage;
-
-            return View("Index",lstCheckUps);
+            return View(_checkUpService.FindAll(1,5241));
         }
 
         // GET: CheckUp/Details/5
-        [HttpGet]
-        [Route("Details/{id}")]
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CheckUp checkUp =_checkUpService.Find(id);
+            CheckUp checkUp = _checkUpService.Find(id);
             if (checkUp == null)
             {
                 return HttpNotFound();
@@ -62,25 +45,13 @@ namespace MiseEnSituation.Controllers
         }
 
         // GET: CheckUp/Create
-        [HttpGet]
-        [Route("Create")]
-        public ActionResult Create(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE)
+        public ActionResult Create()
         {
-            UserService userService = new UserService(new UserRepository(db));
-            
-            //List<Employee> employee = employeeService.GetAllIncludesTracked(page, maxByPage, null, e => e.Type == UserType.EMPLOYEE);
-            //List<Employee> manager = employeeService.GetAllIncludesTracked(page, maxByPage, null, e => e.Type == UserType.MANAGER);
-            //List<Employee> rh = employeeService.GetAllIncludesTracked(page, maxByPage, null, e => e.Type == UserType.RH);
+            ViewBag.Employee = userService.FindByType(UserType.EMPLOYEE);
+            ViewBag.Manager = userService.FindByType(UserType.MANAGER);
+            ViewBag.RH = userService.FindByType(UserType.RH);
 
-            //List<User> manager = userService.FindByType(UserType.MANAGER);
-            //List<User> rh = userService.FindByType(UserType.RH);
-            //List<User> employee = userService.FindByType(UserType.EMPLOYEE);
-           
-            ViewBag.Employee = userService.FindByType(UserType.EMPLOYEE); 
-            ViewBag.Manager = userService.FindByType(UserType.MANAGER); ;
-            ViewBag.RH = userService.FindByType(UserType.RH); ;
-
-            return View();
+            return View(new CheckUp());
         }
 
         // POST: CheckUp/Create
@@ -88,21 +59,23 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Create")]
-        public ActionResult Create([Bind(Include = "Id,Date,Employee,Manager,RH")] CheckUp checkUp)
+        public ActionResult Create([Bind(Include = "Id,Date,EmployeeId,ManagerId,RHId")] CheckUp checkUp)
         {
-            if (checkUp.Employee.Id.HasValue)
+            if (checkUp.EmployeeId.HasValue)
             {
-                checkUp.Employee = (Employee)userService.Find(checkUp.Employee.Id);//employeeService.FindByIdExcludes(checkUp.Employee.Id);
+                checkUp.Employee = db.Users.OfType<Employee>().Single(e => e.Id == checkUp.EmployeeId);
             }
-            if (checkUp.Manager.Id.HasValue)
+            if (checkUp.ManagerId.HasValue)
             {
-                checkUp.Manager = (Employee)userService.Find(checkUp.Manager.Id);//employeeService.FindByIdExcludes(checkUp.Manager.Id);
+                checkUp.Manager = db.Users.OfType<Employee>().Single(e => e.Id == checkUp.ManagerId);
             }
-            if (checkUp.Employee.Id.HasValue)
+            if (checkUp.RHId.HasValue)
             {
-                checkUp.RH = (Employee)userService.Find(checkUp.RH.Id);//employeeService.FindByIdExcludes(checkUp.RH.Id);
+                checkUp.RH = db.Users.OfType<Employee>().Single(e => e.Id == checkUp.RHId);
             }
+            ModelState.Remove("checkUp.Employee");
+            ModelState.Remove("checkUp.Manager");
+           
             if (ModelState.IsValid)
             {
                 _checkUpService.Save(checkUp);
@@ -113,8 +86,6 @@ namespace MiseEnSituation.Controllers
         }
 
         // GET: CheckUp/Edit/5
-        [HttpGet]
-        [Route("Edit/{id?}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -134,7 +105,6 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Edit")]
         public ActionResult Edit([Bind(Include = "Id,Date,Employee,Manager,RH")] CheckUp checkUp)
         {
             if (ModelState.IsValid)
@@ -146,8 +116,6 @@ namespace MiseEnSituation.Controllers
         }
 
         // GET: CheckUp/Delete/5
-        [HttpGet]
-        [Route("Delete/{id}")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -165,10 +133,10 @@ namespace MiseEnSituation.Controllers
         // POST: CheckUp/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Route("Delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
             _checkUpService.Remove(id);
+            
             return RedirectToAction("Index");
         }
 

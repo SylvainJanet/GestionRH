@@ -8,12 +8,22 @@
 
     <div class="container">
         <div class="page-header">
+
             <h2>Page d'administration</h2>
+            <img src="~/Content/Image/IconAdmin.png" alt="Management image" />
+
         </div>
-
-        <img src="~/Content/Image/IconAdmin.png" alt="Management image" />
-
-        @Html.ActionLink("Gestion des utilisateurs", "Index", "Users")
     </div>
+    <ul class="list-group">
+        <li class="list-group-item">@Html.ActionLink("Gestion des utilisateurs", "Index", "Users")</li>
+        <li class="list-group-item list-group-item-success">@Html.ActionLink("Gestion des employes", "Index", "Employee")</li>
+        <li class="list-group-item list-group-item-info">@Html.ActionLink("Gestion des postes", "Index", "Post")</li>
+        <li class="list-group-item list-group-item-danger">@Html.ActionLink("Gestion des skills", "Index", "Skills")</li>
+        <li class="list-group-item">@Html.ActionLink("Gestion des checkups", "Index", "CheckUp")</li>
+        <li class="list-group-item list-group-item-success">@Html.ActionLink("Gestion des checkups reports", "Index", "CheckUpReports")</li>
+        <li class="list-group-item list-group-item-info">@Html.ActionLink("Gestion des companies", "Index", "Company")</li>
+        <li class="list-group-item list-group-item-danger">@Html.ActionLink("Gestion des trainings courses", "Index", "TrainingCourses")</li>
+
+    </ul>
 
 </div>

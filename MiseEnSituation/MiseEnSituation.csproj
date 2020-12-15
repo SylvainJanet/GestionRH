@@ -201,7 +201,6 @@
       <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
@@ -329,16 +328,21 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CheckUpController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\ControllerModel.cs" />
-    <Compile Include="Controllers\CheckUpController.cs" />
     <Compile Include="Controllers\CheckUpReportsController.cs" />
-    <Compile Include="Controllers\EmployeesController.cs" />
+    <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\RHController.cs" />
     <Compile Include="Exceptions\CannotWriteReadOnlyPropertyException.cs" />
     <Compile Include="Exceptions\PropertyNameNotFoundException.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Filters\JWTFilterAttribute.cs" />
+    <Compile Include="Migrations\202012141345375_AddForeignKeyCheckUp.cs" />
+    <Compile Include="Migrations\202012141345375_AddForeignKeyCheckUp.Designer.cs">
+      <DependentUpon>202012141345375_AddForeignKeyCheckUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\CheckUpReportRepository.cs" />
     <Compile Include="Repositories\CheckUpRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
@@ -467,6 +471,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -514,11 +519,6 @@
     <Content Include="Views\Shared\ViewModels\Details.cshtml" />
     <Content Include="Views\Shared\ViewModels\Edit.cshtml" />
     <Content Include="Views\Shared\ViewModels\Index.cshtml" />
-    <Content Include="Views\CheckUp\Create.cshtml" />
-    <Content Include="Views\CheckUp\Delete.cshtml" />
-    <Content Include="Views\CheckUp\Details.cshtml" />
-    <Content Include="Views\CheckUp\Edit.cshtml" />
-    <Content Include="Views\CheckUp\Index.cshtml" />
     <Content Include="Views\CheckUpReports\Create.cshtml" />
     <Content Include="Views\CheckUpReports\Delete.cshtml" />
     <Content Include="Views\CheckUpReports\Details.cshtml" />
@@ -529,21 +529,25 @@
     <Content Include="Views\Company\Details.cshtml" />
     <Content Include="Views\Company\Edit.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Employee\Delete.cshtml" />
+    <Content Include="Views\Employee\Details.cshtml" />
+    <Content Include="Views\Employee\Edit.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Post\Delete.cshtml" />
     <Content Include="Views\Post\Details.cshtml" />
     <Content Include="Views\Post\Edit.cshtml" />
     <Content Include="Views\Post\Index.cshtml" />
-    <Content Include="Views\NoUser\Index.cshtml" />
     <Content Include="Views\RH\Index.cshtml" />
     <Content Include="Views\Home\Account.cshtml" />
     <Content Include="Views\Manager\index.cshtml" />
     <Content Include="Views\Home\Home.cshtml" />
-    <Content Include="Views\Employees\Create.cshtml" />
-    <Content Include="Views\Employees\Delete.cshtml" />
-    <Content Include="Views\Employees\Details.cshtml" />
-    <Content Include="Views\Employees\Edit.cshtml" />
-    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\CheckUp\Create.cshtml" />
+    <Content Include="Views\CheckUp\Delete.cshtml" />
+    <Content Include="Views\CheckUp\Details.cshtml" />
+    <Content Include="Views\CheckUp\Edit.cshtml" />
+    <Content Include="Views\CheckUp\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -592,6 +596,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.resx">
       <DependentUpon>202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012141345375_AddForeignKeyCheckUp.resx">
+      <DependentUpon>202012141345375_AddForeignKeyCheckUp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

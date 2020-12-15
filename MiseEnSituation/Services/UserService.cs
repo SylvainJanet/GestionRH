@@ -26,9 +26,12 @@ namespace MiseEnSituation.Services
             
             // récupérer l'utilisateur qui a cet email
             User u = _userRepository.FindByEmail(email);
+
             // tester si il est correct ou pas
-            if (u == null || !u.Password.Equals(cryptedPwd) || !u.Type.Equals(UserType.ADMIN)) //Si UserType = Admin 
+            if (u == null || !u.Password.Equals(cryptedPwd)) 
                 throw new Exception(msg);
+            //if (u == null || !u.Password.Equals(cryptedPwd) || !u.Type.Equals(UserType.ADMIN)) //Si UserType = Employee 
+            //    return u;
             //if (u == null || !u.Password.Equals(cryptedPwd) || !u.Type.Equals(UserType.EMPLOYEE)) //Si UserType = Employee 
             //    return u;
             //if (u == null || !u.Password.Equals(cryptedPwd) || !u.Type.Equals(UserType.MANAGER)) //Si UserType = Manager 
