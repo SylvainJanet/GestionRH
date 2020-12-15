@@ -23,15 +23,16 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Accueil", "Home", "Home")</li>
-                    <li>@Html.ActionLink("À propos de", "About", "Home")</li>
+                    @*<li>@Html.ActionLink("À propos de", "About", "Home")</li>*@
                     <li>
                         @if (Session["user_connected"] != null)
                         {
-                            @Html.ActionLink("Gestion des utilisateurs", "Index", "Users")
+                            @Html.ActionLink("Administration", "Index", "Admin")
+                            
                         }
                     </li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Créer un compte", "Account", "Home")</li>
+                    @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    @*<li>@Html.ActionLink("Créer un compte", "Account", "Home")</li>*@
                     <li>
                         @if (Session["user_connected"] != null)
                         {
