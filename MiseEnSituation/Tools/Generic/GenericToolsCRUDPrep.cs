@@ -483,7 +483,7 @@ namespace MiseEnSituation.Tools.Generic
 
             MethodInfo methodListWherePropListCountainsElementWithGivenKeys = typeof(GenericToolsQueriesAndLists).GetMethod(
                                                                                                                             "ListWherePropListCountainsElementWithGivenKeys", 
-                                                                                                                            BindingFlags.NonPublic | BindingFlags.Static
+                                                                                                                            BindingFlags.Public | BindingFlags.Static
                                                                                                                             )
                                                                                                                  .MakeGenericMethod(new Type[] {
                                                                                                                                                 typeof(T), 
@@ -1141,7 +1141,7 @@ namespace MiseEnSituation.Tools.Generic
                     {
                         MethodInfo methodListWhereOtherTypePropListNotContains = typeof(GenericToolsQueriesAndLists).GetMethod(
                                                                                                                                 "ListWhereOtherTypePropListNotContains", 
-                                                                                                                                BindingFlags.NonPublic | BindingFlags.Static
+                                                                                                                                BindingFlags.Public | BindingFlags.Static
                                                                                                                                )
                                                                                                                     .MakeGenericMethod(new Type[] { 
                                                                                                                                                     typeof(T), 
