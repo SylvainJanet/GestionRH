@@ -5,6 +5,7 @@ using MiseEnSituation.Tools.Generic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
@@ -55,8 +56,8 @@ namespace MiseEnSituation.Repositories
         {
             DataContext = dataContext;
             dbSet = DataContext.Set<T>();
-            _DynamicDBListTypes = GenericTools.DynamicDBListTypes<T>();
-            _DynamicDBTypes = GenericTools.DynamicDBTypes<T>();
+            _DynamicDBListTypes = GenericToolsTypeAnalysis.DynamicDBListTypes<T>();
+            _DynamicDBTypes = GenericToolsTypeAnalysis.DynamicDBTypes<T>();
         }
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace MiseEnSituation.Repositories
         /// </item>
         /// </list> </para>
         /// <remark>
-        /// Code could be refactored and dismiss this class, since <see cref="GenericTools.TryListOfWhat(Type, out Type)"/> does the job <br/>
+        /// Code could be refactored and dismiss this class, since <see cref="GenericToolsTypeAnalysis.TryListOfWhat(Type, out Type)"/> does the job <br/>
         /// I didn't know it was possible when I coded the handling of relationships  and found out about that possibility when I was about to finish
         /// a huge chunk of this code
         /// </remark>
@@ -139,7 +140,7 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="CascadeCreationInDBException"/>
         public void Add(T t)
         {
-            if (GenericTools.HasDynamicDBTypeOrListType<T>())
+            if (GenericToolsTypeAnalysis.HasDynamicDBTypeOrListType<T>())
                 throw new CascadeCreationInDBException(typeof(T));
             dbSet.Add(t);
         }
@@ -158,11 +159,11 @@ namespace MiseEnSituation.Repositories
             {
                 if (isTracked)
                 {
-                    return GenericTools.QueryTIncludeTracked<T>(DataContext);
+                    return GenericToolsQueriesAndLists.QueryTIncludeTracked<T>(DataContext);
                 }
                 else
                 {
-                    return GenericTools.QueryTInclude<T>(DataContext);
+                    return GenericToolsQueriesAndLists.QueryTInclude<T>(DataContext);
                 }
             }
             else
@@ -229,7 +230,7 @@ namespace MiseEnSituation.Repositories
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </remarks>
         /// <param name="predicateWhere"></param>
@@ -239,7 +240,7 @@ namespace MiseEnSituation.Repositories
             IQueryable<T> req = CollectionIncludes();
 
             if (predicateWhere != null)
-                req = GenericTools.QueryTryPredicateWhere(req, predicateWhere);
+                req = GenericToolsQueriesAndLists.QueryTryPredicateWhere(req, predicateWhere);
 
             return req.Count();
         }
@@ -262,7 +263,7 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="InvalidKeyForClassException"/>
         public void Delete(params object[] objs)
         {
-            GenericTools.CheckIfObjectIsKey<T>(objs);
+            GenericToolsTypeAnalysis.CheckIfObjectIsKey<T>(objs);
             Remove(objs);
             Commit();
         }
@@ -301,8 +302,11 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="InvalidKeyForClassException"/>
         public T FindById(bool isIncludes, bool isTracked, params object[] objs)
         {
-            GenericTools.CheckIfObjectIsKey<T>(objs);
-            return GenericTools.QueryWhereKeysAre(Collection(isIncludes, isTracked), objs).SingleOrDefault();
+            GenericToolsTypeAnalysis.CheckIfObjectIsKey<T>(objs);
+            return GenericToolsQueriesAndLists.QueryWhereKeysAre(
+                                                                    Collection(isIncludes, isTracked), 
+                                                                    objs
+                                                                 ).SingleOrDefault();
         }
 
         /// <summary>
@@ -408,7 +412,7 @@ namespace MiseEnSituation.Repositories
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="isIncludes">Will all other properties be included</param>
@@ -428,7 +432,7 @@ namespace MiseEnSituation.Repositories
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -446,7 +450,7 @@ namespace MiseEnSituation.Repositories
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -464,7 +468,7 @@ namespace MiseEnSituation.Repositories
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -482,7 +486,7 @@ namespace MiseEnSituation.Repositories
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -504,7 +508,7 @@ namespace MiseEnSituation.Repositories
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="isIncludes">Will all other properties be included</param>
@@ -525,11 +529,11 @@ namespace MiseEnSituation.Repositories
             }
             else
             {
-                req = GenericTools.QueryDefaultOrderBy(reqorigin);
+                req = GenericToolsQueriesAndLists.QueryDefaultOrderBy(reqorigin);
 
             }
 
-            req = GenericTools.WhereSkipTake(req, start, maxByPage, predicateWhere);
+            req = GenericToolsQueriesAndLists.WhereSkipTake(req, start, maxByPage, predicateWhere);
 
             return req.ToList();
         }
@@ -543,7 +547,7 @@ namespace MiseEnSituation.Repositories
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="start">Starting index</param>
@@ -565,7 +569,7 @@ namespace MiseEnSituation.Repositories
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="start">Starting index</param>
@@ -587,7 +591,7 @@ namespace MiseEnSituation.Repositories
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="start">Starting index</param>
@@ -609,7 +613,7 @@ namespace MiseEnSituation.Repositories
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="start">Starting index</param>
@@ -681,7 +685,7 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="CascadeCreationInDBException"/>
         public void Modify(T t)
         {
-            if (GenericTools.HasDynamicDBTypeOrListType<T>())
+            if (GenericToolsTypeAnalysis.HasDynamicDBTypeOrListType<T>())
                 throw new CascadeCreationInDBException(typeof(T));
             if (DataContext.Entry(t).State == EntityState.Detached)
             {
@@ -708,7 +712,7 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="InvalidKeyForClassException"/>
         public void Remove(params object[] objs)
         {
-            GenericTools.CheckIfObjectIsKey<T>(objs);
+            GenericToolsTypeAnalysis.CheckIfObjectIsKey<T>(objs);
             Remove(FindByIdIncludes(objs));
         }
 
@@ -781,7 +785,7 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="InvalidKeyForClassException"/>
         public void Save(T t, params object[] objs)
         {
-            if (GenericTools.HasDynamicDBTypeOrListType<T>())
+            if (GenericToolsTypeAnalysis.HasDynamicDBTypeOrListType<T>())
             {
                 CustomParam[] props = SetCustom(objs);
                 SaveGeneric(t, props);
@@ -849,7 +853,7 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="InvalidKeyForClassException"/>
         public void Update(T t, params object[] objs)
         {
-            if (GenericTools.HasDynamicDBTypeOrListType<T>())
+            if (GenericToolsTypeAnalysis.HasDynamicDBTypeOrListType<T>())
             {
                 CustomParam[] props = SetCustom(objs);
                 UpdateGeneric(t, props);
@@ -873,7 +877,8 @@ namespace MiseEnSituation.Repositories
                                     _DynamicDBListTypes[key],
                                     key,
                                     typeof(T).GetProperty(key),
-                                    true);
+                                    true
+                                   );
         }
 
         /// <summary>
@@ -888,7 +893,8 @@ namespace MiseEnSituation.Repositories
                                    _DynamicDBTypes[key],
                                    key,
                                    typeof(T).GetProperty(key),
-                                   false);
+                                   false
+                                  );
         }
 
         /// <summary>
@@ -903,7 +909,8 @@ namespace MiseEnSituation.Repositories
                                     _DynamicDBListTypes[key],
                                     key,
                                     typeof(T).GetProperty(key),
-                                    true);
+                                    true
+                                   );
         }
 
         /// <summary>
@@ -918,7 +925,8 @@ namespace MiseEnSituation.Repositories
                                    _DynamicDBTypes[key],
                                    key,
                                    typeof(T).GetProperty(key),
-                                   false);
+                                   false
+                                  );
         }
 
         /// <summary>
@@ -975,7 +983,9 @@ namespace MiseEnSituation.Repositories
 
             List<string> lkeysforlisttypes = _DynamicDBListTypes.Keys.ToList();
             List<Type> ltypesforlisttpes = _DynamicDBListTypes.Values.ToList();
-            List<Type> lTlisttype = _DynamicDBListTypes.Values.Select(typ => typeof(List<>).MakeGenericType(typ)).ToList();
+            List<Type> lTlisttype = _DynamicDBListTypes.Values.Select(typ => 
+                                                                        typeof(List<>).MakeGenericType(typ)
+                                                                      ).ToList();
 
             List<string> lkeysfortypes = _DynamicDBTypes.Keys.ToList();
             List<Type> lTtypes = _DynamicDBTypes.Values.ToList();
@@ -988,7 +998,7 @@ namespace MiseEnSituation.Repositories
                 {
                     isFound = true;
                     Type typeofprop = typeof(T).GetProperty(proptonull.PropertyName).PropertyType;
-                    if (GenericTools.TryListOfWhat(typeofprop, out Type innertype))
+                    if (GenericToolsTypeAnalysis.TryListOfWhat(typeofprop, out Type innertype))
                     {
                         res[resindex] = CreateDefaultListCustomParamFromKey(proptonull.PropertyName);
                         lkeysforlisttypes.Remove(proptonull.PropertyName);
@@ -1071,7 +1081,10 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="InvalidKeyForClassException"/>
         private CustomParam SetNewParamFromContextList(MyDbContext newContext, CustomParam customParam)
         {
-            var newvalue = Convert.ChangeType(Activator.CreateInstance(typeof(List<>).MakeGenericType(customParam.TypeofElement)), typeof(List<>).MakeGenericType(customParam.TypeofElement));
+            var newvalue = Convert.ChangeType(
+                                                Activator.CreateInstance(typeof(List<>).MakeGenericType(customParam.TypeofElement)), 
+                                                typeof(List<>).MakeGenericType(customParam.TypeofElement)
+                                             );
             if (customParam.Value != null)
                 foreach (object item in customParam.Value as IList)
                 {
@@ -1082,17 +1095,18 @@ namespace MiseEnSituation.Repositories
                     }
                     else
                     {
-                        object[] objs = GenericTools.GetKeysValuesForType(item, customParam.TypeofElement);
-                        newitem = GenericTools.FindByKeysInNewContextForType(customParam.TypeofElement, newContext, objs);
+                        object[] objs = GenericToolsTypeAnalysis.GetKeysValuesForType(item, customParam.TypeofElement);
+                        newitem = GenericToolsCRUD.FindByKeysInNewContextForType(customParam.TypeofElement, newContext, objs);
                     }
                     ((IList)newvalue).Add(newitem);
                 }
             return new CustomParam(
-                        newvalue,
-                        customParam.TypeofElement,
-                        customParam.PropertyName,
-                        customParam.Prop,
-                        true);
+                                    newvalue,
+                                    customParam.TypeofElement,
+                                    customParam.PropertyName,
+                                    customParam.Prop,
+                                    true
+                                  );
         }
 
         /// <summary>
@@ -1115,8 +1129,8 @@ namespace MiseEnSituation.Repositories
                 }
                 else
                 {
-                    object[] objs = GenericTools.GetKeysValuesForType(customParam.Value, customParam.TypeofElement);
-                    newvalue = GenericTools.FindByKeysInNewContextForType(customParam.TypeofElement, newContext, objs);
+                    object[] objs = GenericToolsTypeAnalysis.GetKeysValuesForType(customParam.Value, customParam.TypeofElement);
+                    newvalue = GenericToolsCRUD.FindByKeysInNewContextForType(customParam.TypeofElement, newContext, objs);
                 }
             }
             return new CustomParam(
@@ -1124,7 +1138,8 @@ namespace MiseEnSituation.Repositories
                                     customParam.TypeofElement,
                                     customParam.PropertyName,
                                     customParam.Prop,
-                                    false);
+                                    false
+                                   );
         }
 
         /// <summary>
@@ -1173,7 +1188,9 @@ namespace MiseEnSituation.Repositories
             T res = t;
             foreach (var p in typeof(T).GetProperties())
             {
-                if (!props.Select(cp => cp.Prop).Contains(p) && p.CanWrite)
+                if (!props.Select(cp => cp.Prop).Contains(p) && 
+                    p.CanWrite
+                   )
                     p.SetValue(res, p.GetValue(newt));
             }
             return res;
@@ -1234,8 +1251,11 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="InvalidKeyForClassException"/>
         private T FindByIdIncludesTrackedInNewContext(MyDbContext myDbContext, params object[] objs)
         {
-            GenericTools.CheckIfObjectIsKey<T>(objs);
-            return GenericTools.QueryWhereKeysAre(GenericTools.QueryTIncludeTracked<T>(myDbContext), objs).SingleOrDefault();
+            GenericToolsTypeAnalysis.CheckIfObjectIsKey<T>(objs);
+            return GenericToolsQueriesAndLists.QueryWhereKeysAre(
+                                                                    GenericToolsQueriesAndLists.QueryTIncludeTracked<T>(myDbContext), 
+                                                                    objs
+                                                                 ).SingleOrDefault();
         }
 
         /// <summary>
@@ -1262,8 +1282,11 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="InvalidKeyForClassException"/>
         private T FindByIdIncludesInNewContext(MyDbContext myDbContext, params object[] objs)
         {
-            GenericTools.CheckIfObjectIsKey<T>(objs);
-            return GenericTools.QueryWhereKeysAre(GenericTools.QueryTInclude<T>(myDbContext), objs).SingleOrDefault();
+            GenericToolsTypeAnalysis.CheckIfObjectIsKey<T>(objs);
+            return GenericToolsQueriesAndLists.QueryWhereKeysAre(
+                                                                    GenericToolsQueriesAndLists.QueryTInclude<T>(myDbContext), 
+                                                                    objs
+                                                                ).SingleOrDefault();
         }
 
         /// <summary>
@@ -1279,7 +1302,7 @@ namespace MiseEnSituation.Repositories
         {
             using (MyDbContext newContext = new MyDbContext())
             {
-                T tToChange = FindByIdIncludesTrackedInNewContext(newContext, GenericTools.GetKeysValues(t));
+                T tToChange = FindByIdIncludesTrackedInNewContext(newContext, GenericToolsTypeAnalysis.GetKeysValues(t));
 
                 tToChange = ModifyOtherProperties(tToChange, t, propss);
 
@@ -1311,13 +1334,16 @@ namespace MiseEnSituation.Repositories
         {
             using (MyDbContext newContext = new MyDbContext())
             {
-                T tToChange = FindByIdIncludesInNewContext(newContext, GenericTools.GetKeysValues(t));
+                T tToChange = FindByIdIncludesInNewContext(newContext, GenericToolsTypeAnalysis.GetKeysValues(t));
 
                 PropertyInfo propToChange = typeof(T).GetProperty(propertyName);
+
                 if (propToChange == null)
                     throw new PropertyNameNotFoundException(typeof(T), propertyName);
+
                 if (!propToChange.CanWrite)
                     throw new CannotWriteReadOnlyPropertyException(typeof(T), propertyName);
+
                 if (newValue != null && !propToChange.PropertyType.IsAssignableFrom(newValue.GetType()))
                     throw new InvalidArgumentsForClassException(typeof(T));
 

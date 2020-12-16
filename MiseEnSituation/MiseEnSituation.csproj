@@ -448,7 +448,12 @@
     <Compile Include="Services\SkillService.cs" />
     <Compile Include="Services\TrainingCourseService.cs" />
     <Compile Include="Services\UserService.cs" />
-    <Compile Include="Tools\Generic\GenericTools.cs" />
+    <Compile Include="Tools\Generic\GenericToolsCRUD.cs" />
+    <Compile Include="Tools\Generic\GenericToolsCRUDCrypt.cs" />
+    <Compile Include="Tools\Generic\GenericToolsCRUDPrep.cs" />
+    <Compile Include="Tools\Generic\GenericToolsExpressionTrees.cs" />
+    <Compile Include="Tools\Generic\GenericToolsQueriesAndLists.cs" />
+    <Compile Include="Tools\Generic\GenericToolsTypeAnalysis.cs" />
     <Compile Include="Tools\Generic\PropToNull.cs" />
     <Compile Include="Tools\HashTools.cs" />
     <Compile Include="Tools\TokenManager.cs" />

@@ -12,6 +12,35 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MiseEnSituation.Services
 {
+    /// <summary>
+    /// Generic Repository for class <typeparamref name="T"/> using context 
+    /// type <see cref="MyDbContext"/>.
+    /// <remark>
+    /// Assumes that :
+    /// <list type="bullet">
+    /// <item>
+    /// every class that either derives from <see cref="BaseEntity"/> 
+    /// or has at least one property with annotation <see cref="KeyAttribute"/> 
+    /// has a <see cref="DbSet"/> in <see cref="MyDbContext"/>
+    /// </item>
+    /// <item>
+    /// and that reciprocally, every class having a <see cref="DbSet"/> in 
+    /// <see cref="MyDbContext"/> either derives from <see cref="BaseEntity"/>
+    /// or has at least one property with annotation <see cref="KeyAttribute"/>.
+    /// </item>
+    /// </list>
+    /// Furthermore, assumes that 
+    /// <list type="bullet">
+    /// <item>
+    /// For a class t with name "TName", the corresponding repository is named "TNameRepository"
+    /// </item>
+    /// <item>
+    /// For a class t with name "TName", the corresponding service is named "TNameService"
+    /// </item>
+    /// </list>
+    /// </remark>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class GenericService<T> : IGenericService<T> where T : class
     {
         protected IGenericRepository<T> _repository;
@@ -77,14 +106,14 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </remarks>
         /// <param name="predicateWhere"></param>
         /// <returns>The number of elements in DB satisfying <paramref name="predicateWhere"/></returns>
-        public long Count(Expression<Func<T, bool>> pedicateWhere = null)
+        public long Count(Expression<Func<T, bool>> predicateWhere = null)
         {
-            return _repository.Count(pedicateWhere);
+            return _repository.Count(predicateWhere);
         }
 
         /// <summary>
@@ -100,7 +129,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="isIncludes">Will all other properties be included</param>
@@ -124,7 +153,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -146,7 +175,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -168,7 +197,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -190,7 +219,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -226,7 +255,7 @@ namespace MiseEnSituation.Services
         /// <exception cref="InvalidKeyForClassException"/>
         public T FindById(bool isIncludes, bool isTracked, params object[] objs)
         {
-            GenericTools.CheckIfObjectIsKey<T>(objs);
+            GenericToolsTypeAnalysis.CheckIfObjectIsKey<T>(objs);
             return _repository.FindById(isIncludes, isTracked, objs);
         }
 
@@ -346,11 +375,11 @@ namespace MiseEnSituation.Services
         /// <exception cref="InvalidKeyForClassException"/>
         public List<T> FindByManyId(bool isIncludes, bool isTracked, params object[] objs)
         {
-            GenericTools.CheckIfObjsIsManyKeysOrIds<T>(objs);
+            GenericToolsTypeAnalysis.CheckIfObjsIsManyKeysOrIds<T>(objs);
             List<T> lst = new List<T>();
             if (typeof(BaseEntity).IsAssignableFrom(typeof(T)))
             {
-                int?[] ids = GenericTools.GetManyIds(objs);
+                int?[] ids = GenericToolsTypeAnalysis.GetManyIds(objs);
                 foreach (int? id in ids)
                 {
                     if (!id.HasValue)
@@ -361,7 +390,7 @@ namespace MiseEnSituation.Services
             }
             else
             {
-                object[][] objectskeys = GenericTools.GetManyKeys<T>(objs);
+                object[][] objectskeys = GenericToolsTypeAnalysis.GetManyKeys<T>(objs);
                 foreach (object[] keys in objectskeys)
                 {
                     lst.Add(_repository.FindById(isIncludes, isTracked, keys));
@@ -473,7 +502,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="isIncludes">Will all other properties be included</param>
@@ -493,7 +522,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -511,7 +540,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -529,7 +558,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -547,7 +576,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -569,7 +598,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="isIncludes">Will all other properties be included</param>
@@ -594,7 +623,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -616,7 +645,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -638,7 +667,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -660,7 +689,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -749,7 +778,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="searchField"></param>
@@ -762,8 +791,8 @@ namespace MiseEnSituation.Services
         /// <param name="objs">Either the Id or keys</param>
         public void Delete(params object[] objs)
         {
-            GenericTools.CheckIfObjectIsKey<T>(objs);
-            GenericTools.PrepareDelete<T>(objs);
+            GenericToolsTypeAnalysis.CheckIfObjectIsKey<T>(objs);
+            GenericToolsCRUD.PrepareDelete<T>(objs);
             _repository.Delete(objs);
         }
 
@@ -773,7 +802,7 @@ namespace MiseEnSituation.Services
         /// <param name="t">The element to delete</param>
         public void Delete(T t)
         {
-            GenericTools.PrepareDelete<T>(GenericTools.GetKeysValues(t));
+            GenericToolsCRUD.PrepareDelete<T>(GenericToolsTypeAnalysis.GetKeysValues(t));
             _repository.Delete(t);
         }
 
@@ -783,7 +812,7 @@ namespace MiseEnSituation.Services
         /// <param name="t">The element to save</param>
         public void Save(T t)
         {
-            object[] objs = GenericTools.PrepareSave(t);
+            object[] objs = GenericToolsCRUD.PrepareSave(t);
             _repository.Save(t, objs);
         }
 
@@ -795,7 +824,7 @@ namespace MiseEnSituation.Services
         /// <param name="t">The element to crypt then save.</param>
         public void SaveCrypted(T t)
         {
-            t = GenericTools.Crypt(t);
+            t = GenericToolsCRUDCrypt.Crypt(t);
             Save(t);
         }
 
@@ -805,7 +834,7 @@ namespace MiseEnSituation.Services
         /// <param name="t">The element to update</param>
         public void Update(T t)
         {
-            object[] objs = GenericTools.PrepareUpdate(t);
+            object[] objs = GenericToolsCRUD.PrepareUpdate(t);
             _repository.Update(t, objs);
         }
 
@@ -817,8 +846,8 @@ namespace MiseEnSituation.Services
         /// <param name="t">The object to update.</param>
         public void UpdateCrypted(T t)
         {
-            T told = FindByIdExcludes(GenericTools.GetKeysValues(t));
-            t = GenericTools.CryptIfUpdated(told, t);
+            T told = FindByIdExcludes(GenericToolsTypeAnalysis.GetKeysValues(t));
+            t = GenericToolsCRUDCrypt.CryptIfUpdated(told, t);
             Update(t);
         }
 
@@ -831,7 +860,7 @@ namespace MiseEnSituation.Services
         /// <param name="newValue">The new value of the property with name <paramref name="propertyName"/></param>
         public void UpdateOne(T t, string propertyName, object newValue)
         {
-            GenericTools.PrepareUpdateOne(t, propertyName);
+            GenericToolsCRUD.PrepareUpdateOne(t, propertyName);
             _repository.UpdateOne(t, propertyName, newValue);
         }
 
@@ -847,8 +876,8 @@ namespace MiseEnSituation.Services
         /// <param name="newValue">The new value of the property with name <paramref name="propertyName"/></param>
         public void UpdateOneCrypted(T t, string propertyName, object newValue)
         {
-            T told = FindByIdExcludes(GenericTools.GetKeysValues(t));
-            t = GenericTools.CryptIfUpdatedOne(told, t, propertyName, newValue);
+            T told = FindByIdExcludes(GenericToolsTypeAnalysis.GetKeysValues(t));
+            t = GenericToolsCRUDCrypt.CryptIfUpdatedOne(told, t, propertyName, newValue);
             UpdateOne(t, propertyName, newValue);
         }
     }
