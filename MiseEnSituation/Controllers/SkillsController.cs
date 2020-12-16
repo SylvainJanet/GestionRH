@@ -18,14 +18,18 @@ namespace MiseEnSituation.Controllers
     [Route("{action=index}")]
     public class SkillsController : Controller
     {
-        private MyDbContext db = new MyDbContext();
-        private ISkillService _skillService;
-        private ITrainingCourseService _TrainingCourseService;
+        private readonly MyDbContext db = new MyDbContext();
+        private readonly ISkillService _skillService;
+        private readonly ITrainingCourseService _TrainingCourseService;
+        private readonly IPostService _PostService;
+        private readonly IEmployeeService _EmployeeService;
 
         public SkillsController()
         {
             _skillService = new SkillService(new SkillRepository(db));
             _TrainingCourseService = new TrainingCourseService(new TrainingCourseRepository(db));
+            _PostService = new PostService(new PostRepository(db));
+            _EmployeeService = new EmployeeService(new EmployeeRepository(db));
         }
 
         // GET: Users
@@ -64,6 +68,8 @@ namespace MiseEnSituation.Controllers
         public ActionResult Create()
         {
             ViewBag.TrainingCourses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            ViewBag.Posts = new MultiSelectList(_PostService.GetAllExcludes(), "Id", "Description", null);
+            ViewBag.Employees = new MultiSelectList(_EmployeeService.GetAllExcludes(), "Id", "Name", null);
             return View();
         }
 
@@ -73,15 +79,22 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create")]
-        public ActionResult Create([Bind(Include = "Id,Description")] Skill skill, int?[] TrainingCourses)
+        public ActionResult Create([Bind(Include = "Id,Description")] Skill skill, object[] TrainingCourses, object[] Posts, object[] Employees)
         {
             if (ModelState.IsValid)
             {
                 List<TrainingCourse> tcs = TrainingCourses != null ? _TrainingCourseService.FindManyByIdExcludes(TrainingCourses) : null;
-                //_skillService.Save(skill,tcs);
+                List<Post> posts = Posts != null ? _PostService.FindManyByIdExcludes(Posts) : null;
+                List<Employee> employees = Employees != null ? _EmployeeService.FindManyByIdExcludes(Employees) : null;
+                skill.Courses = tcs;
+                skill.Posts = posts;
+                skill.Employees = employees;
+                _skillService.Save(skill);
                 return RedirectToAction("Index");
             }
             ViewBag.TrainingCourses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            ViewBag.Posts = new MultiSelectList(_PostService.GetAllExcludes(), "Id", "Description", null);
+            ViewBag.Employees = new MultiSelectList(_EmployeeService.GetAllExcludes(), "Id", "Name", null);
             return View(skill);
         }
 
@@ -99,7 +112,9 @@ namespace MiseEnSituation.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Courses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            ViewBag.TrainingCourses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            ViewBag.Posts = new MultiSelectList(_PostService.GetAllExcludes(), "Id", "Description", null);
+            ViewBag.Employees = new MultiSelectList(_EmployeeService.GetAllExcludes(), "Id", "Name", null);
             return View(skill);
         }
 
@@ -109,19 +124,22 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit")]
-        public ActionResult Edit([Bind(Include = "Id,Description")] Skill skill, int?[] Courses)
+        public ActionResult Edit([Bind(Include = "Id,Description")] Skill skill, object[] TrainingCourses, object[] Posts, object[] Employees)
         {
             if (ModelState.IsValid)
             {
-                foreach (TrainingCourse trainingCourse in _TrainingCourseService.GetAllExcludes(1, int.MaxValue, null, t => !Courses.Contains(t.Id) && t.TrainedSkills.Count() == 1 && t.TrainedSkills.Where(s => s.Id == skill.Id).Count() == 1))
-                {
-                    _TrainingCourseService.Delete(trainingCourse);
-                }
-                List<TrainingCourse> tcs = Courses != null ? _TrainingCourseService.FindManyByIdExcludes(Courses) : null;
-                //_skillService.Update(skill,tcs);
+                List<TrainingCourse> tcs = TrainingCourses != null ? _TrainingCourseService.FindManyByIdExcludes(TrainingCourses) : null;
+                List<Post> posts = Posts != null ? _PostService.FindManyByIdExcludes(Posts) : null;
+                List<Employee> employees = Employees != null ? _EmployeeService.FindManyByIdExcludes(Employees) : null;
+                skill.Courses = tcs;
+                skill.Posts = posts;
+                skill.Employees = employees;
+                _skillService.Update(skill);
                 return RedirectToAction("Index");
             }
-            ViewBag.Courses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            ViewBag.TrainingCourses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            ViewBag.Posts = new MultiSelectList(_PostService.GetAllExcludes(), "Id", "Description", null);
+            ViewBag.Employees = new MultiSelectList(_EmployeeService.GetAllExcludes(), "Id", "Name", null);
             return View(skill);
         }
 
@@ -148,10 +166,6 @@ namespace MiseEnSituation.Controllers
         [Route("Delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
-            foreach (TrainingCourse trainingCourse in _TrainingCourseService.GetAllExcludes(1, int.MaxValue, null, t => t.TrainedSkills.Count() == 1 && t.TrainedSkills.Where(s => s.Id == id).Count() == 1))
-            {
-                _TrainingCourseService.Delete(trainingCourse);
-            }
             _skillService.Delete(id);
             return RedirectToAction("Index");
         }

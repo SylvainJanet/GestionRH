@@ -336,6 +336,7 @@
     <Compile Include="Controllers\RHController.cs" />
     <Compile Include="Exceptions\CannotWriteReadOnlyPropertyException.cs" />
     <Compile Include="Exceptions\HasNoPropertyRelationException.cs" />
+    <Compile Include="Exceptions\IncorrectUserEmailOrPasswordException.cs" />
     <Compile Include="Exceptions\InvalidKeyForClassException.cs" />
     <Compile Include="Exceptions\PropertyNameNotFoundException.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
@@ -344,6 +345,10 @@
     <Compile Include="Migrations\202012141345375_AddForeignKeyCheckUp.cs" />
     <Compile Include="Migrations\202012141345375_AddForeignKeyCheckUp.Designer.cs">
       <DependentUpon>202012141345375_AddForeignKeyCheckUp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012152143578_AddDescriptionToPost.cs" />
+    <Compile Include="Migrations\202012152143578_AddDescriptionToPost.Designer.cs">
+      <DependentUpon>202012152143578_AddDescriptionToPost.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityWithKeys.cs" />
     <Compile Include="Repositories\CheckUpReportRepository.cs" />
@@ -604,6 +609,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012141345375_AddForeignKeyCheckUp.resx">
       <DependentUpon>202012141345375_AddForeignKeyCheckUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012152143578_AddDescriptionToPost.resx">
+      <DependentUpon>202012152143578_AddDescriptionToPost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

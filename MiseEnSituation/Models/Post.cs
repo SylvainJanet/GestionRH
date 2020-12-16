@@ -18,6 +18,10 @@ namespace MiseEnSituation.Models
     public class Post : BaseEntity
     {
         [Required]
+        [MaxLength(200)]
+        public string Description { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
         public DateTime HiringDate { get; set; }
 
@@ -41,8 +45,9 @@ namespace MiseEnSituation.Models
 
         public List<Employee> Employees { get; set; }
 
-        public Post(DateTime hiringDate, ContractType contractType, double weeklyWorkLoad, string fileForContract, Company company, List<Skill> requiredSkills) : this()
+        public Post(string description, DateTime hiringDate, ContractType contractType, double weeklyWorkLoad, string fileForContract, Company company, List<Skill> requiredSkills) : this()
         {
+            Description = description;
             RequiredSkills = requiredSkills;
             HiringDate = hiringDate;
             ContractType = contractType;

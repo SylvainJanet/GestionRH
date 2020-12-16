@@ -10,11 +10,8 @@ namespace MiseEnSituation.Services
 {
     public class SkillService : GenericService<Skill>, ISkillService
     {
-        private ISkillRepository _SkillRepository;
-
         public SkillService(ISkillRepository skillRepository) : base(skillRepository)
         {
-            _SkillRepository = (ISkillRepository)_repository;
         }
 
         public override Expression<Func<IQueryable<Skill>, IOrderedQueryable<Skill>>> OrderExpression()

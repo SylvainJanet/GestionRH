@@ -53,15 +53,15 @@
         <th>
             @Html.DisplayNameFor(model => model.TrainedSkills)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Owners)
+        <th>
+            @Html.DisplayNameFor(model => model.EnrolledEmployees)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Owners)
+            @Html.DisplayNameFor(model => model.ReportsFinished)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Owners)
-        </th>*@
+            @Html.DisplayNameFor(model => model.ReportsWished)
+        </th>
         <th></th>
     </tr>
 
@@ -84,17 +84,17 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DropDownListFor(modelItem => item.TrainedSkills, new SelectList(item.TrainedSkills.Select(o => o.Description), null, item.TrainedSkills.Select(o => o.Description)), htmlAttributes: new { @class = "form-control" });
-            </td>
-            @*<td>
-                @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+                @Html.DropDownListFor(modelItem => item.TrainedSkills, new SelectList(item.TrainedSkills.Select(o => o.Description), null, item.TrainedSkills.Select(o => o.Description)), htmlAttributes: new { @class = "form-control" })
             </td>
             <td>
-                @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+                @Html.DropDownListFor(modelItem => item.EnrolledEmployees, new SelectList(item.EnrolledEmployees.Select(o => o.Name), null, item.EnrolledEmployees.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" })
             </td>
             <td>
-                @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
-            </td>*@
+                @Html.DropDownListFor(modelItem => item.ReportsFinished, new SelectList(item.ReportsFinished.Select(o => o.Content), null, item.ReportsFinished.Select(o => o.Content)), htmlAttributes: new { @class = "form-control" })
+            </td>
+            <td>
+                @Html.DropDownListFor(modelItem => item.ReportsWished, new SelectList(item.ReportsWished.Select(o => o.Content), null, item.ReportsWished.Select(o => o.Content)), htmlAttributes: new { @class = "form-control" })
+            </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |

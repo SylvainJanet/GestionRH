@@ -20,14 +20,16 @@ namespace MiseEnSituation.Controllers
     {
         private MyDbContext db = new MyDbContext();
         private ITrainingCourseService _TrainingCourseService;
-        //private IEmployeeService _employeeService;
+        private IEmployeeService _employeeService;
         private ISkillService _SkillService;
+        private ICheckUpReportService _CheckUpReportService;
 
         public TrainingCoursesController()
         {
             _TrainingCourseService = new TrainingCourseService(new TrainingCourseRepository(db));
-            //_employeeService = new EmployeeService(new EmployeeRepository(db));
+            _employeeService = new EmployeeService(new EmployeeRepository(db));
             _SkillService = new SkillService(new SkillRepository(db));
+            _CheckUpReportService = new CheckUpReportService(new CheckUpReportRepository(db));
         }
 
         // GET: TrainingCourses
@@ -65,8 +67,10 @@ namespace MiseEnSituation.Controllers
         [Route("Create")]
         public ActionResult Create()
         {
-            //ViewBag.Employees = _employeeService.FindAll(1,int.MaxValue,"");
+            ViewBag.Employees = new MultiSelectList(_employeeService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
+            ViewBag.CheckUpReportsFinished = new MultiSelectList(_CheckUpReportService.GetAllExcludes(), "Id", "Content", null);
+            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReports;
             return View();
         }
 
@@ -76,17 +80,28 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Create")]
-        public ActionResult Create([Bind(Include = "Id,Name,StartingDate,EndingDate,DurationInHours,Price")] TrainingCourse trainingCourse,/* int[] EnrolledEmployees,*/ int?[] TrainedSkills)
+        public ActionResult Create([Bind(Include = "Id,Name,StartingDate,EndingDate,DurationInHours,Price")] TrainingCourse trainingCourse, object[] Employees, object[] TrainedSkills, object[] CheckUpReportsFinished, object[] CheckUpReportsWished)
         {
             if (ModelState.IsValid && TrainedSkills!=null)
             {
                 List<Skill> skills = _SkillService.FindManyByIdExcludes(TrainedSkills);
-               // _TrainingCourseService.Save(trainingCourse,skills);
+                List<Employee> employees = Employees != null ? _employeeService.FindManyByIdExcludes(Employees) : null;
+                List<CheckUpReport> checkUpReportsFinished = CheckUpReportsFinished != null ? _CheckUpReportService.FindManyByIdExcludes(CheckUpReportsFinished) : null;
+                List<CheckUpReport> checkUpReportsWished = CheckUpReportsWished != null ? _CheckUpReportService.FindManyByIdExcludes(CheckUpReportsWished) : null;
+                trainingCourse.TrainedSkills = skills;
+                trainingCourse.EnrolledEmployees = employees;
+                trainingCourse.ReportsFinished = checkUpReportsFinished;
+                trainingCourse.ReportsWished = checkUpReportsWished;
+               _TrainingCourseService.SaveCrypted(trainingCourse);
                 return RedirectToAction("Index");
             }
-            //if (TrainedSkills == null)
-            //    ViewBag.ErrorSkillsMessage = "At least one skill must be selected";
+            if (TrainedSkills == null)
+                ViewBag.ErrorSkillsMessage = "At least one skill must be selected";
+
+            ViewBag.Employees = new MultiSelectList(_employeeService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
+            ViewBag.CheckUpReportsFinished = new MultiSelectList(_CheckUpReportService.GetAllExcludes(), "Id", "Content", null);
+            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReports;
             return View(trainingCourse);
         }
 
@@ -104,8 +119,10 @@ namespace MiseEnSituation.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.Employees = _employeeService.FindAll(1,int.MaxValue,"");
+            ViewBag.Employees = new MultiSelectList(_employeeService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
+            ViewBag.CheckUpReportsFinished = new MultiSelectList(_CheckUpReportService.GetAllExcludes(), "Id", "Content", null);
+            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReports;
             return View(trainingCourse);
         }
 
@@ -115,17 +132,28 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit")]
-        public ActionResult Edit([Bind(Include = "Id,Name,StartingDate,EndingDate,DurationInHours,Price")] TrainingCourse trainingCourse,/* int[] EnrolledEmployees,*/ int?[] TrainedSkills)
+        public ActionResult Edit([Bind(Include = "Id,Name,StartingDate,EndingDate,DurationInHours,Price")] TrainingCourse trainingCourse, object[] Employees, object[] TrainedSkills, object[] CheckUpReportsFinished, object[] CheckUpReportsWished)
         {
             if (ModelState.IsValid && TrainedSkills != null)
             {
                 List<Skill> skills = _SkillService.FindManyByIdExcludes(TrainedSkills);
-                //_TrainingCourseService.Update(trainingCourse, skills);
+                List<Employee> employees = Employees != null ? _employeeService.FindManyByIdExcludes(Employees) : null;
+                List<CheckUpReport> checkUpReportsFinished = CheckUpReportsFinished != null ? _CheckUpReportService.FindManyByIdExcludes(CheckUpReportsFinished) : null;
+                List<CheckUpReport> checkUpReportsWished = CheckUpReportsWished != null ? _CheckUpReportService.FindManyByIdExcludes(CheckUpReportsWished) : null;
+                trainingCourse.TrainedSkills = skills;
+                trainingCourse.EnrolledEmployees = employees;
+                trainingCourse.ReportsFinished = checkUpReportsFinished;
+                trainingCourse.ReportsWished = checkUpReportsWished;
+                _TrainingCourseService.Update(trainingCourse);
                 return RedirectToAction("Index");
             }
-            //if (EditTrainedSkills == null)
-            //    ViewBag.ErrorSkillsMessage = "At least one skill must be selected";
+            if (TrainedSkills == null)
+                ViewBag.ErrorSkillsMessage = "At least one skill must be selected";
+
+            ViewBag.Employees = new MultiSelectList(_employeeService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
+            ViewBag.CheckUpReportsFinished = new MultiSelectList(_CheckUpReportService.GetAllExcludes(), "Id", "Content", null);
+            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReports;
             return View(trainingCourse);
         }
 

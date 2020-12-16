@@ -296,7 +296,7 @@ namespace MiseEnSituation.Repositories
         /// <param name="isIncludes">Whether or not other types in relationship with <typeparamref name="T"/>
         /// have to be included in the query</param>
         /// <param name="isTracked">Whether or not elements have to be tracked</param>
-        /// <param name="objs">Either the Id of the object to delete, or its keys values.</param>
+        /// <param name="objs">Either the Id of the object to find, or its keys values.</param>
         /// <returns>The element, if found, <see langword="null"/> otherwise.</returns>
         /// <exception cref="InvalidKeyForClassException"/>
         public T FindById(bool isIncludes, bool isTracked, params object[] objs)
@@ -320,7 +320,7 @@ namespace MiseEnSituation.Repositories
         /// <remarks>
         /// Keys have to be specified in the same order as they are declared in the class <typeparamref name="T"/>
         /// </remarks>
-        /// <param name="objs">Either the Id of the object to delete, or its keys values.</param>
+        /// <param name="objs">Either the Id of the object to find, or its keys values.</param>
         /// <returns>The element, if found, <see langword="null"/> otherwise.</returns>
         /// <exception cref="InvalidKeyForClassException"/>
         public T FindByIdExcludes(params object[] objs)
@@ -343,7 +343,7 @@ namespace MiseEnSituation.Repositories
         /// <remarks>
         /// Keys have to be specified in the same order as they are declared in the class <typeparamref name="T"/>
         /// </remarks>
-        /// <param name="objs">Either the Id of the object to delete, or its keys values.</param>
+        /// <param name="objs">Either the Id of the object to find, or its keys values.</param>
         /// <returns>The element, if found, <see langword="null"/> otherwise.</returns>
         /// <exception cref="InvalidKeyForClassException"/>
         public T FindByIdExcludesTracked(params object[] objs)
@@ -366,7 +366,7 @@ namespace MiseEnSituation.Repositories
         /// <remarks>
         /// Keys have to be specified in the same order as they are declared in the class <typeparamref name="T"/>
         /// </remarks>
-        /// <param name="objs">Either the Id of the object to delete, or its keys values.</param>
+        /// <param name="objs">Either the Id of the object to find, or its keys values.</param>
         /// <returns>The element, if found, <see langword="null"/> otherwise.</returns>
         /// <exception cref="InvalidKeyForClassException"/>
         public T FindByIdIncludes(params object[] objs)
@@ -389,7 +389,7 @@ namespace MiseEnSituation.Repositories
         /// <remarks>
         /// Keys have to be specified in the same order as they are declared in the class <typeparamref name="T"/>
         /// </remarks>
-        /// <param name="objs">Either the Id of the object to delete, or its keys values.</param>
+        /// <param name="objs">Either the Id of the object to find, or its keys values.</param>
         /// <returns>The element, if found, <see langword="null"/> otherwise.</returns>
         /// <exception cref="InvalidKeyForClassException"/>
         public T FindByIdIncludesTracked(params object[] objs)
@@ -404,6 +404,12 @@ namespace MiseEnSituation.Repositories
         /// otherwise every other property will be included.
         /// <br/>
         /// Elements will be tracked if and only if <paramref name="isTracked"/> is <see langword="true"/>.
+        /// <br/>
+        /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
+        /// a SQL command, the predicate will be ignored. 
+        /// <br/>
+        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// for more information.
         /// </summary>
         /// <param name="isIncludes">Will all other properties be included</param>
         /// <param name="isTracked">Will the element be tracked</param>
@@ -418,6 +424,12 @@ namespace MiseEnSituation.Repositories
         /// Get a list of elements following condition <paramref name="predicateWhere"/>.
         /// <br/>
         /// Every other property will be included, elements will not be tracked.
+        /// <br/>
+        /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
+        /// a SQL command, the predicate will be ignored. 
+        /// <br/>
+        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
         /// <returns>The list of objects</returns>
@@ -430,6 +442,12 @@ namespace MiseEnSituation.Repositories
         /// Get a list of elements following condition <paramref name="predicateWhere"/>.
         /// <br/>
         /// Every other property will be included, elements will be tracked.
+        /// <br/>
+        /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
+        /// a SQL command, the predicate will be ignored. 
+        /// <br/>
+        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
         /// <returns>The list of objects</returns>
@@ -442,6 +460,12 @@ namespace MiseEnSituation.Repositories
         /// Get a list of elements following condition <paramref name="predicateWhere"/>.
         /// <br/>
         /// Every other property will be excluded, elements will not be tracked.
+        /// <br/>
+        /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
+        /// a SQL command, the predicate will be ignored. 
+        /// <br/>
+        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
         /// <returns>The list of objects</returns>
@@ -454,6 +478,12 @@ namespace MiseEnSituation.Repositories
         /// Get a list of elements following condition <paramref name="predicateWhere"/>.
         /// <br/>
         /// Every other property will be excluded, elements will be tracked.
+        /// <br/>
+        /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
+        /// a SQL command, the predicate will be ignored. 
+        /// <br/>
+        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
         /// <returns>The list of objects</returns>
@@ -470,6 +500,12 @@ namespace MiseEnSituation.Repositories
         /// otherwise every other property will be included.
         /// <br/>
         /// Elements will be tracked if and only if <paramref name="isTracked"/> is <see langword="true"/>.
+        /// <br/>
+        /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
+        /// a SQL command, the predicate will be ignored. 
+        /// <br/>
+        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// for more information.
         /// </summary>
         /// <param name="isIncludes">Will all other properties be included</param>
         /// <param name="isTracked">Will the element be tracked</param>
@@ -503,6 +539,12 @@ namespace MiseEnSituation.Repositories
         /// starting at index <paramref name="start"/> with at most <paramref name="maxByPage"/> elements.
         /// <br/>
         /// Every other property will be excluded, elements will not be tracked.
+        /// <br/>
+        /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
+        /// a SQL command, the predicate will be ignored. 
+        /// <br/>
+        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// for more information.
         /// </summary>
         /// <param name="start">Starting index</param>
         /// <param name="maxByPage">Maximum number of elements</param>
@@ -519,6 +561,12 @@ namespace MiseEnSituation.Repositories
         /// starting at index <paramref name="start"/> with at most <paramref name="maxByPage"/> elements.
         /// <br/>
         /// Every other property will be excluded, elements will be tracked.
+        /// <br/>
+        /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
+        /// a SQL command, the predicate will be ignored. 
+        /// <br/>
+        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// for more information.
         /// </summary>
         /// <param name="start">Starting index</param>
         /// <param name="maxByPage">Maximum number of elements</param>
@@ -535,6 +583,12 @@ namespace MiseEnSituation.Repositories
         /// starting at index <paramref name="start"/> with at most <paramref name="maxByPage"/> elements.
         /// <br/>
         /// Every other property will be included, elements will not be tracked.
+        /// <br/>
+        /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
+        /// a SQL command, the predicate will be ignored. 
+        /// <br/>
+        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// for more information.
         /// </summary>
         /// <param name="start">Starting index</param>
         /// <param name="maxByPage">Maximum number of elements</param>
@@ -551,6 +605,12 @@ namespace MiseEnSituation.Repositories
         /// starting at index <paramref name="start"/> with at most <paramref name="maxByPage"/> elements.
         /// <br/>
         /// Every other property will be included, elements will be tracked.
+        /// <br/>
+        /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
+        /// a SQL command, the predicate will be ignored. 
+        /// <br/>
+        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// for more information.
         /// </summary>
         /// <param name="start">Starting index</param>
         /// <param name="maxByPage">Maximum number of elements</param>
