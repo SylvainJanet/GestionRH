@@ -19,8 +19,8 @@ namespace MiseEnSituation.Controllers
     [Route("{action=index}")]
     public class EmployeeController : Controller
     {
-        private MyDbContext db = new MyDbContext();
-        private IGenericService<Employee> _employeeService;
+        private readonly MyDbContext db = new MyDbContext();
+        private readonly IGenericService<Employee> _employeeService;
 
         public EmployeeController()
         {

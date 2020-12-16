@@ -2083,7 +2083,7 @@ namespace MiseEnSituation.Tools.Generic
         /// <param name="tpropname">The name of the property for t</param>
         /// <param name="newItem">The new value to be updated</param>
         /// <param name="objs">Either the id or keys of <paramref name="newItem"/></param>
-        private static void UpdateItemOfTypeWithRequiredPropOfTypeInNewContext<T>(MyDbContext context, Type q, string qpropname, string tpropname, T newItem, params object[] objs)
+        private static void UpdateItemOfTypeWithRequiredPropOfTypeInNewContext<T>(MyDbContext context, Type q, string tpropname, T newItem, params object[] objs)
         {
 
             if (typeof(T).GetProperty(tpropname).PropertyType == q)
@@ -2364,7 +2364,7 @@ namespace MiseEnSituation.Tools.Generic
             {
                 using (MyDbContext context = new MyDbContext())
                 {
-                    UpdateItemOfTypeWithRequiredPropOfTypeInNewContext(context, q, qpropname, tpropname, newItem, GetKeysValues(newItem));
+                    UpdateItemOfTypeWithRequiredPropOfTypeInNewContext(context, q, tpropname, newItem, GetKeysValues(newItem));
                 }
             }
             else

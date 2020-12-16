@@ -18,8 +18,8 @@ namespace MiseEnSituation.Controllers
     [Route("{action=index}")]
     public class UsersController : Controller
     {
-        private MyDbContext db = new MyDbContext();
-        private IUserService _userService;
+        private readonly MyDbContext db = new MyDbContext();
+        private readonly IUserService _userService;
 
         public UsersController()
         {

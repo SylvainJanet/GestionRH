@@ -14,9 +14,9 @@ namespace MiseEnSituation.Controllers
 {
     public class CheckUpController : Controller
     {
-        public MyDbContext db = new MyDbContext();
-        ICheckUpService _checkUpService;
-        IUserService userService;
+        private readonly MyDbContext db = new MyDbContext();
+        private readonly ICheckUpService _checkUpService;
+        private readonly IUserService userService;
 
         public CheckUpController()
         {

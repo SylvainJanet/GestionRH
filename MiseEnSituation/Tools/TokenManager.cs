@@ -10,7 +10,7 @@ namespace MiseEnSituation.Tools
 {
     public class TokenManager
     {
-        private static string Secret = "ERMN05OPLoDvbTTa/QkqLNMI7cPLguaRyHzyg7n5qNBVjQmtBhz4SzYh4NBVCXi3KJHlSXKP+oi2+bXr6CUYTR==";
+        private static readonly string Secret = "ERMN05OPLoDvbTTa/QkqLNMI7cPLguaRyHzyg7n5qNBVjQmtBhz4SzYh4NBVCXi3KJHlSXKP+oi2+bXr6CUYTR==";
         public static string GenerateToken(string username)
         {
             byte[] key = Convert.FromBase64String(Secret);
@@ -44,9 +44,8 @@ namespace MiseEnSituation.Tools
                     ValidateAudience = false,
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
-                SecurityToken securityToken;
                 ClaimsPrincipal principal = tokenHandler.ValidateToken(token,
-                      parameters, out securityToken);
+                      parameters, out SecurityToken securityToken);
                 return principal;
             }
             catch
@@ -56,11 +55,11 @@ namespace MiseEnSituation.Tools
         }
         public static string ValidateToken(string token)
         {
-            string username = null;
+            string username;
             ClaimsPrincipal principal = GetPrincipal(token);
             if (principal == null)
                 return null;
-            ClaimsIdentity identity = null;
+            ClaimsIdentity identity;
             try
             {
                 identity = (ClaimsIdentity)principal.Identity;

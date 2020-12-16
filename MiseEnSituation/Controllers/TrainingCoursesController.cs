@@ -18,11 +18,11 @@ namespace MiseEnSituation.Controllers
     [Route("{action=index}")]
     public class TrainingCoursesController : Controller
     {
-        private MyDbContext db = new MyDbContext();
-        private ITrainingCourseService _TrainingCourseService;
-        private IEmployeeService _employeeService;
-        private ISkillService _SkillService;
-        private ICheckUpReportService _CheckUpReportService;
+        private readonly MyDbContext db = new MyDbContext();
+        private readonly ITrainingCourseService _TrainingCourseService;
+        private readonly IEmployeeService _employeeService;
+        private readonly ISkillService _SkillService;
+        private readonly ICheckUpReportService _CheckUpReportService;
 
         public TrainingCoursesController()
         {

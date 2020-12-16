@@ -11,8 +11,8 @@ namespace MiseEnSituation.Controllers
 {
     public class HomeController : Controller
     {
-        private MyDbContext db = new MyDbContext();
-        private IUserService _userService;
+        private readonly MyDbContext db = new MyDbContext();
+        private readonly IUserService _userService;
 
         public HomeController()
         {

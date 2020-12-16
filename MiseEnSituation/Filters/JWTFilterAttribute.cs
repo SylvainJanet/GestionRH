@@ -16,8 +16,8 @@ namespace MiseEnSituation.Filters
 {
     public class JWTFilterAttribute : ActionFilterAttribute
     {
-        private MyDbContext db = new MyDbContext();
-        private UserService userService;
+        private readonly MyDbContext db = new MyDbContext();
+        private readonly UserService userService;
 
         public JWTFilterAttribute()
         {

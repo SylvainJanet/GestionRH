@@ -18,9 +18,9 @@ namespace MiseEnSituation.Controllers
     [Route("{action=index}")]
     public class PostController : Controller
     {
-        private MyDbContext db = new MyDbContext();
+        private readonly MyDbContext db = new MyDbContext();
 
-        private IGenericService<Post> _postService;
+        private readonly IGenericService<Post> _postService;
         public PostController()
         {
             _postService = new PostService(new PostRepository(db));
