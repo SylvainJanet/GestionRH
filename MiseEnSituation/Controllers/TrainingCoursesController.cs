@@ -70,7 +70,7 @@ namespace MiseEnSituation.Controllers
             ViewBag.Employees = new MultiSelectList(_employeeService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
             ViewBag.CheckUpReportsFinished = new MultiSelectList(_CheckUpReportService.GetAllExcludes(), "Id", "Content", null);
-            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReports;
+            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReportsFinished;
             return View();
         }
 
@@ -101,7 +101,7 @@ namespace MiseEnSituation.Controllers
             ViewBag.Employees = new MultiSelectList(_employeeService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
             ViewBag.CheckUpReportsFinished = new MultiSelectList(_CheckUpReportService.GetAllExcludes(), "Id", "Content", null);
-            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReports;
+            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReportsFinished;
             return View(trainingCourse);
         }
 
@@ -122,7 +122,7 @@ namespace MiseEnSituation.Controllers
             ViewBag.Employees = new MultiSelectList(_employeeService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
             ViewBag.CheckUpReportsFinished = new MultiSelectList(_CheckUpReportService.GetAllExcludes(), "Id", "Content", null);
-            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReports;
+            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReportsFinished;
             return View(trainingCourse);
         }
 
@@ -153,7 +153,7 @@ namespace MiseEnSituation.Controllers
             ViewBag.Employees = new MultiSelectList(_employeeService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
             ViewBag.CheckUpReportsFinished = new MultiSelectList(_CheckUpReportService.GetAllExcludes(), "Id", "Content", null);
-            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReports;
+            ViewBag.CheckUpReportsWished = ViewBag.CheckUpReportsFinished;
             return View(trainingCourse);
         }
 
