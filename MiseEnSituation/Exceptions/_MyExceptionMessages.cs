@@ -46,5 +46,7 @@ namespace MiseEnSituation.Exceptions
         {
             return "Invalid key for class " + t.Name;
         }
+
+        public static string IncorrectUserEmailOrPassword = "Incorrect Email or Password";
     }
 }

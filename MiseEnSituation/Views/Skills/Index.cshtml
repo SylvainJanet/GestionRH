@@ -40,12 +40,12 @@
         <th>
             @Html.DisplayNameFor(model => model.Courses)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Owners)
+        <th>
+            @Html.DisplayNameFor(model => model.Posts)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Owners)
-        </th>*@
+            @Html.DisplayNameFor(model => model.Employees)
+        </th>
         <th></th>
     </tr>
 
@@ -56,14 +56,14 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DropDownListFor(modelItem => item.Courses, new SelectList(item.Courses.Select(o => o.Name), null, item.Courses.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
-            </td>
-            @*<td>
-                @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+                @Html.DropDownListFor(modelItem => item.Courses, new SelectList(item.Courses.Select(o => o.Name), null, item.Courses.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" })
             </td>
             <td>
-                @Html.DropDownListFor(modelItem => item.Owners, new SelectList(item.Owners.Select(o => o.Name), null, item.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
-            </td>*@
+                @Html.DropDownListFor(modelItem => item.Posts, new SelectList(item.Posts.Select(o => o.Description), null, item.Posts.Select(o => o.Description)), htmlAttributes: new { @class = "form-control" })
+            </td>
+            <td>
+                @Html.DropDownListFor(modelItem => item.Employees, new SelectList(item.Employees.Select(o => o.Name), null, item.Employees.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" })
+            </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
