@@ -19,22 +19,28 @@ namespace MiseEnSituation.Controllers
     public class PostController : Controller
     {
         private readonly MyDbContext db = new MyDbContext();
+        private IGenericService<Post> _postService;
+        private IGenericService<Company> _companyService;
 
-        private readonly IGenericService<Post> _postService;
+        public List<Post> lstPost { get; set; }
         public PostController()
         {
             _postService = new PostService(new PostRepository(db));
+            _companyService = new CompanyService(new CompanyRepository(db));
+
         }
         // GET: Post
         public ActionResult Index()
         {
             return View(db.Posts.ToList());
         }
-        [HttpGet] //localhost:xxx/users/1/15
+
+
+        [HttpGet]
         [Route("{page?}/{maxByPage?}/{searchField?}")]
         public ActionResult Index(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE, string SearchField = "")
         {
-            List<Post> lstPost = _postService.FindAllIncludes(page, maxByPage, SearchField);
+            lstPost = _postService.FindAllIncludes(page, maxByPage, SearchField);
 
             ViewBag.NextExist = _postService.NextExist(page, maxByPage, SearchField);
             ViewBag.Page = page;
@@ -62,7 +68,14 @@ namespace MiseEnSituation.Controllers
         [Route("Create")]
         public ActionResult Create()
         {
-            return View();
+            ViewBag.CompanyList = _companyService.GetAllExcludes().Select(c => new SelectListItem
+            {
+                Value = c.Id.ToString(),
+                Text = c.Name
+            });
+            //companyService.FindAllIncludes(page, maxByPage, SearchField);
+
+            return View(new Post());
         }
 
         // POST: Post/Create
@@ -70,18 +83,26 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract")] Post post)
+        public ActionResult Create(Post post)
         {
             if (ModelState.IsValid)
             {
                 _postService.Save(post);
                 return RedirectToAction("Index");
             }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                                       .Where(y => y.Count > 0)
+                                       .ToList();
+            }
 
             return View(post);
         }
 
         // GET: Post/Edit/5
+        [HttpGet]
+        [Route("Edit/{id?}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -101,6 +122,7 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Edit")]
         public ActionResult Edit([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract")] Post post)
         {
             if (ModelState.IsValid)
@@ -113,6 +135,8 @@ namespace MiseEnSituation.Controllers
         }
 
         // GET: Post/Delete/5
+        [HttpGet]
+        [Route("Delete/{id?}")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -130,6 +154,7 @@ namespace MiseEnSituation.Controllers
         // POST: Post/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Route("Delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
             Post post = _postService.FindByIdIncludes(id);
