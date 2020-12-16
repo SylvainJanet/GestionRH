@@ -19,8 +19,8 @@ namespace MiseEnSituation.Controllers
     [Route("{action=index}")]
     public class EmployeeController : Controller
     {
-        private MyDbContext db = new MyDbContext();
-        private IGenericService<Employee> _employeeService;
+        private readonly MyDbContext db = new MyDbContext();
+        private readonly IGenericService<Employee> _employeeService;
 
         public EmployeeController()
         {
@@ -43,6 +43,11 @@ namespace MiseEnSituation.Controllers
             ViewBag.MaxByPage = maxByPage;
             ViewBag.SearchField = SearchField;
             return View("Index", lstEmployees);
+        }
+        [HttpGet]
+        public ActionResult Home()
+        {
+           return View();
         }
 
         // GET: Employee/Details/5

@@ -8,7 +8,7 @@ using System.Web;
 
 namespace MiseEnSituation.Services
 {
-    public class PostService : GenericService<Post>
+    public class PostService : GenericService<Post> , IPostService
     {
         private IGenericRepository<Post> _genericRepository;
 

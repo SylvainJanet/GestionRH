@@ -10,11 +10,9 @@ namespace MiseEnSituation.Services
 {
     public class CheckUpReportService : GenericService<CheckUpReport>, ICheckUpReportService
     {
-        private ICheckUpReportRepository _CheckUpReportRepository;
 
         public CheckUpReportService(ICheckUpReportRepository CheckUpReportRepository) : base(CheckUpReportRepository)
         {
-            _CheckUpReportRepository = (ICheckUpReportRepository)_repository;
         }
         public override Expression<Func<IQueryable<CheckUpReport>, IOrderedQueryable<CheckUpReport>>> OrderExpression()
         {

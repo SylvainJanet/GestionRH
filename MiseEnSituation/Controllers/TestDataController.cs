@@ -11,7 +11,7 @@ namespace MiseEnSituation.Controllers
 {
     public class TestDataController : Controller
     {
-        private MyDbContext db = new MyDbContext();
+        private readonly MyDbContext db = new MyDbContext();
 
         public ActionResult Index()
         {

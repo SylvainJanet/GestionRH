@@ -9,7 +9,7 @@ namespace MiseEnSituation.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private MyDbContext db;
+        private readonly MyDbContext db;
 
         public UserRepository(MyDbContext db)
         {

@@ -16,7 +16,7 @@ namespace MiseEnSituation.Controllers
         [Route("{action=index}")]
         public class RHController : Controller
         {
-            private MyDbContext db = new MyDbContext();
+            private readonly MyDbContext db = new MyDbContext();
             //private IRhService _rhService;
 
             public RHController()

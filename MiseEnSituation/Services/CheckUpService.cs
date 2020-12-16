@@ -5,7 +5,7 @@ namespace MiseEnSituation.Controllers
 {
     internal class CheckUpService : ICheckUpService
     {
-        private ICheckUpRepository _checkUpRepository;
+        private readonly ICheckUpRepository _checkUpRepository;
 
         public CheckUpService(ICheckUpRepository checkUpRepository)
         {

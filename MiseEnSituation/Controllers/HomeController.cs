@@ -11,8 +11,8 @@ namespace MiseEnSituation.Controllers
 {
     public class HomeController : Controller
     {
-        private MyDbContext db = new MyDbContext();
-        private IUserService _userService;
+        private readonly MyDbContext db = new MyDbContext();
+        private readonly IUserService _userService;
 
         public HomeController()
         {
@@ -92,7 +92,7 @@ namespace MiseEnSituation.Controllers
                     {
                         Session["user_id"] = fu.Id;
                         Session["user_connected"] = true;
-                        return RedirectToAction("Index", "Employee"); // /Employee/Index    
+                        return RedirectToAction("Home", "Employee"); // /Employee/Index    
                 }
                     else if (fu != null && fu.Type == UserType.RH)
                     {

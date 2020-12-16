@@ -22,23 +22,21 @@
             @Html.DisplayNameFor(model => model.Courses)
         </dt>
         <dd>
-            @Html.DropDownListFor(model => model.Courses, new SelectList(Model.Courses.Select(o => o.Name), null, Model.Courses.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+            @Html.DropDownListFor(model => model.Courses, new SelectList(Model.Courses.Select(o => o.Name), null, Model.Courses.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" })
         </dd>
-
-        @* posts employees
             <dt>
-            @Html.DisplayNameFor(model => model.Owners)
+            @Html.DisplayNameFor(model => model.Posts)
         </dt>
         <dd>
-            @Html.DropDownListFor(model => model.Owners, new SelectList(Model.Owners.Select(o => o.Name), null, Model.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
+            @Html.DropDownListFor(model => model.Posts, new SelectList(Model.Posts.Select(o => o.Description), null, Model.Posts.Select(o => o.Description)), htmlAttributes: new { @class = "form-control" })
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Owners)
+            @Html.DisplayNameFor(model => model.Employees)
         </dt>
         <dd>
-            @Html.DropDownListFor(model => model.Owners, new SelectList(Model.Owners.Select(o => o.Name), null, Model.Owners.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" });
-        </dd>*@
+            @Html.DropDownListFor(model => model.Employees, new SelectList(Model.Employees.Select(o => o.Name), null, Model.Employees.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" })
+        </dd>
 
     </dl>
 </div>

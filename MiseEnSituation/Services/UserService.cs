@@ -1,4 +1,5 @@
-﻿using MiseEnSituation.Models;
+﻿using MiseEnSituation.Exceptions;
+using MiseEnSituation.Models;
 using MiseEnSituation.Repositories;
 using MiseEnSituation.Tools;
 using System;
@@ -10,7 +11,7 @@ namespace MiseEnSituation.Services
 {
     public class UserService : IUserService
     {
-        private IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
         public UserService(IUserRepository userRepository)
         {
@@ -19,8 +20,6 @@ namespace MiseEnSituation.Services
 
         public User CheckLogin(string email, string password, UserType type)
         {
-            string msg = "Erreur : identifiants incorrects !"; // il vaudrait mieux externaliser le message plutôt que de le coder en dur ici (faire sa propre exception et mettre les messages
-                                                               // dans des constantes)
             // hasher le mot de passe
             string cryptedPwd = HashTools.ComputeSha256Hash(password);
             
@@ -29,7 +28,7 @@ namespace MiseEnSituation.Services
 
             // tester si il est correct ou pas
             if (u == null || !u.Password.Equals(cryptedPwd)) 
-                throw new Exception(msg);
+                throw new IncorrectUserEmailOrPasswordException();
             //if (u == null || !u.Password.Equals(cryptedPwd) || !u.Type.Equals(UserType.ADMIN)) //Si UserType = Employee 
             //    return u;
             //if (u == null || !u.Password.Equals(cryptedPwd) || !u.Type.Equals(UserType.EMPLOYEE)) //Si UserType = Employee 

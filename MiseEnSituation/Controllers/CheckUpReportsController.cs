@@ -18,10 +18,10 @@ namespace MiseEnSituation.Controllers
     [Route("{action=index}")]
     public class CheckUpReportsController : Controller
     {
-        private MyDbContext db = new MyDbContext();
-        ICheckUpReportService _checkUpReport;
-        ITrainingCourseService trainingCourseService;
-        ITrainingCourseService _TrainedCoursesService;
+        private readonly MyDbContext db = new MyDbContext();
+        private readonly ICheckUpReportService _checkUpReport;
+        private readonly ITrainingCourseService trainingCourseService;
+        private readonly ITrainingCourseService _TrainedCoursesService;
         public CheckUpReportsController()
         {
             _checkUpReport = new CheckUpReportService(new CheckUpReportRepository(db));
@@ -69,7 +69,7 @@ namespace MiseEnSituation.Controllers
             {
                 List<TrainingCourse> _finishedCourses = _TrainedCoursesService.FindManyByIdExcludes(FinishedCourses);
                 List<TrainingCourse>_whishedCourses = _TrainedCoursesService.FindManyByIdExcludes(WishedCourses);
-                _checkUpReport.Update(checkUpReport, _finishedCourses, _whishedCourses);
+               // _checkUpReport.Update(checkUpReport, _finishedCourses, _whishedCourses);
                 return RedirectToAction("Index");
             }
 

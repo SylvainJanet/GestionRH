@@ -15,7 +15,7 @@ namespace MiseEnSituation.Controllers
     [Route("{action=index}")]
     public class ManagerController : Controller
     {
-        private MyDbContext db = new MyDbContext();
+        private readonly MyDbContext db = new MyDbContext();
         //private IRhService _rhService;
 
         public ManagerController()

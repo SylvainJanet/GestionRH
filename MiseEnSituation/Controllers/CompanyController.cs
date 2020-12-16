@@ -18,8 +18,8 @@ namespace MiseEnSituation.Controllers
     [Route("{action=index}")]
     public class CompanyController : Controller
     {
-        private MyDbContext db = new MyDbContext();
-        private IGenericService<Company> _companyService;
+        private readonly MyDbContext db = new MyDbContext();
+        private readonly IGenericService<Company> _companyService;
         public CompanyController()
         {
             _companyService = new CompanyService(new CompanyRepository(db));
