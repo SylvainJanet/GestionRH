@@ -3,11 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using MiseEnSituation.Exceptions;
-using MiseEnSituation.Tools;
+using MiseEnSituation.Tools.Generic;
 using System.ComponentModel.DataAnnotations;
+using MiseEnSituation.Models;
+using MiseEnSituation.Repositories;
+using System.Data.Entity;
+using MiseEnSituation.Tools;
 
 namespace MiseEnSituation.Services
 {
+    /// <summary>
+    /// Generic Repository for class <typeparamref name="T"/> using context 
+    /// type <see cref="MyDbContext"/>.
+    /// <remark>
+    /// Assumes that :
+    /// <list type="bullet">
+    /// <item>
+    /// every class that either derives from <see cref="BaseEntity"/> 
+    /// or has at least one property with annotation <see cref="KeyAttribute"/> 
+    /// has a <see cref="DbSet"/> in <see cref="MyDbContext"/>
+    /// </item>
+    /// <item>
+    /// and that reciprocally, every class having a <see cref="DbSet"/> in 
+    /// <see cref="MyDbContext"/> either derives from <see cref="BaseEntity"/>
+    /// or has at least one property with annotation <see cref="KeyAttribute"/>.
+    /// </item>
+    /// </list>
+    /// Furthermore, assumes that 
+    /// <list type="bullet">
+    /// <item>
+    /// For a class t with name "TName", the corresponding repository is named "TNameRepository"
+    /// </item>
+    /// <item>
+    /// For a class t with name "TName", the corresponding service is named "TNameService"
+    /// </item>
+    /// </list>
+    /// </remark>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IGenericService<T> where T : class
     {
         /// <summary>
@@ -51,12 +84,12 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </remarks>
         /// <param name="predicateWhere"></param>
         /// <returns>The number of elements in DB satisfying <paramref name="predicateWhere"/></returns>
-        long Count(Expression<Func<T, bool>> pedicateWhere = null);
+        long Count(Expression<Func<T, bool>> predicateWhere = null);
 
         /// <summary>
         /// Deletes the element with either Id or keys <paramref name="objs"/>.
@@ -83,7 +116,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="isIncludes">Will all other properties be included</param>
@@ -93,6 +126,7 @@ namespace MiseEnSituation.Services
         /// <param name="searchField">The string with the search</param>
         /// <returns>The list of objects</returns>
         List<T> FindAll(bool isIncludes, bool isTracked, int page = 1, int maxByPage = int.MaxValue, string searchField = "");
+
 
         /// <summary>
         /// Get a list of elements ordered by <see cref="OrderExpression"/> following condition 
@@ -104,7 +138,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -123,7 +157,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -142,7 +176,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -161,7 +195,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -390,7 +424,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="isIncludes">Will all other properties be included</param>
@@ -413,7 +447,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="isIncludes">Will all other properties be included</param>
@@ -430,7 +464,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -445,7 +479,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -460,7 +494,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -475,7 +509,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="predicateWhere">Condition</param>
@@ -491,7 +525,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -510,7 +544,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -529,7 +563,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -548,7 +582,7 @@ namespace MiseEnSituation.Services
         /// If <paramref name="predicateWhere"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="page">The page</param>
@@ -630,7 +664,7 @@ namespace MiseEnSituation.Services
         /// If <see cref="OrderExpression"/> fails to be translated from EntityFramework C# LINQ query to
         /// a SQL command, the predicate will be ignored. 
         /// <br/>
-        /// See <see cref="GenericTools.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
+        /// See <see cref="GenericToolsQueriesAndLists.QueryTryPredicateWhere{T}(IQueryable{T}, Expression{Func{T, bool}})"/>
         /// for more information.
         /// </summary>
         /// <param name="searchField"></param>
