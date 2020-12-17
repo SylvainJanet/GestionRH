@@ -326,6 +326,10 @@
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Filters\JWTFilterAttribute.cs" />
+    <Compile Include="Migrations\202011272254127_AddedEntityConfigurations.cs" />
+    <Compile Include="Migrations\202011272254127_AddedEntityConfigurations.Designer.cs">
+      <DependentUpon>202011272254127_AddedEntityConfigurations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202012141345375_AddForeignKeyCheckUp.cs" />
     <Compile Include="Migrations\202012141345375_AddForeignKeyCheckUp.Designer.cs">
       <DependentUpon>202012141345375_AddForeignKeyCheckUp.cs</DependentUpon>
@@ -573,6 +577,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.resx">
       <DependentUpon>202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011272254127_AddedEntityConfigurations.resx">
+      <DependentUpon>202011272254127_AddedEntityConfigurations.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012141345375_AddForeignKeyCheckUp.resx">
       <DependentUpon>202012141345375_AddForeignKeyCheckUp.cs</DependentUpon>
