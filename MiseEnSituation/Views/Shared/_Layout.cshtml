@@ -28,8 +28,12 @@
                         @if (Session["user_connected"] != null)
                         {
                             @Html.ActionLink("Administration", "Index", "Admin")
+                            @*@Html.ActionLink("Rh", "Index", "Rh")
+                            @Html.ActionLink("Manager", "Index", "Manager")
+                            @Html.ActionLink("Employe", "Home", "Employees")*@
                             
                         }
+
                     </li>
                     @*<li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
                     @*<li>@Html.ActionLink("Créer un compte", "Account", "Home")</li>*@
