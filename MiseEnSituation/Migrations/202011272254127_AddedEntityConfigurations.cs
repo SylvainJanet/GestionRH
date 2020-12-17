@@ -11,7 +11,7 @@ namespace MiseEnSituation.Migrations
             RenameTable(name: "dbo.CheckUpReportTrainingCourse1", newName: "WishedCoursesReports");
             RenameTable(name: "dbo.EmployeeTrainingCourses", newName: "CoursesEnrolledEmployees");
             RenameTable(name: "dbo.SkillTrainingCourses", newName: "TraninedSkillsCourses");
-            RenameTable(name: "dbo.SkillEmployees", newName: "SkillsEmployees");
+            RenameTable(name: "dbo.SkillsEmployees", newName: "SkillsEmployees");
             RenameTable(name: "dbo.SkillPosts", newName: "RequiredSkillsPosts");
             RenameColumn(table: "dbo.FinishedCoursesReports", name: "CheckUpReport_Id", newName: "ReportId");
             RenameColumn(table: "dbo.FinishedCoursesReports", name: "TrainingCourse_Id", newName: "CourseId");
