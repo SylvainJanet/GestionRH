@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiseEnSituation", "MiseEnSi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepositoryAndService", "GenericRepositoryAndService\GenericRepositoryAndService.csproj", "{7F6810CD-82B0-4F52-A61E-122631E599D1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGenericRepositoryAndService", "TestGenericRepositoryAndService\TestGenericRepositoryAndService.csproj", "{19AD1C17-608E-4363-B06C-AA82AEF40E5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7F6810CD-82B0-4F52-A61E-122631E599D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F6810CD-82B0-4F52-A61E-122631E599D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F6810CD-82B0-4F52-A61E-122631E599D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19AD1C17-608E-4363-B06C-AA82AEF40E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19AD1C17-608E-4363-B06C-AA82AEF40E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19AD1C17-608E-4363-B06C-AA82AEF40E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19AD1C17-608E-4363-B06C-AA82AEF40E5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
