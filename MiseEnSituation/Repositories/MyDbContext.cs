@@ -15,6 +15,7 @@ namespace MiseEnSituation.Repositories
             //Database.Log = l => Debug.Write(l);
         }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<CheckUp> CheckUps { get; set; }
         public virtual DbSet<CheckUpReport> CheckUpReports { get; set; }
         public virtual DbSet<Company> Companies { get; set; }

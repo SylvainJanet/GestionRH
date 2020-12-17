@@ -33,5 +33,16 @@ namespace MiseEnSituation.Models
         {
         }
 
+        public CheckUp(DateTime date, CheckUpReport report, Employee employee, int? employeeId, Employee manager, int? managerId, Employee rH, int? rHId)
+        {
+            Date = date;
+            Report = report;
+            Employee = employee;
+            EmployeeId = employeeId;
+            Manager = manager;
+            ManagerId = managerId;
+            RH = rH;
+            RHId = rHId;
+        }
     }
 }

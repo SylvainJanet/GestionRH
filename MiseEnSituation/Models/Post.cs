@@ -46,11 +46,12 @@ namespace MiseEnSituation.Models
 
         public List<Employee> Employees { get; set; }
 
-        public Post(string description, DateTime hiringDate, ContractType contractType, double weeklyWorkLoad, string fileForContract, Company company, List<Skill> requiredSkills) : this()
+        public Post(string description, DateTime hiringDate, DateTime endDate, ContractType contractType, double weeklyWorkLoad, string fileForContract, Company company, List<Skill> requiredSkills) : this()
         {
             Description = description;
             RequiredSkills = requiredSkills;
             HiringDate = hiringDate;
+            EndDate = endDate;
             ContractType = contractType;
             WeeklyWorkLoad = weeklyWorkLoad;
             FileForContract = fileForContract;
