@@ -2,25 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using MiseEnSituation.Exceptions;
-using MiseEnSituation.Tools.Generic;
-using MiseEnSituation.Models;
+using GenericRepositoryAndService.Exceptions;
+using GenericRepositoryAndService.Tools.Generic;
+using GenericRepositoryAndService.Models;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 
-namespace MiseEnSituation.Repositories
+namespace GenericRepositoryAndService.Repository
 {
     /// <summary>
     /// Generic Repository interface for class <typeparamref name="T"/> using context 
-    /// type <see cref="MyDbContext"/>.
+    /// type <see cref="DbContext"/>.
     /// <remark>
     /// Assumes every class that either derives from <see cref="BaseEntity"/> 
     /// or has at least one property with annotation <see cref="KeyAttribute"/> 
-    /// has a <see cref="DbSet"/> in <see cref="MyDbContext"/>.
+    /// has a <see cref="DbSet"/> in <see cref="DbContext"/>.
     /// <br/>
     /// And that reciprocally, every class having a <see cref="DbSet"/> in 
-    /// <see cref="MyDbContext"/> either derives from <see cref="BaseEntity"/>
+    /// <see cref="DbContext"/> either derives from <see cref="BaseEntity"/>
     /// or has at least one property with annotation <see cref="KeyAttribute"/>.
+    /// <br/>
+    /// Any other implementation of this interface than <see cref="GenericRepository{T}"/>
+    /// must have a property of type <see cref="DbContext"/>
+    /// named "temprep.DataContext" accessible from this dll (i.e. public) so that
+    /// GenericService will work.
     /// </remark>
     /// </summary>
     /// <typeparam name="T"></typeparam>

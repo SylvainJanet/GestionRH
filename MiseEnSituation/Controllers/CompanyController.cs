@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MiseEnSituation.Filters;
+using GenericRepositoryAndService.Service;
 using MiseEnSituation.Models;
 using MiseEnSituation.Repositories;
 using MiseEnSituation.Services;

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GenericRepositoryAndService.Service;
 using MiseEnSituation.Filters;
 using MiseEnSituation.Models;
 using MiseEnSituation.Repositories;
@@ -19,8 +20,8 @@ namespace MiseEnSituation.Controllers
     public class PostController : Controller
     {
         private readonly MyDbContext db = new MyDbContext();
-        private IGenericService<Post> _postService;
-        private IGenericService<Company> _companyService;
+        private readonly IGenericService<Post> _postService;
+        private readonly IGenericService<Company> _companyService;
 
         public List<Post> lstPost { get; set; }
         public PostController()

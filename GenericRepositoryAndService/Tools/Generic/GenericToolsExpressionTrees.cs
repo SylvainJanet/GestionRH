@@ -1,12 +1,11 @@
-﻿using MiseEnSituation.Models;
+﻿using GenericRepositoryAndService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Web;
 
-namespace MiseEnSituation.Tools.Generic
+namespace GenericRepositoryAndService.Tools.Generic
 {
     public abstract class GenericToolsExpressionTrees
     {

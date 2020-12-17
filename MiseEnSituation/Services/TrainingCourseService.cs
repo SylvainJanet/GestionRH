@@ -1,4 +1,5 @@
-﻿using MiseEnSituation.Models;
+﻿using GenericRepositoryAndService.Service;
+using MiseEnSituation.Models;
 using MiseEnSituation.Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ namespace MiseEnSituation.Services
 {
     public class TrainingCourseService : GenericService<TrainingCourse>, ITrainingCourseService
     {
-        private ITrainingCourseRepository _TrainingCourseRepository;
+        private readonly ITrainingCourseRepository _TrainingCourseRepository;
 
         public TrainingCourseService(ITrainingCourseRepository trainingCourseRepository) : base(trainingCourseRepository)
         {
-            _TrainingCourseRepository = (ITrainingCourseRepository)_repository;
+            _TrainingCourseRepository = (ITrainingCourseRepository)trainingCourseRepository;
         }
 
         public override Expression<Func<IQueryable<TrainingCourse>, IOrderedQueryable<TrainingCourse>>> OrderExpression()

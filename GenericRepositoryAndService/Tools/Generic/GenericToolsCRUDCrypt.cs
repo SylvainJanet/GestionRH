@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using System.Web;
 
-namespace MiseEnSituation.Tools.Generic
+namespace GenericRepositoryAndService.Tools.Generic
 {
     public abstract class GenericToolsCRUDCrypt
     {

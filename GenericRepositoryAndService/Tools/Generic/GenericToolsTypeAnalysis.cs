@@ -1,5 +1,5 @@
-﻿using MiseEnSituation.Exceptions;
-using MiseEnSituation.Models;
+﻿using GenericRepositoryAndService.Exceptions;
+using GenericRepositoryAndService.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,9 +7,8 @@ using System.Data.Entity;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 
-namespace MiseEnSituation.Tools.Generic
+namespace GenericRepositoryAndService.Tools.Generic
 {
     public abstract class GenericToolsTypeAnalysis
     {

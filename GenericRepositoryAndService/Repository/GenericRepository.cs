@@ -1,37 +1,34 @@
-﻿using MiseEnSituation.Exceptions;
-using MiseEnSituation.Models;
-using MiseEnSituation.Tools;
-using MiseEnSituation.Tools.Generic;
+﻿using GenericRepositoryAndService.Exceptions;
+using GenericRepositoryAndService.Models;
+using GenericRepositoryAndService.Tools.Generic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Web;
 
-namespace MiseEnSituation.Repositories
+namespace GenericRepositoryAndService.Repository
 {
     /// <summary>
     /// Generic Repository for class <typeparamref name="T"/> using context 
-    /// type <see cref="MyDbContext"/>.
+    /// type <see cref="DbContext"/>.
     /// <remark>
     /// Assumes every class that either derives from <see cref="BaseEntity"/> 
     /// or has at least one property with annotation <see cref="KeyAttribute"/> 
-    /// has a <see cref="DbSet"/> in <see cref="MyDbContext"/>.
+    /// has a <see cref="DbSet"/> in <see cref="DbContext"/>.
     /// <br/>
     /// And that reciprocally, every class having a <see cref="DbSet"/> in 
-    /// <see cref="MyDbContext"/> either derives from <see cref="BaseEntity"/>
+    /// <see cref="DbContext"/> either derives from <see cref="BaseEntity"/>
     /// or has at least one property with annotation <see cref="KeyAttribute"/>.
     /// </remark>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected MyDbContext DataContext;
+        internal DbContext DataContext;
         protected DbSet<T> dbSet;
 
         /// <summary>
@@ -52,7 +49,7 @@ namespace MiseEnSituation.Repositories
         /// </summary>
         private readonly Dictionary<string, Type> _DynamicDBTypes;
 
-        public GenericRepository(MyDbContext dataContext)
+        public GenericRepository(DbContext dataContext)
         {
             DataContext = dataContext;
             dbSet = DataContext.Set<T>();
@@ -856,7 +853,7 @@ namespace MiseEnSituation.Repositories
             if (GenericToolsTypeAnalysis.HasDynamicDBTypeOrListType<T>())
             {
                 CustomParam[] props = SetCustom(objs);
-                UpdateGeneric(t, props);
+                UpdateGeneric(DataContext, t, props);
             }
             else
             {
@@ -1079,7 +1076,7 @@ namespace MiseEnSituation.Repositories
         /// <param name="customParam">Parameter from old context</param>
         /// <returns>The new parameter <see cref="CustomParam"/> from context <paramref name="newContext"/></returns>
         /// <exception cref="InvalidKeyForClassException"/>
-        private CustomParam SetNewParamFromContextList(MyDbContext newContext, CustomParam customParam)
+        private CustomParam SetNewParamFromContextList(DbContext newContext, CustomParam customParam)
         {
             var newvalue = Convert.ChangeType(
                                                 Activator.CreateInstance(typeof(List<>).MakeGenericType(customParam.TypeofElement)), 
@@ -1118,7 +1115,7 @@ namespace MiseEnSituation.Repositories
         /// <param name="customParam">Parameter from old context</param>
         /// <returns>The new parameter <see cref="CustomParam"/> from context <paramref name="newContext"/></returns>
         /// <exception cref="InvalidKeyForClassException"/>s
-        private CustomParam SetNewParamFromContextNotList(MyDbContext newContext, CustomParam customParam)
+        private CustomParam SetNewParamFromContextNotList(DbContext newContext, CustomParam customParam)
         {
             object newvalue = null;
             if (customParam.Value != null)
@@ -1153,7 +1150,7 @@ namespace MiseEnSituation.Repositories
         /// <param name="props">Initial <see cref="CustomParam"/></param>
         /// <returns>New <see cref="CustomParam"/> from the context <paramref name="newContext"/></returns>
         /// <exception cref="InvalidKeyForClassException"/>
-        private List<CustomParam> SetNewParamsFromContext(MyDbContext newContext, params CustomParam[] props)
+        private List<CustomParam> SetNewParamsFromContext(DbContext newContext, params CustomParam[] props)
         {
             List<CustomParam> newparams = new List<CustomParam>();
 
@@ -1207,7 +1204,7 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="InvalidKeyForClassException"/>
         private void SaveGeneric(T t, params CustomParam[] propss)
         {
-            using (MyDbContext newContext = new MyDbContext())
+            using (DbContext newContext = (DbContext)Activator.CreateInstance(DataContext.GetType()))
             {
                 List<CustomParam> newparams = SetNewParamsFromContext(newContext, propss);
 
@@ -1229,7 +1226,7 @@ namespace MiseEnSituation.Repositories
 
         /// <summary>
         /// See <see cref="FindByIdIncludesTracked(object[])"/>. Does the same thing in a specific context
-        /// <paramref name="myDbContext"/>, ie
+        /// <paramref name="dbContext"/>, ie
         /// <br/>
         /// finds an object from DB having
         /// <list type="bullet">
@@ -1245,22 +1242,22 @@ namespace MiseEnSituation.Repositories
         /// <remarks>
         /// Keys have to be specified in the same order as they are declared in the class <typeparamref name="T"/>
         /// </remarks>
-        /// <param name="myDbContext">The context from which the element has to be found</param>
+        /// <param name="DbContext">The context from which the element has to be found</param>
         /// <param name="objs">Either the Id of the object to delete, or its keys values.</param>
         /// <returns>The element, if found, <see langword="null"/> otherwise.</returns>
         /// <exception cref="InvalidKeyForClassException"/>
-        private T FindByIdIncludesTrackedInNewContext(MyDbContext myDbContext, params object[] objs)
+        private T FindByIdIncludesTrackedInNewContext(DbContext dbContext, params object[] objs)
         {
             GenericToolsTypeAnalysis.CheckIfObjectIsKey<T>(objs);
             return GenericToolsQueriesAndLists.QueryWhereKeysAre(
-                                                                    GenericToolsQueriesAndLists.QueryTIncludeTracked<T>(myDbContext), 
+                                                                    GenericToolsQueriesAndLists.QueryTIncludeTracked<T>(dbContext), 
                                                                     objs
                                                                  ).SingleOrDefault();
         }
 
         /// <summary>
         /// See <see cref="FindByIdIncludes(object[])"/>. Does the same thing in a specific context
-        /// <paramref name="myDbContext"/>, ie
+        /// <paramref name="dbContext"/>, ie
         /// <br/>
         /// finds an object from DB having
         /// <list type="bullet">
@@ -1276,15 +1273,15 @@ namespace MiseEnSituation.Repositories
         /// <remarks>
         /// Keys have to be specified in the same order as they are declared in the class <typeparamref name="T"/>
         /// </remarks>
-        /// <param name="myDbContext">The context from which the element has to be found</param>
+        /// <param name="dbContext">The context from which the element has to be found</param>
         /// <param name="objs">Either the Id of the object to delete, or its keys values.</param>
         /// <returns>The element, if found, <see langword="null"/> otherwise.</returns>
         /// <exception cref="InvalidKeyForClassException"/>
-        private T FindByIdIncludesInNewContext(MyDbContext myDbContext, params object[] objs)
+        private T FindByIdIncludesInNewContext(DbContext dbContext, params object[] objs)
         {
             GenericToolsTypeAnalysis.CheckIfObjectIsKey<T>(objs);
             return GenericToolsQueriesAndLists.QueryWhereKeysAre(
-                                                                    GenericToolsQueriesAndLists.QueryTInclude<T>(myDbContext), 
+                                                                    GenericToolsQueriesAndLists.QueryTInclude<T>(dbContext), 
                                                                     objs
                                                                 ).SingleOrDefault();
         }
@@ -1298,9 +1295,9 @@ namespace MiseEnSituation.Repositories
         /// <param name="propss"><see cref="CustomParam"/> for properties representing a relationship involving <typeparamref name="T"/>
         /// containing new values</param>
         /// <exception cref="InvalidKeyForClassException"/>
-        private void UpdateGeneric(T t, params CustomParam[] propss)
+        private void UpdateGeneric(DbContext context, T t, params CustomParam[] propss)
         {
-            using (MyDbContext newContext = new MyDbContext())
+            using (DbContext newContext = (DbContext)Activator.CreateInstance(context.GetType()))
             {
                 T tToChange = FindByIdIncludesTrackedInNewContext(newContext, GenericToolsTypeAnalysis.GetKeysValues(t));
 
@@ -1332,7 +1329,7 @@ namespace MiseEnSituation.Repositories
         /// <exception cref="InvalidKeyForClassException"/>
         public void UpdateOne(T t, string propertyName, object newValue)
         {
-            using (MyDbContext newContext = new MyDbContext())
+            using (DbContext newContext = (DbContext)Activator.CreateInstance(DataContext.GetType()))
             {
                 T tToChange = FindByIdIncludesInNewContext(newContext, GenericToolsTypeAnalysis.GetKeysValues(t));
 

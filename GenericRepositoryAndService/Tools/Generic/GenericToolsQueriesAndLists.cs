@@ -1,27 +1,25 @@
-﻿using MiseEnSituation.Models;
-using MiseEnSituation.Repositories;
+﻿using GenericRepositoryAndService.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Web;
-using MiseEnSituation.Exceptions;
+using GenericRepositoryAndService.Exceptions;
 
-namespace MiseEnSituation.Tools.Generic
+namespace GenericRepositoryAndService.Tools.Generic
 {
     public abstract class GenericToolsQueriesAndLists
     {
         /// <summary>
         /// Setup all possible and necessary Include(propertyname) for <see cref="DbSet"/> queries.
         /// </summary>
-        /// <param name="myDbContext">The context used for the query</param>
+        /// <param name="dbContext">The context used for the query</param>
         /// <typeparam name="T">The type invistigated.</typeparam>
         /// <returns>The query. Essentially, context.DbSetName.AsNoTracking().Include(...).Include(...)....Include(...)</returns>
-        public static IQueryable<T> QueryTInclude<T>(MyDbContext myDbContext) where T : class
+        public static IQueryable<T> QueryTInclude<T>(DbContext dbContext) where T : class
         {
-            IQueryable<T> req = myDbContext.Set<T>().AsNoTracking()
+            IQueryable<T> req = dbContext.Set<T>().AsNoTracking()
                                                     .AsQueryable();
             foreach (string name in GenericToolsTypeAnalysis.DynamicDBListTypes<T>().Keys.ToList())
             {
@@ -37,12 +35,12 @@ namespace MiseEnSituation.Tools.Generic
         /// <summary>
         /// Setup all possible and necessary Include(propertyname) for <see cref="DbSet"/> queries.
         /// </summary>
-        /// <param name="myDbContext">The context used for the query</param>
+        /// <param name="dbContext">The context used for the query</param>
         /// <typeparam name="T">The type invistigated.</typeparam>
         /// <returns>The query. Essentially, context.DbSetName.Include(...).Include(...)....Include(...)</returns>
-        public static IQueryable<T> QueryTIncludeTracked<T>(MyDbContext myDbContext) where T : class
+        public static IQueryable<T> QueryTIncludeTracked<T>(DbContext dbContext) where T : class
         {
-            IQueryable<T> req = myDbContext.Set<T>().AsQueryable();
+            IQueryable<T> req = dbContext.Set<T>().AsQueryable();
             foreach (string name in GenericToolsTypeAnalysis.DynamicDBListTypes<T>().Keys.ToList())
             {
                 req = req.Include(name);

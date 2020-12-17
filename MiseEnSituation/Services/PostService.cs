@@ -1,4 +1,6 @@
-﻿using MiseEnSituation.Models;
+﻿using GenericRepositoryAndService.Repository;
+using GenericRepositoryAndService.Service;
+using MiseEnSituation.Models;
 using MiseEnSituation.Repositories;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ namespace MiseEnSituation.Services
 {
     public class PostService : GenericService<Post> , IPostService
     {
-        private IGenericRepository<Post> _genericRepository;
+        private readonly IGenericRepository<Post> _genericRepository;
 
         public PostService(IGenericRepository<Post> genericRepository) : base(genericRepository)
         {

@@ -1,13 +1,12 @@
-﻿using MiseEnSituation.Repositories;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
-using System.Web;
 
-namespace MiseEnSituation.Tools.Generic
+namespace GenericRepositoryAndService.Tools.Generic
 {
     public abstract class GenericToolsCRUDPrep
     {
@@ -28,7 +27,7 @@ namespace MiseEnSituation.Tools.Generic
         /// <param name="context">The context</param>
         /// <param name="t">The type for which the service has to be instanciated</param>
         /// <returns>A new instance of the service of <paramref name="t"/></returns>
-        private static dynamic GetServiceFromContext(MyDbContext context, Type t)
+        private static dynamic GetServiceFromContext(DbContext context, Type t)
         {
             Type typetRepository = Assembly.GetAssembly(t)
                                            .GetTypes()
@@ -72,7 +71,7 @@ namespace MiseEnSituation.Tools.Generic
         /// either Id or keys <paramref name="objs"/></param>
         /// <param name="propname">The name of the property of <paramref name="q"/> having type <typeparamref name="T"/></param>
         /// <param name="objs">Either the Id or keys of the element of type <typeparamref name="T"/> deleted</param>
-        private static void SetForTypePropertyWithGivenKeysToNullInNewContext<T>(MyDbContext context, Type q, string propname, params object[] objs)
+        private static void SetForTypePropertyWithGivenKeysToNullInNewContext<T>(DbContext context, Type q, string propname, params object[] objs)
         {
             dynamic qService = GetServiceFromContext(context, q);
 
@@ -112,16 +111,16 @@ namespace MiseEnSituation.Tools.Generic
 
             foreach (var qItem in req)
             {
-                using (MyDbContext context2 = new MyDbContext())
+                using (DbContext context2 = (DbContext)Activator.CreateInstance(context.GetType()))
                 {
                     dynamic qService2 = GetServiceFromContext(context2, q);
 
                     MethodInfo methodGetKeysValues = typeof(GenericToolsTypeAnalysis).GetMethod(
-                                                                                                "GetKeysValues", 
+                                                                                                "GetKeysValues",
                                                                                                 BindingFlags.Public | BindingFlags.Static
                                                                                                 )
-                                                                                     .MakeGenericMethod(new Type[] { 
-                                                                                                                    q 
+                                                                                     .MakeGenericMethod(new Type[] {
+                                                                                                                    q
                                                                                                                    }
                                                                                                        );
 
@@ -129,9 +128,9 @@ namespace MiseEnSituation.Tools.Generic
                     {
                         var qItem2 = qService2.FindByIdIncludes(
                                                                 (object[])methodGetKeysValues.Invoke(
-                                                                                                        typeof(GenericToolsTypeAnalysis), 
-                                                                                                        new object[] { 
-                                                                                                                        qItem 
+                                                                                                        typeof(GenericToolsTypeAnalysis),
+                                                                                                        new object[] {
+                                                                                                                        qItem
                                                                                                                      }
                                                                                                     )
                                                                );
@@ -141,9 +140,9 @@ namespace MiseEnSituation.Tools.Generic
                     {
                         var qItem2 = qService2.FindByIdExcludes(
                                                                     (object[])methodGetKeysValues.Invoke(
-                                                                                                            typeof(GenericToolsTypeAnalysis), 
-                                                                                                            new object[] { 
-                                                                                                                            qItem 
+                                                                                                            typeof(GenericToolsTypeAnalysis),
+                                                                                                            new object[] {
+                                                                                                                            qItem
                                                                                                                          }
                                                                                                         )
                                                                );
@@ -207,7 +206,7 @@ namespace MiseEnSituation.Tools.Generic
         /// <param name="q">The type of the elements to be updated</param>
         /// <param name="propname">The name of the property of q of type <see cref="IList{T}"/></param>
         /// <param name="objs">Either the Id or the keys</param>
-        private static void RemoveForTypePropertyListElementWithGivenKeyInNewContext<T>(MyDbContext context, Type q, string propname, params object[] objs)
+        private static void RemoveForTypePropertyListElementWithGivenKeyInNewContext<T>(DbContext context, Type q, string propname, params object[] objs)
         {
             dynamic qService = GetServiceFromContext(context, q);
 
@@ -234,7 +233,7 @@ namespace MiseEnSituation.Tools.Generic
 
             foreach (var qItem in req)
             {
-                using (MyDbContext context2 = new MyDbContext())
+                using (DbContext context2 = (DbContext)Activator.CreateInstance(context.GetType()))
                 {
                     dynamic qService2 = GetServiceFromContext(context2, q);
 
@@ -258,7 +257,7 @@ namespace MiseEnSituation.Tools.Generic
                     var oldValue = qItem2.GetType().GetProperty(propname).GetValue(qItem2);
                     if (q.GetProperty(propname).GetCustomAttribute(typeof(RequiredAttribute), false) != null && ((oldValue as IList).Count == 1))
                     {
-                        using (MyDbContext context3 = new MyDbContext())
+                        using (DbContext context3 = (DbContext)Activator.CreateInstance(context.GetType()))
                         {
                             dynamic qService3 = GetServiceFromContext(context3, q);
                             var qItem3 = qService3.FindByIdIncludes(
@@ -315,7 +314,7 @@ namespace MiseEnSituation.Tools.Generic
         /// <typeparam name="T">The type of the element we wish to delete</typeparam>
         /// <param name="q">The type to update</param>
         /// <param name="objs">Either the Id or the Keys of the item we wish to delete</param>
-        public static void DeleteOtherPropInRelationWithTHavingTPropertyTAndTNotHavingProperty<T>(Type q, params object[] objs)
+        public static void DeleteOtherPropInRelationWithTHavingTPropertyTAndTNotHavingProperty<T>(DbContext context, Type q, params object[] objs)
         {
             if (GenericToolsTypeAnalysis.HasPropertyRelationNotList(q, typeof(T)))
             {
@@ -324,11 +323,11 @@ namespace MiseEnSituation.Tools.Generic
                                                                                                  )
                                                                                           .Select(kv => kv.Key)
                                                                                           .ToList();
-                using (MyDbContext context = new MyDbContext())
+                using (DbContext newcontext = (DbContext)Activator.CreateInstance(context.GetType()))
                 {
                     foreach (string propname in propnames)
                     {
-                        SetForTypePropertyWithGivenKeysToNullInNewContext<T>(context, q, propname, objs);
+                        SetForTypePropertyWithGivenKeysToNullInNewContext<T>(newcontext, q, propname, objs);
                     }
                 }
             }
@@ -341,11 +340,11 @@ namespace MiseEnSituation.Tools.Generic
                                                                                                          )
                                                                                                   .Select(kv => kv.Key)
                                                                                                   .ToList();
-                    using (MyDbContext context = new MyDbContext())
+                    using (DbContext newcontext = (DbContext)Activator.CreateInstance(context.GetType()))
                     {
                         foreach (string propname in propnames)
                         {
-                            RemoveForTypePropertyListElementWithGivenKeyInNewContext<T>(context, q, propname, objs);
+                            RemoveForTypePropertyListElementWithGivenKeyInNewContext<T>(newcontext, q, propname, objs);
                         }
                     }
                 }
@@ -391,7 +390,7 @@ namespace MiseEnSituation.Tools.Generic
         /// either Id or keys <paramref name="objs"/></param>
         /// <param name="propname">The name of the property of <paramref name="q"/> having type <typeparamref name="T"/></param>
         /// <param name="objs">Either the Id or keys of the element of type <typeparamref name="T"/> deleted</param>
-        private static void DeleteItemOfTypeWithRequiredPropertyHavingGivenKeysInNewContext<T>(MyDbContext context, Type q, string propname, params object[] objs)
+        private static void DeleteItemOfTypeWithRequiredPropertyHavingGivenKeysInNewContext<T>(DbContext context, Type q, string propname, params object[] objs)
         {
             dynamic qService = GetServiceFromContext(context, q);
 
@@ -415,7 +414,7 @@ namespace MiseEnSituation.Tools.Generic
                                                     );
             foreach (dynamic qItem in req)
             {
-                using (MyDbContext context2 = new MyDbContext())
+                using (DbContext context2 = (DbContext)Activator.CreateInstance(context.GetType()))
                 {
                     dynamic qService2 = GetServiceFromContext(context, q);
 
@@ -475,7 +474,7 @@ namespace MiseEnSituation.Tools.Generic
         /// either Id or keys <paramref name="objs"/></param>
         /// <param name="propname">The name of the property of <paramref name="q"/> having type <typeparamref name="T"/></param>
         /// <param name="objs">Either the Id or keys of the element of type <typeparamref name="T"/> deleted</param>
-        private static void DeleteOrUpdateItemOfTypeWithRequiredListPropertyHavingGivenKeysInNewContext<T>(MyDbContext context, Type q, string propname, params object[] objs)
+        private static void DeleteOrUpdateItemOfTypeWithRequiredListPropertyHavingGivenKeysInNewContext<T>(DbContext context, Type q, string propname, params object[] objs)
         {
             dynamic qService = GetServiceFromContext(context, q);
 
@@ -502,7 +501,7 @@ namespace MiseEnSituation.Tools.Generic
 
             foreach (var qItem in req)
             {
-                using (MyDbContext context2 = new MyDbContext())
+                using (DbContext context2 = (DbContext)Activator.CreateInstance(context.GetType()))
                 {
                     dynamic qService2 = GetServiceFromContext(context2, q);
 
@@ -526,7 +525,7 @@ namespace MiseEnSituation.Tools.Generic
                     var oldValue = qItem2.GetType().GetProperty(propname).GetValue(qItem2);
                     if ((oldValue as IList).Count == 1)
                     {
-                        using (MyDbContext context3 = new MyDbContext())
+                        using (DbContext context3 = (DbContext)Activator.CreateInstance(context.GetType()))
                         {
                             dynamic qService3 = GetServiceFromContext(context3, q);
                             var qItem3 = qService3.FindByIdExcludes(
@@ -584,7 +583,7 @@ namespace MiseEnSituation.Tools.Generic
         /// <typeparam name="T">The type of the object we wish to delete</typeparam>
         /// <param name="q">The type being handled</param>
         /// <param name="objs">The Id or Keys of the object of type <typeparamref name="T"/> to delete</param>
-        public static void DeleteOtherPropInRelationWithTHavingRequiredTProperty<T>(Type q, params object[] objs)
+        public static void DeleteOtherPropInRelationWithTHavingRequiredTProperty<T>(DbContext context, Type q, params object[] objs)
         {
             // person -> finger
             // person -> action
@@ -600,11 +599,11 @@ namespace MiseEnSituation.Tools.Generic
                                                                                                  q.GetProperty(propname).GetCustomAttribute(typeof(RequiredAttribute), false) != null
                                                                                                  )
                                                                                           .ToList();
-                using (MyDbContext context = new MyDbContext())
+                using (DbContext newcontext = (DbContext)Activator.CreateInstance(context.GetType()))
                 {
                     foreach (string propname in propnames)
                     {
-                        DeleteItemOfTypeWithRequiredPropertyHavingGivenKeysInNewContext<T>(context, q, propname, objs);
+                        DeleteItemOfTypeWithRequiredPropertyHavingGivenKeysInNewContext<T>(newcontext, q, propname, objs);
                     }
                 }
             }
@@ -620,11 +619,11 @@ namespace MiseEnSituation.Tools.Generic
                                                                                                          q.GetProperty(propname).GetCustomAttribute(typeof(RequiredAttribute), false) != null
                                                                                                          )
                                                                                                   .ToList();
-                    using (MyDbContext context = new MyDbContext())
+                    using (DbContext newcontext = (DbContext)Activator.CreateInstance(context.GetType()))
                     {
                         foreach (string propname in propnames)
                         {
-                            DeleteOrUpdateItemOfTypeWithRequiredListPropertyHavingGivenKeysInNewContext<T>(context, q, propname, objs);
+                            DeleteOrUpdateItemOfTypeWithRequiredListPropertyHavingGivenKeysInNewContext<T>(newcontext, q, propname, objs);
                         }
                     }
                 }
@@ -662,7 +661,7 @@ namespace MiseEnSituation.Tools.Generic
         /// either Id or keys <paramref name="objs"/></param>
         /// <param name="propnames">The names of the properties of <paramref name="q"/> having type <typeparamref name="T"/></param>
         /// <param name="objs">Either the Id or keys of the element of type <typeparamref name="T"/> deleted</param>
-        private static void SetForMultipleTypePropertyWithGivenKeysToNullInNewContext<T>(MyDbContext context, Type q, List<string> propnames, params object[] objs)
+        private static void SetForMultipleTypePropertyWithGivenKeysToNullInNewContext<T>(DbContext context, Type q, List<string> propnames, params object[] objs)
         {
             dynamic qService = GetServiceFromContext(context, q);
 
@@ -707,7 +706,7 @@ namespace MiseEnSituation.Tools.Generic
 
             foreach (var qItem in req)
             {
-                using (MyDbContext context2 = new MyDbContext())
+                using (DbContext context2 = (DbContext)Activator.CreateInstance(context.GetType()))
                 {
                     dynamic qService2 = GetServiceFromContext(context2, q);
 
@@ -733,7 +732,7 @@ namespace MiseEnSituation.Tools.Generic
                     {
                         if (q.GetProperty(propname).GetCustomAttribute(typeof(RequiredAttribute), false) != null)
                         {
-                            using (MyDbContext context3 = new MyDbContext())
+                            using (DbContext context3 = (DbContext)Activator.CreateInstance(context.GetType()))
                             {
                                 dynamic qService3 = GetServiceFromContext(context3, q);
                                 var qItem3 = qService3.FindByIdExcludes(
@@ -783,7 +782,7 @@ namespace MiseEnSituation.Tools.Generic
         /// <param name="q">The type of the elements to be updated</param>
         /// <param name="propnames">The names of the properties of q of type <see cref="IList{T}"/></param>
         /// <param name="objs">Either the Id or the keys</param>
-        private static void RemoveForMultipleTypePropertyListElementWithGivenKeyInNewContext<T>(MyDbContext context, Type q, List<string> propnames, params object[] objs)
+        private static void RemoveForMultipleTypePropertyListElementWithGivenKeyInNewContext<T>(DbContext context, Type q, List<string> propnames, params object[] objs)
         {
             dynamic qService = GetServiceFromContext(context, q);
 
@@ -808,7 +807,7 @@ namespace MiseEnSituation.Tools.Generic
 
             foreach (var qItem in req)
             {
-                using (MyDbContext context2 = new MyDbContext())
+                using (DbContext context2 = (DbContext)Activator.CreateInstance(context.GetType()))
                 {
                     dynamic qService2 = GetServiceFromContext(context2, q);
 
@@ -836,7 +835,7 @@ namespace MiseEnSituation.Tools.Generic
                         if (q.GetProperty(propname).GetCustomAttribute(typeof(RequiredAttribute), false) != null
                             && ((oldValue as IList).Count == 1))
                         {
-                            using (MyDbContext context3 = new MyDbContext())
+                            using (DbContext context3 = (DbContext)Activator.CreateInstance(context.GetType()))
                             {
                                 dynamic qService3 = GetServiceFromContext(context3, q);
                                 var qItem3 = qService3.FindByIdExcludes(
@@ -894,7 +893,7 @@ namespace MiseEnSituation.Tools.Generic
         /// <typeparam name="T">The type of the object we wish to delete</typeparam>
         /// <param name="q">The type being handled</param>
         /// <param name="objs">The Id or Keys of the object of type <typeparamref name="T"/> to delete</param>
-        public static void DeleteOtherPropInSeveralRelationshipsWithT<T>(Type q, params object[] objs)
+        public static void DeleteOtherPropInSeveralRelationshipsWithT<T>(DbContext context, Type q, params object[] objs)
         {
             if (GenericToolsTypeAnalysis.HasPropertyRelationNotList(q, typeof(T)))
             {
@@ -905,9 +904,9 @@ namespace MiseEnSituation.Tools.Generic
                                                                                                   kv.Key
                                                                                                  )
                                                                                           .ToList();
-                using (MyDbContext context = new MyDbContext())
+                using (DbContext newcontext = (DbContext)Activator.CreateInstance(context.GetType()))
                 {
-                    SetForMultipleTypePropertyWithGivenKeysToNullInNewContext<T>(context, q, propnames, objs);
+                    SetForMultipleTypePropertyWithGivenKeysToNullInNewContext<T>(newcontext, q, propnames, objs);
                 }
             }
             else
@@ -921,9 +920,9 @@ namespace MiseEnSituation.Tools.Generic
                                                                                                           kv.Key
                                                                                                           )
                                                                                                   .ToList();
-                    using (MyDbContext context = new MyDbContext())
+                    using (DbContext newcontext = (DbContext)Activator.CreateInstance(context.GetType()))
                     {
-                        RemoveForMultipleTypePropertyListElementWithGivenKeyInNewContext<T>(context, q, propnames, objs);
+                        RemoveForMultipleTypePropertyListElementWithGivenKeyInNewContext<T>(newcontext, q, propnames, objs);
                     }
                 }
                 else
@@ -954,7 +953,7 @@ namespace MiseEnSituation.Tools.Generic
         /// <param name="tpropname">The name of the property for t</param>
         /// <param name="newItem">The new value to be updated</param>
         /// <param name="objs">Either the id or keys of <paramref name="newItem"/></param>
-        private static void UpdateItemOfTypeWithRequiredPropOfTypeInNewContext<T>(MyDbContext context, Type q, string tpropname, T newItem, params object[] objs)
+        private static void UpdateItemOfTypeWithRequiredPropOfTypeInNewContext<T>(DbContext context, Type q, string tpropname, T newItem, params object[] objs)
         {
 
             if (typeof(T).GetProperty(tpropname).PropertyType == q)
@@ -969,7 +968,7 @@ namespace MiseEnSituation.Tools.Generic
 
                 if (oldItemProp != newItemProp)
                 {
-                    using (MyDbContext context2 = new MyDbContext())
+                    using (DbContext context2 = (DbContext)Activator.CreateInstance(context.GetType()))
                     {
                         dynamic qService = GetServiceFromContext(context2, q);
 
@@ -1010,7 +1009,7 @@ namespace MiseEnSituation.Tools.Generic
                     {
                         if (!newItemProp.Contains(item))
                         {
-                            using (MyDbContext context2 = new MyDbContext())
+                            using (DbContext context2 = (DbContext)Activator.CreateInstance(context.GetType()))
                             {
                                 dynamic qService = GetServiceFromContext(context2, q);
 
@@ -1065,7 +1064,7 @@ namespace MiseEnSituation.Tools.Generic
         /// <param name="tpropname">The name of the property for t</param>
         /// <param name="newItem">The new value to be updated</param>
         /// <param name="objs">Either the id or keys of <paramref name="newItem"/></param>
-        private static void UpdateItemOfTypeWithRequiredPropOfListTypeInNewContext<T>(MyDbContext context, Type q, string qpropname, string tpropname, T newItem, params object[] objs)
+        private static void UpdateItemOfTypeWithRequiredPropOfListTypeInNewContext<T>(DbContext context, Type q, string qpropname, string tpropname, T newItem, params object[] objs)
         {
             if (typeof(T).GetProperty(tpropname).PropertyType == q)
             {
@@ -1082,7 +1081,7 @@ namespace MiseEnSituation.Tools.Generic
                     if (oldItemProp == null || 
                         ((oldItemProp) as IList).Count == 1)
                     {
-                        using (MyDbContext context2 = new MyDbContext())
+                        using (DbContext context2 = (DbContext)Activator.CreateInstance(context.GetType()))
                         {
                             dynamic qService = GetServiceFromContext(context, q);
 
@@ -1161,7 +1160,7 @@ namespace MiseEnSituation.Tools.Generic
 
                     foreach (var qItem in req)
                     {
-                        using (MyDbContext context2 = new MyDbContext())
+                        using (DbContext context2 = (DbContext)Activator.CreateInstance(context.GetType()))
                         {
                             dynamic qService2 = GetServiceFromContext(context2, q);
 
@@ -1218,22 +1217,22 @@ namespace MiseEnSituation.Tools.Generic
         /// <typeparam name="T">The type of the item being updated</typeparam>
         /// <param name="q">The type of the elements being removed if necessary</param>
         /// <param name="newItem">The new item to be updated</param>
-        public static void UpdateOtherPropInRelationWithTHavingRequiredTProperty<T>(Type q, T newItem, string tpropname, string qpropname)
+        public static void UpdateOtherPropInRelationWithTHavingRequiredTProperty<T>(DbContext context, Type q, T newItem, string tpropname, string qpropname)
         {
             if (q.GetProperty(qpropname).PropertyType == typeof(T))
             {
-                using (MyDbContext context = new MyDbContext())
+                using (DbContext newcontext = (DbContext)Activator.CreateInstance(context.GetType()))
                 {
-                    UpdateItemOfTypeWithRequiredPropOfTypeInNewContext(context, q, tpropname, newItem, GenericToolsTypeAnalysis.GetKeysValues(newItem));
+                    UpdateItemOfTypeWithRequiredPropOfTypeInNewContext(newcontext, q, tpropname, newItem, GenericToolsTypeAnalysis.GetKeysValues(newItem));
                 }
             }
             else
             {
                 if (q.GetProperty(qpropname).PropertyType == typeof(IList<>).MakeGenericType(typeof(T)))
                 {
-                    using (MyDbContext context = new MyDbContext())
+                    using (DbContext newcontext = (DbContext)Activator.CreateInstance(context.GetType()))
                     {
-                        UpdateItemOfTypeWithRequiredPropOfListTypeInNewContext(context, q, qpropname, tpropname, newItem, GenericToolsTypeAnalysis.GetKeysValues(newItem));
+                        UpdateItemOfTypeWithRequiredPropOfListTypeInNewContext(newcontext, q, qpropname, tpropname, newItem, GenericToolsTypeAnalysis.GetKeysValues(newItem));
                     }
                 }
                 else

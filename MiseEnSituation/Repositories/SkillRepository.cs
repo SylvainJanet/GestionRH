@@ -1,4 +1,5 @@
-﻿using MiseEnSituation.Exceptions;
+﻿using GenericRepositoryAndService.Repository;
+using MiseEnSituation.Exceptions;
 using MiseEnSituation.Models;
 using System;
 using System.Collections.Generic;

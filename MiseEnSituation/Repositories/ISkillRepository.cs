@@ -1,4 +1,5 @@
-﻿using MiseEnSituation.Models;
+﻿using GenericRepositoryAndService.Repository;
+using MiseEnSituation.Models;
 using System.Collections.Generic;
 
 namespace MiseEnSituation.Repositories

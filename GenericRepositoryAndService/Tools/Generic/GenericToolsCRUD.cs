@@ -1,14 +1,13 @@
-﻿using MiseEnSituation.Repositories;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Web;
-using MiseEnSituation.Exceptions;
+using GenericRepositoryAndService.Exceptions;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 
-namespace MiseEnSituation.Tools.Generic
+namespace GenericRepositoryAndService.Tools.Generic
 {
     public abstract class GenericToolsCRUD
     {
@@ -27,7 +26,7 @@ namespace MiseEnSituation.Tools.Generic
         /// <param name="objs">Either the Id or the keys values of the object searched</param>
         /// <returns>The object if found, <see langword="null"/> otherwise.</returns>
         /// <exception cref="InvalidKeyForClassException"/>
-        public static object FindByKeysInNewContextForType(Type typeofElement, MyDbContext newContext, object[] objs)
+        public static object FindByKeysInNewContextForType(Type typeofElement, DbContext newContext, object[] objs)
         {
             MethodInfo methodCheckIfObjectIsKey = typeof(GenericToolsTypeAnalysis).GetMethod(
                                                                                                 "CheckIfObjectIsKey", 
@@ -118,19 +117,19 @@ namespace MiseEnSituation.Tools.Generic
         /// </summary>
         /// <typeparam name="T">The type of the object to delete</typeparam>
         /// <param name="objs">Either the Id or the keys of the object to delete</param>
-        public static void PrepareDelete<T>(params object[] objs)
+        public static void PrepareDelete<T>(DbContext context, params object[] objs)
         {
             foreach (Type type in GenericToolsTypeAnalysis.GetTypesInRelationWithTHavingTPropertyTAndTNotHavingProperty<T>())
             {
-                GenericToolsCRUDPrep.DeleteOtherPropInRelationWithTHavingTPropertyTAndTNotHavingProperty<T>(type, objs);
+                GenericToolsCRUDPrep.DeleteOtherPropInRelationWithTHavingTPropertyTAndTNotHavingProperty<T>(context, type, objs);
             }
             foreach (Type type in GenericToolsTypeAnalysis.GetTypesInRelationWithTHavingRequiredTProperty<T>())
             {
-                GenericToolsCRUDPrep.DeleteOtherPropInRelationWithTHavingRequiredTProperty<T>(type, objs);
+                GenericToolsCRUDPrep.DeleteOtherPropInRelationWithTHavingRequiredTProperty<T>(context, type, objs);
             }
             foreach (Type type in GenericToolsTypeAnalysis.GetTypesForWhichTHasManyProperties<T>())
             {
-                GenericToolsCRUDPrep.DeleteOtherPropInSeveralRelationshipsWithT<T>(type, objs);
+                GenericToolsCRUDPrep.DeleteOtherPropInSeveralRelationshipsWithT<T>(context, type, objs);
             }
         }
 
@@ -220,7 +219,7 @@ namespace MiseEnSituation.Tools.Generic
         /// <param name="t">The element to update</param>
         /// <returns>The array of all the values of properties of <paramref name="t"/> representing relationships involving <typeparamref name="T"/>,
         /// with values set to <see cref="PropToNull"/> if necessary.</returns>
-        public static object[] PrepareUpdate<T>(T t)
+        public static object[] PrepareUpdate<T>(DbContext context, T t)
         {
             foreach (Type type in GenericToolsTypeAnalysis.GetTypesInRelationWithTHavingRequiredTProperty<T>())
             {
@@ -229,7 +228,7 @@ namespace MiseEnSituation.Tools.Generic
                 {
                     for (int j = 0; j < propnames.Count(); j++)
                     {
-                        GenericToolsCRUDPrep.UpdateOtherPropInRelationWithTHavingRequiredTProperty<T>(type, t, propnames.Keys.ToList()[j], propnames[propnames.Keys.ToList()[j]]);
+                        GenericToolsCRUDPrep.UpdateOtherPropInRelationWithTHavingRequiredTProperty<T>(context,type, t, propnames.Keys.ToList()[j], propnames[propnames.Keys.ToList()[j]]);
                     }
                 }
             }
@@ -301,7 +300,7 @@ namespace MiseEnSituation.Tools.Generic
         /// </remarks>
         /// <typeparam name="T">The type of the element to update</typeparam>
         /// <param name="t">The element to update</param>
-        public static void PrepareUpdateOne<T>(T t, string propertyName)
+        public static void PrepareUpdateOne<T>(DbContext context, T t, string propertyName)
         {
             foreach (Type type in GenericToolsTypeAnalysis.GetTypesInRelationWithTHavingRequiredTProperty<T>())
             {
@@ -311,7 +310,7 @@ namespace MiseEnSituation.Tools.Generic
                     for (int j = 0; j < propnames.Count(); j++)
                     {
                         if (propnames.Keys.ToList()[j] == propertyName)
-                            GenericToolsCRUDPrep.UpdateOtherPropInRelationWithTHavingRequiredTProperty(type, t, propnames.Keys.ToList()[j], propnames[propnames.Keys.ToList()[j]]);
+                            GenericToolsCRUDPrep.UpdateOtherPropInRelationWithTHavingRequiredTProperty(context, type, t, propnames.Keys.ToList()[j], propnames[propnames.Keys.ToList()[j]]);
                     }
                 }
             }
