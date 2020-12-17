@@ -6,26 +6,13 @@ using System.Reflection;
 using GenericRepositoryAndService.Exceptions;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using GenericRepositoryAndService.Repository;
 
 namespace GenericRepositoryAndService.Tools.Generic
 {
     public abstract class GenericToolsCRUD
     {
-        /// <summary>
-        /// Find an object of type <paramref name="typeofElement"/> with either Id or Keys <paramref name="objs"/>
-        /// in context <paramref name="newContext"/>.
-        /// <br/>
-        /// Essentially, this is a dynamic call to the generic method <see cref="GenericRepository{T}.FindByIdIncludesTrackedInNewContext(MyDbContext, object[])"/>
-        /// where <c>T</c> is <paramref name="typeofElement"/>.
-        /// </summary>
-        /// <remarks>
-        /// Other properties will not be included, and element will be tracked.
-        /// </remarks>
-        /// <param name="typeofElement">The type of the the object searched</param>
-        /// <param name="newContext">The context in which the search has to be done</param>
-        /// <param name="objs">Either the Id or the keys values of the object searched</param>
-        /// <returns>The object if found, <see langword="null"/> otherwise.</returns>
-        /// <exception cref="InvalidKeyForClassException"/>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsCRUD.FindByKeysInNewContextForType(System.Type,System.Data.Entity.DbContext,System.Object[])"]/*'/>
         public static object FindByKeysInNewContextForType(Type typeofElement, DbContext newContext, object[] objs)
         {
             MethodInfo methodCheckIfObjectIsKey = typeof(GenericToolsTypeAnalysis).GetMethod(
@@ -74,49 +61,7 @@ namespace GenericRepositoryAndService.Tools.Generic
                                                );
         }
 
-        /// <summary>
-        /// Every step that has to be taken into account before deleting an object of type <typeparamref name="T"/> having
-        /// either Id or keys <paramref name="objs"/>.
-        /// <br/>
-        /// See <see cref="GenericToolsCRUDPrep.DeleteOtherPropInRelationWithTHavingTPropertyTAndTNotHavingProperty"/>, 
-        /// <see cref="GenericToolsCRUDPrep.DeleteOtherPropInRelationWithTHavingRequiredTProperty"/>,
-        /// <see cref="GenericToolsCRUDPrep.DeleteOtherPropInSeveralRelationshipsWithT"/> for more details.
-        /// <br/> 
-        /// In a nutshell :
-        /// <list type="bullet">
-        /// <item>
-        /// Every type <paramref name="q"/> in <see cref="GenericToolsTypeAnalysis.GetTypesInRelationWithTHavingTPropertyTAndTNotHavingProperty{T}"/> has to be updated
-        /// manually. 
-        /// <br/>
-        /// Indeed, <typeparamref name="T"/> has no property representing that relation, and thus no element of 
-        /// type <paramref name="q"/> will be loaded in the context and changed, wich will result in exceptions if not
-        /// taken care of.
-        /// </item>
-        /// <item>
-        /// Every type <paramref name="q"/> in <see cref="GenericToolsTypeAnalysis.GetTypesInRelationWithTHavingRequiredTProperty"/> has to be updated
-        /// manually. 
-        /// <br/>
-        /// Indeed, required properties are not handled well in EF in case of relationships, especially if they are
-        /// of type <see cref="IList"/> (an empty <see cref="List"/> is not <see langword="null"/> and the annotation
-        /// <see cref="RequiredAttribute"/> is interpreted as nullable = <see langword="false"/>)
-        /// </item>
-        /// <item>
-        /// Every type <paramref name="q"/> in <see cref="GenericToolsTypeAnalysis.GetTypesForWhichTHasManyProperties"/> has to be updated
-        /// manually. 
-        /// <br/>
-        /// Indeed, if we try to remove the object of type <typeparamref name="T"/> using EF, it will load
-        /// in the context all the properties relating to relationship with those types. The point being, there will be many
-        /// properties loaded. 
-        /// <br/>
-        /// What can happen is an object of type <paramref name="q"/> might appear multiple times and therefore
-        /// EF will load it multiple times. Thus, an element of type <paramref name="q"/> with the same primary key (or keys) will be loaded in the context,
-        /// which will throw an exception if we simply do db.Set.Delete(item). Therefore, we have to manage those
-        /// separately.
-        /// </item>
-        /// </list>
-        /// </summary>
-        /// <typeparam name="T">The type of the object to delete</typeparam>
-        /// <param name="objs">Either the Id or the keys of the object to delete</param>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsCRUD.PrepareDelete``1(System.Data.Entity.DbContext,System.Object[])"]/*'/>
         public static void PrepareDelete<T>(DbContext context, params object[] objs)
         {
             foreach (Type type in GenericToolsTypeAnalysis.GetTypesInRelationWithTHavingTPropertyTAndTNotHavingProperty<T>())
@@ -133,17 +78,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             }
         }
 
-        /// <summary>
-        /// Creates the array of all the values of properties of the element <paramref name="t"/> of type <typeparamref name="T"/>
-        /// to save that represent a relationship involving <typeparamref name="T"/>.
-        /// <br/>
-        /// Furthermore, for types appearing multiple times as properties in <typeparamref name="T"/>, set those to
-        /// <see cref="PropToNull"/> if necessary. See <see cref="GenericRepository{T}.Save(T, object[])"/> for further details.
-        /// </summary>
-        /// <typeparam name="T">The type of the element to save</typeparam>
-        /// <param name="t">The element to save</param>
-        /// <returns>The array of all the values of properties of <paramref name="t"/> representing relationships involving <typeparamref name="T"/>,
-        /// with values set to <see cref="PropToNull"/> if necessary.</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsCRUD.PrepareSave``1(``0)"]/*'/>
         public static object[] PrepareSave<T>(T t)
         {
             IEnumerable<Type> TypesForWhichTHasManyProperties = GenericToolsTypeAnalysis.GetTypesForWhichTHasManyProperties<T>();
@@ -202,23 +137,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return res;
         }
 
-        /// <summary>
-        /// Prepares update for object <paramref name="t"/> of type <typeparamref name="T"/>. Every type <paramref name="q"/> in 
-        /// <see cref="GenericToolsTypeAnalysis.GetTypesInRelationWithTHavingRequiredTProperty"/> has to be updated
-        /// manually. Indeed, required properties are not handled well in EF in case of relationships, especially if they are
-        /// of type <see cref="IList"/> (an empty <see cref="IList"/> is not <see langword="null"/> and the annotation
-        /// <see cref="RequiredAttribute"/> is interpreted as nullable = <see langword="false"/>).
-        /// <br/>
-        /// Creates the array of all the values of properties of the element <paramref name="t"/> of type <typeparamref name="T"/>
-        /// to update that represent a relationship involving <typeparamref name="T"/>.
-        /// <br/>
-        /// Furthermore, for types appearing multiple times as properties in <typeparamref name="T"/>, set those to
-        /// <see cref="PropToNull"/> if necessary. See <see cref="GenericRepository{T}.Save(T, object[])"/> for further details.
-        /// </summary>
-        /// <typeparam name="T">The type of the element to update</typeparam>
-        /// <param name="t">The element to update</param>
-        /// <returns>The array of all the values of properties of <paramref name="t"/> representing relationships involving <typeparamref name="T"/>,
-        /// with values set to <see cref="PropToNull"/> if necessary.</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsCRUD.PrepareUpdate``1(System.Data.Entity.DbContext,``0)"]/*'/>
         public static object[] PrepareUpdate<T>(DbContext context, T t)
         {
             foreach (Type type in GenericToolsTypeAnalysis.GetTypesInRelationWithTHavingRequiredTProperty<T>())
@@ -288,18 +207,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return res;
         }
 
-        /// <summary>
-        /// Prepares update for object <paramref name="t"/> of type <typeparamref name="T"/>. Every type <paramref name="q"/> in 
-        /// <see cref="GenericToolsTypeAnalysis.GetTypesInRelationWithTHavingRequiredTProperty"/> has to be updated
-        /// manually. Indeed, required properties are not handled well in EF in case of relationships, especially if they are
-        /// of type <see cref="IList"/> (an empty <see cref="IList"/> is not <see langword="null"/> and the annotation
-        /// <see cref="RequiredAttribute"/> is interpreted as nullable = <see langword="false"/>).
-        /// </summary>
-        /// <remarks>
-        /// Only the property of <paramref name="t"/> with name <paramref name="propertyName"/> will be updated.
-        /// </remarks>
-        /// <typeparam name="T">The type of the element to update</typeparam>
-        /// <param name="t">The element to update</param>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsCRUD.PrepareUpdateOne``1(System.Data.Entity.DbContext,``0,System.String)"]/*'/>
         public static void PrepareUpdateOne<T>(DbContext context, T t, string propertyName)
         {
             foreach (Type type in GenericToolsTypeAnalysis.GetTypesInRelationWithTHavingRequiredTProperty<T>())
