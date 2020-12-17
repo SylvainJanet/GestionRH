@@ -70,7 +70,7 @@ namespace MiseEnSituation.Migrations
             RenameColumn(table: "dbo.FinishedCoursesReports", name: "CourseId", newName: "TrainingCourse_Id");
             RenameColumn(table: "dbo.FinishedCoursesReports", name: "ReportId", newName: "CheckUpReport_Id");
             RenameTable(name: "dbo.RequiredSkillsPosts", newName: "SkillPosts");
-            RenameTable(name: "dbo.SkillsEmployees", newName: "SkillEmployees");
+            RenameTable(name: "dbo.SkillsEmployees", newName: "SkillsEmployees");
             RenameTable(name: "dbo.TraninedSkillsCourses", newName: "SkillTrainingCourses");
             RenameTable(name: "dbo.CoursesEnrolledEmployees", newName: "EmployeeTrainingCourses");
             RenameTable(name: "dbo.WishedCoursesReports", newName: "CheckUpReportTrainingCourse1");
