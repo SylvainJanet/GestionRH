@@ -9,14 +9,18 @@ namespace MiseEnSituation.Models
 {
     public class Skill : BaseEntity
     {
-        [Required]
+        [Required(ErrorMessage = "Description is required")]
         [MaxLength(200)]
+        [Display(Name = "Description")]
         public string Description { get; set; }
 
+        [Display(Name = "Training courses")]
         public IList<TrainingCourse> Courses { get; set; }
 
+        [Display(Name = "Posts")]
         public IList<Post> Posts { get; set; }
 
+        [Display(Name = "Employees")]
         public IList<Employee> Employees { get; set; }
 
         public Skill(string description) : this()

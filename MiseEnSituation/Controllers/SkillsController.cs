@@ -70,7 +70,7 @@ namespace MiseEnSituation.Controllers
             ViewBag.TrainingCourses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.Posts = new MultiSelectList(_PostService.GetAllExcludes(), "Id", "Description", null);
             ViewBag.Employees = new MultiSelectList(_EmployeeService.GetAllExcludes(), "Id", "Name", null);
-            return View();
+            return View(new Skill());
         }
 
         // POST: Skills/Create
@@ -91,6 +91,14 @@ namespace MiseEnSituation.Controllers
                 skill.Employees = employees;
                 _skillService.Save(skill);
                 return RedirectToAction("Index");
+            }
+            ViewBag.ErrorMessage = "";
+            foreach (var key in ModelState.Keys)
+            {
+                foreach (var error in ModelState[key].Errors)
+                {
+                    ViewBag.ErrorMessage += error.ErrorMessage + "<br/>";
+                }
             }
             ViewBag.TrainingCourses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.Posts = new MultiSelectList(_PostService.GetAllExcludes(), "Id", "Description", null);
@@ -136,6 +144,14 @@ namespace MiseEnSituation.Controllers
                 skill.Employees = employees;
                 _skillService.Update(skill);
                 return RedirectToAction("Index");
+            }
+            ViewBag.ErrorMessage = "";
+            foreach (var key in ModelState.Keys)
+            {
+                foreach (var error in ModelState[key].Errors)
+                {
+                    ViewBag.ErrorMessage += error.ErrorMessage + "<br/>";
+                }
             }
             ViewBag.TrainingCourses = new MultiSelectList(_TrainingCourseService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.Posts = new MultiSelectList(_PostService.GetAllExcludes(), "Id", "Description", null);

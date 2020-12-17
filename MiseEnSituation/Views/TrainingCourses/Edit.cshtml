@@ -88,6 +88,11 @@
         </div>
     </div>
 
+    @if(ViewBag.ErrorMessage != null)
+    {
+        <p class="alert alert-danger" role="alert">@ViewBag.ErrorMessage</p>
+    }
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-default" />
