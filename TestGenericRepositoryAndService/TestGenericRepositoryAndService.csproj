@@ -49,12 +49,49 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TestAddressService\GenericCRUD\TestAddressGenericCreate.cs" />
+    <Compile Include="TestAddressService\GenericCRUD\TestAddressGenericDelete.cs" />
+    <Compile Include="TestAddressService\GenericCRUD\TestAddressGenericRead.cs" />
+    <Compile Include="TestAddressService\GenericCRUD\TestAddressGenericUpdate.cs" />
+    <Compile Include="TestCheckUpReportService\GenericCRUD\TestCheckUpReportGenericCreate.cs" />
+    <Compile Include="TestCheckUpReportService\GenericCRUD\TestCheckUpReportGenericDelete.cs" />
+    <Compile Include="TestCheckUpReportService\GenericCRUD\TestCheckUpReportGenericRead.cs" />
+    <Compile Include="TestCheckUpReportService\GenericCRUD\TestCheckUpReportGenericUpdate.cs" />
+    <Compile Include="TestCheckUpService\GenericCRUD\TestCheckUpGenericCreate.cs" />
+    <Compile Include="TestCheckUpService\GenericCRUD\TestCheckUpGenericDelete.cs" />
+    <Compile Include="TestCheckUpService\GenericCRUD\TestCheckUpGenericRead.cs" />
+    <Compile Include="TestCheckUpService\GenericCRUD\TestCheckUpGenericUpdate.cs" />
+    <Compile Include="TestCompanyService\GenericCRUD\TestCompanyGenericCreate.cs" />
+    <Compile Include="TestCompanyService\GenericCRUD\TestCompanyGenericDelete.cs" />
+    <Compile Include="TestCompanyService\GenericCRUD\TestCompanyGenericRead.cs" />
+    <Compile Include="TestCompanyService\GenericCRUD\TestCompanyGenericUpdate.cs" />
+    <Compile Include="TestEmployeeService\GenericCRUD\TestEmployeeGenericCreate.cs" />
+    <Compile Include="TestEmployeeService\GenericCRUD\TestEmployeeGenericDelete.cs" />
+    <Compile Include="TestEmployeeService\GenericCRUD\TestEmployeeGenericRead.cs" />
+    <Compile Include="TestEmployeeService\GenericCRUD\TestEmployeeGenericUpdate.cs" />
+    <Compile Include="TestPostService\GenericCRUD\TestPostGenericCreate.cs" />
+    <Compile Include="TestPostService\GenericCRUD\TestPostGenericDelete.cs" />
+    <Compile Include="TestPostService\GenericCRUD\TestPostGenericRead.cs" />
+    <Compile Include="TestPostService\GenericCRUD\TestPostGenericUpdate.cs" />
+    <Compile Include="TestSkillService\GenericCRUD\TestSkillGenericCreate.cs" />
+    <Compile Include="TestSkillService\GenericCRUD\TestSkillGenericDelete.cs" />
+    <Compile Include="TestSkillService\GenericCRUD\TestSkillGenericRead.cs" />
+    <Compile Include="TestSkillService\GenericCRUD\TestSkillGenericUpdate.cs" />
+    <Compile Include="TestTrainingCourseService\GenericCRUD\TestTrainingCourseGenericCreate.cs" />
+    <Compile Include="TestTrainingCourseService\GenericCRUD\TestTrainingCourseGenericDelete.cs" />
+    <Compile Include="TestTrainingCourseService\GenericCRUD\TestTrainingCourseGenericRead.cs" />
+    <Compile Include="TestTrainingCourseService\GenericCRUD\TestTrainingCourseGenericUpdate.cs" />
+    <Compile Include="TestUserService\GenericCRUD\TestUserGenericCreate.cs" />
+    <Compile Include="TestUserService\GenericCRUD\TestUserGenericDelete.cs" />
+    <Compile Include="TestUserService\GenericCRUD\TestUserGenericRead.cs" />
+    <Compile Include="TestUserService\GenericCRUD\TestUserGenericUpdate.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
