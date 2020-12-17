@@ -36,7 +36,6 @@ namespace GenericRepositoryAndService.Service
         ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Service.IGenericService`1.FindAll(System.Boolean,System.Boolean,System.Int32,System.Int32,System.String)"]/*'/>
         List<T> FindAll(bool isIncludes, bool isTracked, int page = 1, int maxByPage = int.MaxValue, string searchField = "");
 
-
         ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Service.IGenericService`1.FindAllExcludes(System.Int32,System.Int32,System.String)"]/*'/>
         List<T> FindAllExcludes(int page = 1, int maxByPage = int.MaxValue, string searchField = "");
 
