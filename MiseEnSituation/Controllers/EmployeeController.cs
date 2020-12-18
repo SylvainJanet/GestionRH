@@ -22,10 +22,11 @@ namespace MiseEnSituation.Controllers
     {
         private readonly MyDbContext db = new MyDbContext();
         private readonly IGenericService<Employee> _employeeService;
-
+        private readonly ITrainingCourseService _TrainingCourseService;
         public EmployeeController()
         {
             _employeeService = new EmployeeService(new EmployeeRepository(db));
+            _TrainingCourseService = new TrainingCourseService(new TrainingCourseRepository(db));
         }
         // GET: Employee
         public ActionResult Index()
@@ -49,6 +50,11 @@ namespace MiseEnSituation.Controllers
         public ActionResult Home()
         {
            return View();
+        }
+        [HttpGet]
+        public ActionResult Formation()
+        {
+            return View();
         }
 
         // GET: Employee/Details/5
