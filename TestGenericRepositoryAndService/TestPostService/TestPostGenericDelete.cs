@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RepositoriesAndServices.Repositories;
+using RepositoriesAndServices.Services;
 using System;
 using System.Diagnostics;
 using TestGenericRepositoryAndService.TestInterfaces;
@@ -8,6 +10,8 @@ namespace TestGenericRepositoryAndService.TestPostService.GenericCRUD
     [TestClass]
     public class TestPostGenericDelete : BaseTest, ITestDelete
     {
+        PostService _PostServiceToTest = new PostService(new PostRepository(new MyDbContext()));
+
         [ClassCleanup]
         public static void ClassCleanup()
         {

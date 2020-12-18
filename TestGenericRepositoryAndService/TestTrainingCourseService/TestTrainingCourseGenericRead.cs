@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RepositoriesAndServices.Repositories;
+using RepositoriesAndServices.Services;
 using System;
 using System.Diagnostics;
 using TestGenericRepositoryAndService.TestInterfaces;
@@ -8,6 +10,8 @@ namespace TestGenericRepositoryAndService.TestTrainingCourseService.GenericCRUD
     [TestClass]
     public class TestTrainingCourseGenericRead : BaseTest, ITestRead
     {
+        TrainingCourseService _TrainingCourseServiceToTest = new TrainingCourseService(new TrainingCourseRepository(new MyDbContext()));
+
         [ClassCleanup]
         public static void ClassCleanup()
         {

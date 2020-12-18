@@ -10,7 +10,7 @@ namespace TestGenericRepositoryAndService.TestUserService.GenericCRUD
     [TestClass]
     public class TestUserGenericCreate : BaseTest, ITestCreate
     {
-        UserService _UserService = new UserService(new UserRepository(new MyDbContext()));
+        UserService _UserServiceToTest = new UserService(new UserRepository(new MyDbContext()));
 
         [ClassCleanup]
         public static void ClassCleanup()

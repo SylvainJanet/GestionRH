@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RepositoriesAndServices.Repositories;
+using RepositoriesAndServices.Services;
 using System;
 using System.Diagnostics;
 using TestGenericRepositoryAndService.TestInterfaces;
@@ -8,6 +10,8 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
     [TestClass]
     public class TestSkillGenericCreate : BaseTest, ITestCreate
     {
+        SkillService _SkillServiceToTest = new SkillService(new SkillRepository(new MyDbContext()));
+
         [ClassCleanup]
         public static void ClassCleanup()
         {

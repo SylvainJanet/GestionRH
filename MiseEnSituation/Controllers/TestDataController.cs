@@ -168,11 +168,13 @@ namespace MiseEnSituation.Controllers
 
                 //Address
 
+
                 Address a1 = new Address(1, "rue 1", "city 1", 1111, "Pays1");
                 Address a2 = new Address(2, "rue 2", "city 2", 2222, "Pays2");
                 Address a3 = new Address(3, "rue 3", "city 3", 3333, "Pays3");
                 Address a4 = new Address(4, "rue 4", "city 4", 4444, "Pays4");
                 Address a5 = new Address() { City = "Paris", Country = "France", Number = 3, Street = "ter rue d'Arsonval", ZipCode = 75015 };
+
 
                 db.Addresses.Add(a1);
                 db.Addresses.Add(a2);
@@ -182,9 +184,9 @@ namespace MiseEnSituation.Controllers
 
                 //Company
 
-                Company c1 = new Company("Company 1", a1);
-                Company c2 = new Company("Company 2", a2);
-                Company c3 = new Company("Company 3", a3);
+                Company c1 = new Company("Dawan", a1);
+                Company c2 = new Company("Jehann", a2);
+                Company c3 = new Company("Solares", a3);
                 Company c4 = new Company("Company 4", a4);
 
 
@@ -267,24 +269,6 @@ namespace MiseEnSituation.Controllers
 
                 //CheckUp
 
-                //Employee emp1 = new Employee("Employe1", "employe1@gmail.com", HashTools.ComputeSha256Hash("employee1"), UserType.EMPLOYEE, DateTime.Now, "123456789", c1, false, new List<Skill> { s1, s2 }, p1);
-                //Employee emp2 = new Employee("Employe2", "employe2@gmail.com", HashTools.ComputeSha256Hash("employee2"), UserType.EMPLOYEE, DateTime.Now, "123456789", c2, false, new List<Skill> { s3, s4 }, p2);
-
-                //Employee man1 = new Employee("Manager1", "manager1@gmail.com", HashTools.ComputeSha256Hash("manager1"), UserType.MANAGER, DateTime.Now, "456789123", c1, true, new List<Skill> { s1, s2, s3, s4 }, p1);
-                //Employee man2 = new Employee("Manager2", "manager2@gmail.com", HashTools.ComputeSha256Hash("manager2"), UserType.MANAGER, DateTime.Now, "456789123", c2, true, new List<Skill> { s5, s6, s7, s8 }, p2);
-
-                //Employee rh1 = new Employee("RH1", "rh1@gmail.com", HashTools.ComputeSha256Hash("rh1"), UserType.RH, DateTime.Now, "789123456", c1, false, new List<Skill> { s1 }, p1);
-                //Employee rh2 = new Employee("Rh2", "rh2@gmail.com", HashTools.ComputeSha256Hash("rh2"), UserType.RH, DateTime.Now, "789123456", c2, false, new List<Skill> { s2 }, p2);
-
-
-                //db.Employees.Add(emp1);
-                //db.Employees.Add(emp2);
-
-                //db.Employees.Add(man1);
-                //db.Employees.Add(man2);
-
-                //db.Employees.Add(rh1);
-                //db.Employees.Add(rh2);
 
                 //CheckUp cu1 = new CheckUp(DateTime.Now.AddDays(2), cur1, emp1, emp1.Id, man1, man1.Id, rh1, rh1.Id);
                 //CheckUp cu2 = new CheckUp(DateTime.Now.AddDays(5), cur2, emp2, emp2.Id, man2, man2.Id, rh2, rh2.Id);
