@@ -1,7 +1,6 @@
-﻿using MiseEnSituation.Models;
-using MiseEnSituation.Repositories;
-using MiseEnSituation.Services;
-using MiseEnSituation.Tools;
+﻿using Model.Models;
+using RepositoriesAndServices.Repositories;
+using RepositoriesAndServices.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +10,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using Tools.Tools;
 
 namespace MiseEnSituation.Filters
 {

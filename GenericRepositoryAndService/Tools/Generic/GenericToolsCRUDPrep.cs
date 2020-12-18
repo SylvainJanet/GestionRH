@@ -13,12 +13,12 @@ namespace GenericRepositoryAndService.Tools.Generic
         /// <include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsCRUDPrep.GetServiceFromContext(System.Data.Entity.DbContext,System.Type)"]/*'/>
         private static dynamic GetServiceFromContext(DbContext context, Type t)
         {
-            Type typetRepository = Assembly.GetAssembly(t)
+            Type typetRepository = Assembly.GetAssembly(context.GetType())
                                            .GetTypes()
                                            .Single(typ => 
                                                    typ.Name == t.Name + "Repository"
                                                    );
-            Type typetService = Assembly.GetAssembly(t)
+            Type typetService = Assembly.GetAssembly(context.GetType())
                                         .GetTypes()
                                         .Single(typ => 
                                                 typ.Name == t.Name + "Service"

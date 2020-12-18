@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "Exceptions\Exceptions.csproj", "{32677179-D820-402A-B9EF-A9E071ECC5C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoriesAndServices", "RepositoriesAndServices\RepositoriesAndServices.csproj", "{D840ABAB-6451-47AF-A3B7-D7A125FF760D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tools", "Tools\Tools.csproj", "{91F11F72-5E84-4C92-98B7-7280BB6FFB20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{32677179-D820-402A-B9EF-A9E071ECC5C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32677179-D820-402A-B9EF-A9E071ECC5C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32677179-D820-402A-B9EF-A9E071ECC5C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D840ABAB-6451-47AF-A3B7-D7A125FF760D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D840ABAB-6451-47AF-A3B7-D7A125FF760D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D840ABAB-6451-47AF-A3B7-D7A125FF760D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D840ABAB-6451-47AF-A3B7-D7A125FF760D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91F11F72-5E84-4C92-98B7-7280BB6FFB20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91F11F72-5E84-4C92-98B7-7280BB6FFB20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91F11F72-5E84-4C92-98B7-7280BB6FFB20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91F11F72-5E84-4C92-98B7-7280BB6FFB20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

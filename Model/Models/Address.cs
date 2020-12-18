@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace MiseEnSituation.Models
+namespace Model.Models
 {
     [ComplexType]
     public class Address : EntityWithKeys

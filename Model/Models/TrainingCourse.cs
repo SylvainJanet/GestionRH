@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace MiseEnSituation.Models
+namespace Model.Models
 {
     public class TrainingCourse : BaseEntity
     {
