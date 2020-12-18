@@ -1998,6 +1998,7 @@
 			<param name="objs">Either the Id of the object to delete, or its keys values.</param>
 			<returns>The list of elements.</returns>
 			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.IdListEmptyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.GenericService`1.FindManyByIdExcludes(System.Object[])">
 			<summary>
@@ -2020,6 +2021,7 @@
 				The element, if found, <see langword="null"/> otherwise.
 			</returns>
 			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.IdListEmptyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.GenericService`1.FindManyByIdExcludesTracked(System.Object[])">
 			<summary>
@@ -2042,6 +2044,7 @@
 				The element, if found, <see langword="null"/> otherwise.
 			</returns>
 			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.IdListEmptyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.GenericService`1.FindManyByIdIncludes(System.Object[])">
 			<summary>
@@ -2064,6 +2067,7 @@
 				The element, if found, <see langword="null"/> otherwise.
 			</returns>
 			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.IdListEmptyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.GenericService`1.FindManyByIdIncludesTracked(System.Object[])">
 			<summary>
@@ -2086,6 +2090,7 @@
 				The element, if found, <see langword="null"/> otherwise.
 			</returns>
 			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.IdListEmptyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.GenericService`1.GetAllBy(System.Boolean,System.Boolean,System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
 			<summary>
@@ -2342,6 +2347,7 @@
 				Deletes the element with either Id or keys <paramref name="objs"/>.
 			</summary>
 			<param name="objs">Either the Id or keys</param>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.GenericService`1.Delete(`0)">
 			<summary>
@@ -2387,6 +2393,9 @@
 			<param name="newValue">
 				The new value of the property with name <paramref name="propertyName"/>
 			</param>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.PropertyNameNotFoundException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.CannotWriteReadOnlyPropertyException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidArgumentsForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.GenericService`1.UpdateOneCrypted(`0,System.String,System.Object)">
 			<summary>
@@ -2401,6 +2410,9 @@
 			<param name="newValue">
 				The new value of the property with name <paramref name="propertyName"/>
 			</param>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.PropertyNameNotFoundException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.CannotWriteReadOnlyPropertyException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidArgumentsForClassException"/>
 		</member>
 		<member name="T:GenericRepositoryAndService.Service.IGenericService`1">
 			<summary>
@@ -2490,6 +2502,7 @@
 				Deletes the element with either Id or keys <paramref name="objs"/>.
 			</summary>
 			<param name="objs">Either the Id or keys</param>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.IGenericService`1.Delete(`0)">
 			<summary>
@@ -2740,6 +2753,7 @@
 				The element, if found, <see langword="null"/> otherwise.
 			</returns>
 			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.IdListEmptyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.IGenericService`1.FindManyByIdExcludes(System.Object[])">
 			<summary>
@@ -2762,6 +2776,7 @@
 				The element, if found, <see langword="null"/> otherwise.
 			</returns>
 			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.IdListEmptyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.IGenericService`1.FindManyByIdExcludesTracked(System.Object[])">
 			<summary>
@@ -2784,6 +2799,7 @@
 				The element, if found, <see langword="null"/> otherwise.
 			</returns>
 			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.IdListEmptyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.IGenericService`1.FindManyByIdIncludes(System.Object[])">
 			<summary>
@@ -2806,6 +2822,7 @@
 				The element, if found, <see langword="null"/> otherwise.
 			</returns>
 			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.IdListEmptyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.IGenericService`1.FindManyByIdIncludesTracked(System.Object[])">
 			<summary>
@@ -2828,6 +2845,7 @@
 				The element, if found, <see langword="null"/> otherwise.
 			</returns>
 			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidKeyForClassException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.IdListEmptyForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.IGenericService`1.GetAll(System.Boolean,System.Boolean,System.Int32,System.Int32,System.Linq.Expressions.Expression{System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}}},System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
 			<summary>
@@ -3117,6 +3135,9 @@
 			<param name="newValue">
 				The new value of the property with name <paramref name="propertyName"/>
 			</param>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.PropertyNameNotFoundException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.CannotWriteReadOnlyPropertyException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidArgumentsForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Service.IGenericService`1.UpdateOneCrypted(`0,System.String,System.Object)">
 			<summary>
@@ -3131,6 +3152,9 @@
 			<param name="newValue">
 				The new value of the property with name <paramref name="propertyName"/>
 			</param>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.PropertyNameNotFoundException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.CannotWriteReadOnlyPropertyException"/>
+			<exception cref="T:GenericRepositoryAndService.Exceptions.InvalidArgumentsForClassException"/>
 		</member>
 		<member name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsCRUD.FindByKeysInNewContextForType(System.Type,System.Data.Entity.DbContext,System.Object[])">
 			<summary>
