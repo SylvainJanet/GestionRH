@@ -201,10 +201,10 @@ namespace MiseEnSituation.Controllers
 
                 //Address
 
-                Address a1 = new Address(1, "rue 1", "city 1", 1111, "Pays1");
-                Address a2 = new Address(2, "rue 2", "city 2", 2222, "Pays2");
-                Address a3 = new Address(3, "rue 3", "city 3", 3333, "Pays3");
-                Address a4 = new Address(4, "rue 4", "city 4", 4444, "Pays4");
+                Address a1 = new Address(1, "Rue Jean Renoir", "Paris", 1111, "France");
+                Address a2 = new Address(2, "Rue Du maraicher", "Nantes", 2222, "France");
+                Address a3 = new Address(3, "Rue Du general", "Toulouse", 3333, "France");
+                Address a4 = new Address(4, "Rue De la foie", "Marseille", 4444, "France");
 
                 db.Addresses.Add(a1);
                 db.Addresses.Add(a2);
@@ -213,9 +213,9 @@ namespace MiseEnSituation.Controllers
 
                 //Company
 
-                Company c1 = new Company("Company 1", a1);
-                Company c2 = new Company("Company 2", a2);
-                Company c3 = new Company("Company 3", a3);
+                Company c1 = new Company("Dawan", a1);
+                Company c2 = new Company("Jehann", a2);
+                Company c3 = new Company("Solares", a3);
                 Company c4 = new Company("Company 4", a4);
 
 
