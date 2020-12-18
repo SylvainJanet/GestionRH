@@ -13,10 +13,10 @@ namespace MiseEnSituation.Models
         public string Content { get; set; }
 
         [InverseProperty("ReportsFinished")]
-        public List<TrainingCourse> FinishedCourses { get; set; }
+        public IList<TrainingCourse> FinishedCourses { get; set; }
 
         [InverseProperty("ReportsWished")]
-        public List<TrainingCourse> WishedCourses { get; set; }
+        public IList<TrainingCourse> WishedCourses { get; set; }
 
         public CheckUpReport(string content) : this()
         {

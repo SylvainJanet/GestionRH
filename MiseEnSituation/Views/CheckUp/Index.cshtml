@@ -31,13 +31,13 @@
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Employee.Name)
+            @Html.DisplayFor(modelItem => item.EmployeeId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Manager.Name)
+            @Html.DisplayFor(modelItem => item.ManagerId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RH.Name)
+            @Html.DisplayFor(modelItem => item.RHId)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

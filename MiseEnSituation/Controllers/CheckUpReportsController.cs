@@ -20,13 +20,11 @@ namespace MiseEnSituation.Controllers
     {
         private readonly MyDbContext db = new MyDbContext();
         private readonly ICheckUpReportService _checkUpReport;
-        private readonly ITrainingCourseService trainingCourseService;
-        private readonly ITrainingCourseService _TrainedCoursesService;
+        private readonly ITrainingCourseService _trainingCourseService;
         public CheckUpReportsController()
         {
             _checkUpReport = new CheckUpReportService(new CheckUpReportRepository(db));
-            trainingCourseService = new TrainingCourseService(new TrainingCourseRepository(db));
-            _TrainedCoursesService = new TrainingCourseService(new TrainingCourseRepository(db));
+            _trainingCourseService = new TrainingCourseService(new TrainingCourseRepository(db));
         }
         // GET: CheckUpReports
         public ActionResult Index()
@@ -52,8 +50,9 @@ namespace MiseEnSituation.Controllers
         // GET: CheckUpReports/Create
         public ActionResult Create()
         {
-            ViewBag.FinishedCourses = new MultiSelectList(trainingCourseService.GetAllExcludes(), "Id", "Name", null);
-            ViewBag.WishedCourses = new MultiSelectList(trainingCourseService.GetAllExcludes(), "Id", "Name", null);
+
+            ViewBag.FinishedCourses = new MultiSelectList(_trainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            ViewBag.WishedCourses = new MultiSelectList(_trainingCourseService.GetAllExcludes(), "Id", "Name", null);
             
             return View();
         }
@@ -65,11 +64,13 @@ namespace MiseEnSituation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Content,TrainedCourses,WishedCourses")] CheckUpReport checkUpReport, int?[] FinishedCourses,int?[] WishedCourses)
         {
-            if (ModelState.IsValid && FinishedCourses!= null && WishedCourses!=null)
+            if (ModelState.IsValid && FinishedCourses!= null)
             {
-                List<TrainingCourse> _finishedCourses = _TrainedCoursesService.FindManyByIdExcludes(FinishedCourses);
-                List<TrainingCourse>_whishedCourses = _TrainedCoursesService.FindManyByIdExcludes(WishedCourses);
-               // _checkUpReport.Update(checkUpReport, _finishedCourses, _whishedCourses);
+                List<TrainingCourse> _finishedCourses = _trainingCourseService.FindManyByIdExcludes(FinishedCourses);
+                List<TrainingCourse>_whishedCourses = _trainingCourseService.FindManyByIdExcludes(WishedCourses);
+                checkUpReport.FinishedCourses = _finishedCourses;
+                checkUpReport.WishedCourses = _whishedCourses;
+                _checkUpReport.Update(checkUpReport);
                 return RedirectToAction("Index");
             }
 
