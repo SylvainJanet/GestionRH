@@ -1,19 +1,6 @@
 ﻿namespace GenericRepositoryAndService.Models
 {
-    /// <summary>
-    /// Every classes with an Id have to derive from this class to be
-    /// properly handled by the generic repository and service
-    /// <br/>
-    /// Furthermore,
-    /// <list type="bullet">
-    /// <item>
-    /// For a class t with name "TName", the corresponding repository has to be named "TNameRepository"
-    /// </item>
-    /// <item>
-    /// For a class t with name "TName", the corresponding service has to be named "TNameService"
-    /// </item>
-    /// </list>
-    /// </summary>
+    /// <include file='docs.xml' path='doc/members/member[@name="T:GenericRepositoryAndService.Models.BaseEntity"]/*'/>
     public abstract class BaseEntity
     {
         public int? Id { get; set; }

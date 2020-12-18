@@ -9,22 +9,22 @@ using System.Web;
 
 namespace MiseEnSituation.Services
 {
-    public class AddressService: GenericService<Address>
+    public class AddressService : GenericService<Address> , IAddressService
     {
-        public AddressService(AddressRepository addressRepository):base(addressRepository)
+        public AddressService(IAddressRepository addressRepository) : base(addressRepository)
         {
 
         }
 
         public override Expression<Func<IQueryable<Address>, IOrderedQueryable<Address>>> OrderExpression()
         {
-            return req => req.OrderBy(s => s.City);
+            return req => req.OrderBy(a => a.City);
         }
 
         public override Expression<Func<Address, bool>> SearchExpression(string searchField = "")
         {
             searchField = searchField.Trim().ToLower();
-            return s => s.City.Trim().ToLower().Contains(searchField);
+            return a => a.City.Contains(searchField);
         }
     }
 }

@@ -22,7 +22,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Rechercher" class="btn btn-default" />
+                <input type="submit" value="Rechercher" class="btn btn-success" />
             </div>
         </div>
     </div>
@@ -65,9 +65,9 @@
                 @Html.DropDownListFor(modelItem => item.Employees, new SelectList(item.Employees.Select(o => o.Name), null, item.Employees.Select(o => o.Name)), htmlAttributes: new { @class = "form-control" })
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "badge badge-pill badge-primary" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "badge badge-pill badge-info" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "badge badge-pill badge-danger" })
             </td>
         </tr>
     }

@@ -5,12 +5,7 @@ namespace GenericRepositoryAndService.Tools.Generic
 {
     public abstract class GenericToolsCRUDCrypt
     {
-        /// <summary>
-        /// Crypt every password of <paramref name="t"/> of type <typeparamref name="T"/> using <see cref="HashTools.ComputeSha256Hash(string)"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the object</typeparam>
-        /// <param name="t">The object</param>
-        /// <returns>The object crypted</returns>
+        /// <include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsCRUDCrypt.Crypt``1(``0)"]/*'/>
         public static T Crypt<T>(T t)
         {
             T res = t;
@@ -27,14 +22,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return res;
         }
 
-        /// <summary>
-        /// Crypt every password that have changed from <paramref name="told"/> to <paramref name="tnew"/> of type <typeparamref name="T"/> using
-        /// <see cref="HashTools.ComputeSha256Hash(string)"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the object</typeparam>
-        /// <param name="told">The old value of the item, still in DB</param>
-        /// <param name="tnew">The new value of the item, with passwords to crypt if changed</param>
-        /// <returns>The item crypted</returns>
+        /// <include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsCRUDCrypt.CryptIfUpdated``1(``0,``0)"]/*'/>
         public static T CryptIfUpdated<T>(T told, T tnew)
         {
             T res = tnew;
@@ -54,16 +42,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return res;
         }
 
-        /// <summary>
-        /// Crypt the property <paramref name="propertyName"/> of the object <paramref name="tnew"/> of type <typeparamref name="T"/>
-        /// if its value changed using <see cref="HashTools.ComputeSha256Hash(string)"/>.
-        /// </summary>
-        /// <typeparam name="T">The type of the object</typeparam>
-        /// <param name="told">The old value of the item, still in DB</param>
-        /// <param name="tnew">The new value of the item</param>
-        /// <param name="propertyName">The name of the property to change</param>
-        /// <param name="newValue">The new value</param>
-        /// <returns>The object crypted</returns>
+        /// <include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsCRUDCrypt.CryptIfUpdatedOne``1(``0,``0,System.String,System.Object)"]/*'/>
         public static T CryptIfUpdatedOne<T>(T told, T tnew, string propertyName, object newValue)
         {
             T res = tnew;

@@ -30,7 +30,7 @@ namespace MiseEnSituation.Controllers
         // GET: Employee
         public ActionResult Index()
         {
-            return View(db.Employees.ToList());
+            return View(_employeeService.GetAll(false,true,1,857458));
         }
 
         [HttpGet]

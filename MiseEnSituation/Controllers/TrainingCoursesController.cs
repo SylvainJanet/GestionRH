@@ -71,7 +71,7 @@ namespace MiseEnSituation.Controllers
             ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
             ViewBag.CheckUpReportsFinished = new MultiSelectList(_CheckUpReportService.GetAllExcludes(), "Id", "Content", null);
             ViewBag.CheckUpReportsWished = ViewBag.CheckUpReportsFinished;
-            return View();
+            return View(new TrainingCourse());
         }
 
         // POST: TrainingCourses/Create
@@ -95,8 +95,16 @@ namespace MiseEnSituation.Controllers
                _TrainingCourseService.SaveCrypted(trainingCourse);
                 return RedirectToAction("Index");
             }
+            ViewBag.ErrorMessage = "";
+            foreach (var key in ModelState.Keys)
+            {
+                foreach (var error in ModelState[key].Errors)
+                {
+                    ViewBag.ErrorMessage += error.ErrorMessage + "<br/>";
+                }
+            }
             if (TrainedSkills == null)
-                ViewBag.ErrorSkillsMessage = "At least one skill must be selected";
+                ViewBag.ErrorMessage = "At least one skill must be selected";
 
             ViewBag.Employees = new MultiSelectList(_employeeService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);
@@ -147,8 +155,16 @@ namespace MiseEnSituation.Controllers
                 _TrainingCourseService.Update(trainingCourse);
                 return RedirectToAction("Index");
             }
+            ViewBag.ErrorMessage = "";
+            foreach (var key in ModelState.Keys)
+            {
+                foreach (var error in ModelState[key].Errors)
+                {
+                    ViewBag.ErrorMessage += error.ErrorMessage + "<br/>";
+                }
+            }
             if (TrainedSkills == null)
-                ViewBag.ErrorSkillsMessage = "At least one skill must be selected";
+                ViewBag.ErrorMessage = "At least one skill must be selected";
 
             ViewBag.Employees = new MultiSelectList(_employeeService.GetAllExcludes(), "Id", "Name", null);
             ViewBag.TrainedSkills = new MultiSelectList(_SkillService.GetAllExcludes(), "Id", "Description", null);

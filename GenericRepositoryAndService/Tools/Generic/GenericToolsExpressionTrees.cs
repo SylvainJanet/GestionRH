@@ -9,29 +9,7 @@ namespace GenericRepositoryAndService.Tools.Generic
 {
     public abstract class GenericToolsExpressionTrees
     {
-        /// <summary>
-        /// Construct the expression tree for a lambda expression (<c>o => o.prop == value</c>) dynamically
-        /// <br/>
-        /// Purpose : LINQ to SQL interpretation will be successfull. 
-        /// Something using reflection such as 
-        /// <br/>
-        /// <c>o => o.GetType().GetProperty("prop").GetValue(o)==value</c>
-        /// <br/>
-        /// doesn't work : LINQ to ENTITY won't work.
-        /// <br/>
-        /// The object is of type <typeparamref name="TItem"/>, value is of type <typeparamref name="TValue"/>, 
-        /// the property to check is <paramref name="property"/> and the value is <paramref name="value"/>.
-        /// </summary>
-        /// <remarks>
-        /// Thanks internet for this one (had to modify it a little bit though)
-        /// </remarks>
-        /// <typeparam name="TItem">The type of the object the lambda expression will test whether or not the 
-        /// property <paramref name="property"/> is equal to <paramref name="value"/></typeparam>
-        /// <typeparam name="TValue">Tje type of <paramref name="value"/></typeparam>
-        /// <param name="property">The property</param>
-        /// <param name="value">The value</param>
-        /// <returns>The lambda expression properly constructed so that LINQ to SQL interpretation will be
-        /// successfull</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsExpressionTrees.PropertyEquals``1(System.Reflection.PropertyInfo,System.Object)"]/*'/>
         public static Expression<Func<TItem, bool>> PropertyEquals<TItem>(PropertyInfo property, object value)
         {
             var param = Expression.Parameter(typeof(TItem));
@@ -42,25 +20,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return Expression.Lambda<Func<TItem, bool>>(body, param);
         }
 
-        /// <summary>
-        /// Construct the expression tree for a lambda expression (<c>o => o.prop</c>) dynamically
-        /// <br/>
-        /// Purpose : LINQ to SQL interpretation will be successfull. 
-        /// Something using reflection such as 
-        /// <br/>
-        /// <c>o => o.GetType().GetProperty("prop").GetValue(o)</c>
-        /// <br/>
-        /// doesn't work : LINQ to ENTITY won't work.
-        /// <br/>
-        /// The object is of type <typeparamref name="TItem"/>, 
-        /// the property to specify is <paramref name="property"/> and is of type <typeparamref name="TKey"/>.
-        /// </summary>
-        /// <typeparam name="TItem">The type of the object the lambda expression will specify the property
-        /// <paramref name="property"/>.</typeparam>
-        /// <typeparam name="TKey">The type of the property <paramref name="property"/></typeparam>
-        /// <param name="property">The property to specify</param>
-        /// <returns>The lambda expression properly constructed so that LINQ to SQL interpretation will be
-        /// successfull</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsExpressionTrees.GetKey``2(System.Reflection.PropertyInfo)"]/*'/>
         public static Expression<Func<TItem, TKey>> GetKey<TItem, TKey>(PropertyInfo property)
         {
             var param = Expression.Parameter(typeof(TItem));
@@ -69,14 +29,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return Expression.Lambda<Func<TItem, TKey>>(bodyconverted, param);
         }
 
-        /// <summary>
-        /// Build the expression tree for <c>o => (o.prop1.prop2 == value)</c> where o is of type <typeparamref name="TItem"/>.
-        /// </summary>
-        /// <typeparam name="TItem">The type of item at the root of the expression tree</typeparam>
-        /// <param name="prop1">The first property to access</param>
-        /// <param name="prop2">The second property to access</param>
-        /// <param name="value">The value</param>
-        /// <returns>The expression tree</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsExpressionTrees.ExpressionPropPropEquals``1(System.Reflection.PropertyInfo,System.Reflection.PropertyInfo,System.Object)"]/*'/>
         public static Expression<Func<TItem, bool>> ExpressionPropPropEquals<TItem>(PropertyInfo prop1, PropertyInfo prop2, object value)
         {
             var param = Expression.Parameter(typeof(TItem));
@@ -88,12 +41,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return Expression.Lambda<Func<TItem, bool>>(body, param);
         }
 
-        /// <summary>
-        /// Build the expression tree for <c>o => o.prop != null</c> where o is of type <typeparamref name="TItem"/>.
-        /// </summary>
-        /// <typeparam name="TItem">The type of item at the root of the expression tree</typeparam>
-        /// <param name="prop">The property to access</param>
-        /// <returns>The expression tree</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsExpressionTrees.PropertyKeysNotNull``1(System.Reflection.PropertyInfo)"]/*'/>
         public static Expression<Func<TItem, bool>> PropertyKeysNotNull<TItem>(PropertyInfo prop)
         {
             var param = Expression.Parameter(typeof(TItem));
@@ -105,15 +53,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return Expression.Lambda<Func<TItem, bool>>(body, param);
         }
 
-        /// <summary>
-        /// Get an expression tree with principal root of type <typeparamref name="T"/>, checking whether or not
-        /// the element has either Id or keys equal to <paramref name="objs"/>.
-        /// <br/>
-        /// Essentially, does either <c>t => t.Id == id</c> or <c>t => t.key1 == key1value &amp;&amp; ... &amp;&amp; t.keyn = keynvalue</c>
-        /// </summary>
-        /// <typeparam name="T">The type in question</typeparam>
-        /// <param name="objs">Either the Id or the keys</param>
-        /// <returns>The expression tree</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsExpressionTrees.ExpressionWhereKeysAre``1(System.Object[])"]/*'/>
         public static Expression<Func<T, bool>> ExpressionWhereKeysAre<T>(params object[] objs)
         {
             var param = Expression.Parameter(typeof(T));
@@ -156,20 +96,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return Expression.Lambda<Func<T, bool>>(body, param);
         }
 
-        /// <summary>
-        /// Get an expression tree having root of type <typeparamref name="Q"/>. These elements have a property <paramref name="prop"/>
-        /// which is a list of elements of type <typeparamref name="T"/>. 
-        /// <br/>
-        /// This returns essentially : <c>q => q.prop.Where(t => t.keysorId == objs).Count() >= 1</c>
-        /// <br/>
-        /// That is to say, for an element of type <typeparamref name="Q"/> so that their property <paramref name="prop"/> is
-        /// a <see cref="IList{T}"/>, whether or not it contains an element with either Id or Key given by <paramref name="objs"/>.
-        /// </summary>
-        /// <typeparam name="T">The most nested type</typeparam>
-        /// <typeparam name="Q">The type of the expression tree root</typeparam>
-        /// <param name="prop">The property of <typeparamref name="Q"/> in question</param>
-        /// <param name="objs">Either the Id or the Key</param>
-        /// <returns>The expression tree.</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsExpressionTrees.ExpressionListWherePropListCountainsElementWithGivenKeys``2(System.Reflection.PropertyInfo,System.Object[])"]/*'/>
         public static Expression<Func<Q, bool>> ExpressionListWherePropListCountainsElementWithGivenKeys<T, Q>(PropertyInfo prop, params object[] objs)
         {
             var param = Expression.Parameter(typeof(Q));
@@ -210,20 +137,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return Expression.Lambda<Func<Q, bool>>(body, param);
         }
 
-        /// <summary>
-        /// Get an expression tree having root of type <typeparamref name="Q"/>. These elements have a property <paramref name="prop"/>
-        /// which is a list of elements of type <typeparamref name="T"/>. 
-        /// <br/>
-        /// This returns essentially : <c>q => q.prop.Where(t => t.keysorId == objs).Count() == 1 &amp;&amp; q.prop.Count() == 1</c>
-        /// <br/>
-        /// That is to say, for an element of type <typeparamref name="Q"/> so that their property <paramref name="prop"/> is
-        /// a <see cref="IList{T}"/>, whether or not it contains only an element with either Id or Key given by <paramref name="objs"/>.
-        /// </summary>
-        /// <typeparam name="T">The most nested type</typeparam>
-        /// <typeparam name="Q">The type of the expression tree root</typeparam>
-        /// <param name="prop">The property of <typeparamref name="Q"/> in question</param>
-        /// <param name="objs">Either the Id or the Key</param>
-        /// <returns>The expression tree.</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsExpressionTrees.ExpressionListWherePropListCountainsOnlyElementWithGivenKeys``2(System.Reflection.PropertyInfo,System.Object[])"]/*'/>
         public static Expression<Func<Q, bool>> ExpressionListWherePropListCountainsOnlyElementWithGivenKeys<T, Q>(PropertyInfo prop, params object[] objs)
         {
             var param = Expression.Parameter(typeof(Q));
@@ -277,17 +191,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return Expression.Lambda<Func<Q, bool>>(body, param);
         }
 
-        /// <summary>
-        /// Create an expression tree with principal root of type <typeparamref name="T"/> so that
-        /// one of the keys is different than the given <paramref name="objs"/>
-        /// <br/>
-        /// Essentially gives <c>t => t.key1 != key1value || ... || t.keyn != keynvalue</c>
-        /// </summary>
-        /// <remarks>It is assumed that <paramref name="objs"/> are keys and not an Id. See <see cref="ExpressionListRemoveElementWithGivenId{T}(int?)"/>
-        /// to see the other case.</remarks>
-        /// <typeparam name="T">The type invistigated</typeparam>
-        /// <param name="objs">Either the Id or the Keys</param>
-        /// <returns>The expression tree</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsExpressionTrees.ExpressionListRemoveElementWithGivenKeys``1(System.Object[])"]/*'/>
         public static Expression<Func<T, bool>> ExpressionListRemoveElementWithGivenKeys<T>(params object[] objs)
         {
             var param = Expression.Parameter(typeof(T));
@@ -318,17 +222,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return Expression.Lambda<Func<T, bool>>(body, param);
         }
 
-        /// <summary>
-        /// Create an expression tree with principal root of type <typeparamref name="T"/> so that the
-        /// Id is different from the given <paramref name="id"/> 
-        /// <br/>
-        /// Essentially gives <c>t => t.Id != id</c>
-        /// </summary>
-        /// <remarks>It is assumed that the Id is given, not keys. See <see cref="ExpressionListRemoveElementWithGivenKeys{T}(object[])"/>
-        /// to see the other case.</remarks>
-        /// <typeparam name="T">The type invistigated</typeparam>
-        /// <param name="objs">Either the Id or the Keys</param>
-        /// <returns>The expression tree</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsExpressionTrees.ExpressionListRemoveElementWithGivenId``1(System.Nullable{System.Int32})"]/*'/>
         public static Expression<Func<T, bool>> ExpressionListRemoveElementWithGivenId<T>(int? id)
         {
             var param = Expression.Parameter(typeof(T));
@@ -345,20 +239,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return Expression.Lambda<Func<T, bool>>(body, param);
         }
 
-        /// <summary>
-        /// Get an expression tree having root of type <typeparamref name="Q"/>. These elements have properties <paramref name="prop"/>
-        /// which is a list of elements of type <typeparamref name="T"/>. 
-        /// <br/>
-        /// This returns essentially : <c>q => q.prop1.Where(t => t.keysorId == objs).Count() >= 1 &amp;&amp; ... &amp;&amp; q.propn.Where(t => t.keysorId == objs).Count() >= 1</c>
-        /// <br/>
-        /// That is to say, for an element of type <typeparamref name="Q"/> so that their properties <paramref name="propnames"/> is
-        /// a <see cref="IList{T}"/>, whether or not all of them contains an element with either Id or Key given by <paramref name="objs"/>.
-        /// </summary>
-        /// <typeparam name="T">The most nested type</typeparam>
-        /// <typeparam name="Q">The type of the expression tree root</typeparam>
-        /// <param name="propnames">The properties names of <typeparamref name="Q"/> in question</param>
-        /// <param name="objs">Either the Id or the Key</param>
-        /// <returns>The expression tree.</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsExpressionTrees.ExpressionListWhereMultiplePropListCountainsElementWithGivenKeys``2(System.Collections.Generic.List{System.String},System.Object[])"]/*'/>
         public static Expression<Func<Q, bool>> ExpressionListWhereMultiplePropListCountainsElementWithGivenKeys<T, Q>(List<string> propnames, params object[] objs)
         {
             var param = Expression.Parameter(typeof(Q));
@@ -420,19 +301,7 @@ namespace GenericRepositoryAndService.Tools.Generic
             return Expression.Lambda<Func<Q, bool>>(body, param);
         }
 
-        /// <summary>
-        /// Get an expression tree having principal root of type <typeparamref name="Q"/>, for testing whether or not an element
-        /// <paramref name="newItem"/> of type <typeparamref name="T"/> with property <paramref name="tPropName"/> of type <see cref="IList{Q}"/>
-        /// does not contain the element tested.
-        /// <br/>
-        /// Essentially, does <c>q => !newitem.tpropname.Where(qq => qq.Id == q.Id).Count() == 1)</c>
-        /// </summary>
-        /// <typeparam name="T">The type of the <paramref name="newItem"/></typeparam>
-        /// <typeparam name="Q">The type of the elements invistigated</typeparam>
-        /// <param name="newItem">The object</param>
-        /// <param name="tPropName">The name of the property of <typeparamref name="T"/> in question</param>
-        /// <param name="nbr">The number of keys for objects of type <typeparamref name="Q"/> if appropriate</param>
-        /// <returns>The expression tree</returns>
+        ///<include file='docs.xml' path='doc/members/member[@name="M:GenericRepositoryAndService.Tools.Generic.GenericToolsExpressionTrees.ExpressionListWhereOtherTypePropListNotContains``2(``0,System.String,System.Int32)"]/*'/>
         public static Expression<Func<Q, bool>> ExpressionListWhereOtherTypePropListNotContains<T, Q>(T newItem, string tPropName, int nbr = 1)
         {
             var param = Expression.Parameter(typeof(Q));

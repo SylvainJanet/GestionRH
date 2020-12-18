@@ -7,7 +7,7 @@ using System.Web;
 
 namespace MiseEnSituation.Repositories
 {
-    public class AddressRepository: GenericRepository<Address>
+    public class AddressRepository : GenericRepository<Address> , IAddressRepository
     {
         public AddressRepository(MyDbContext db) : base(db)
         {
