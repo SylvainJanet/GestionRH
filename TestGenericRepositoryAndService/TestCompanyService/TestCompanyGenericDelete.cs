@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RepositoriesAndServices.Repositories;
+using RepositoriesAndServices.Services;
 using System;
 using System.Diagnostics;
 using TestGenericRepositoryAndService.TestInterfaces;
@@ -8,6 +10,8 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
     [TestClass]
     public class TestCompanyGenericDelete : BaseTest, ITestDelete
     {
+        CompanyService _CompanyServiceToTest = new CompanyService(new CompanyRepository(new MyDbContext()));
+
         [ClassCleanup]
         public static void ClassCleanup()
         {

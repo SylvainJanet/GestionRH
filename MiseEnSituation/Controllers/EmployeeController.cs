@@ -10,6 +10,7 @@ namespace MiseEnSituation.Controllers
     
     public class EmployeeControler : Controller
     {
+
         // GET: Employee
         public ActionResult Index()
         {
