@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntityConfigurations\SkillConfiguration.cs" />
+    <Compile Include="EntityConfigurations\TrainingCourseConfiguration.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\CheckUp.cs" />
     <Compile Include="Models\CheckUpReport.cs" />
