@@ -91,10 +91,9 @@ namespace MiseEnSituation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract,Description,CompanyId")] Post post)
         {
-            if (post.CompanyId.HasValue)
-            {
-                post.Company = _companyService.FindByIdIncludes(post.CompanyId);
-            }
+            
+            post.Company = _companyService.FindByIdIncludes(post.CompanyId);
+            
             ModelState.Remove("post.Company");
 
             if (ModelState.IsValid)
