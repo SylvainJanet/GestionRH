@@ -31,7 +31,7 @@ namespace MiseEnSituation.Controllers
         }
         // GET: Post
 
-        [HttpGet]
+        //[HttpGet]
         public ActionResult Index()
         {
             lstPost = _postService.FindAllIncludes();
@@ -53,8 +53,8 @@ namespace MiseEnSituation.Controllers
             ViewBag.SearchField = SearchField;
             return View("Index", lstPost);
         }
-            // GET: Post/Details/5
-            public ActionResult Details(int? id)
+        // GET: Post/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -91,9 +91,9 @@ namespace MiseEnSituation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract,Description,CompanyId")] Post post)
         {
-            
+
             post.Company = _companyService.FindByIdIncludes(post.CompanyId);
-            
+
             ModelState.Remove("post.Company");
 
             if (post.HiringDate.Year < 1970)
@@ -134,6 +134,8 @@ namespace MiseEnSituation.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CompanyList = _companyService.GetAllExcludes();
+
             return View(post);
         }
 
@@ -143,8 +145,12 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit")]
-        public ActionResult Edit([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract, Description")] Post post)
+        public ActionResult Edit([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract,Description,CompanyId")] Post post)
         {
+            post.Company = _companyService.FindByIdIncludes(post.CompanyId);
+
+            ModelState.Remove("post.Company");
+
             if (post.HiringDate.Year < 1970)
             {
                 ModelState.AddModelError("HiringDate", "Date invalid");
@@ -153,13 +159,22 @@ namespace MiseEnSituation.Controllers
             {
                 ModelState.AddModelError("EndDate", "Date invalid");
             }
+
             if (ModelState.IsValid)
             {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
+                _postService.Update(post);
                 return RedirectToAction("Index");
             }
+            else
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                                       .Where(y => y.Count > 0)
+                                       .ToList();
+            }
+            ViewBag.CompanyList = _companyService.GetAllExcludes();
             return View(post);
+
+
         }
 
         // GET: Post/Delete/5
