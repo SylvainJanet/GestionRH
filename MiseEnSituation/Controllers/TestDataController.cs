@@ -58,43 +58,10 @@ namespace MiseEnSituation.Controllers
 
         public static void ResetDB()
         {
-            EmptyDB();
+            //EmptyDB();
             using (MyDbContext db = new MyDbContext())
             {
-                User u1 = new User() { Name = "Toto", Email = "toto@dawan.fr", Password = HashTools.ComputeSha256Hash("toto"), Type = UserType.ADMIN, ProPhone = "0669563654", };
-                User u2 = new User() { Name = "Tata", Email = "tata@dawan.fr", Password = HashTools.ComputeSha256Hash("tata"), Type = UserType.MANAGER, ProPhone = "0756562354" };
-                User u3 = new User() { Name = "Titi", Email = "titi@dawan.fr", Password = HashTools.ComputeSha256Hash("titi"), Type = UserType.EMPLOYEE, ProPhone = "0669262354" };
-                User u4 = new User() { Name = "Tutu", Email = "tutu@dawan.fr", Password = HashTools.ComputeSha256Hash("tutu"), Type = UserType.MANAGER, ProPhone = "0653562354" };
-                User u5 = new User() { Name = "Tooto", Email = "tooto@dawan.fr", Password = HashTools.ComputeSha256Hash("tooto"), Type = UserType.ADMIN, ProPhone = "0723562354" };
-                User u6 = new User() { Name = "Taata", Email = "taata@dawan.fr", Password = HashTools.ComputeSha256Hash("taata"), Type = UserType.RH, ProPhone = "0669422354" };
-                User u7 = new User() { Name = "Tiiti", Email = "tiiti@dawan.fr", Password = HashTools.ComputeSha256Hash("tiiti"), Type = UserType.EMPLOYEE, ProPhone = "0674532354" };
-                User u8 = new User() { Name = "Tuutu", Email = "tuutu@dawan.fr", Password = HashTools.ComputeSha256Hash("tuutu"), Type = UserType.RH, ProPhone = "0712982354" };
-                User u9 = new User() { Name = "Totoo", Email = "totoo@dawan.fr", Password = HashTools.ComputeSha256Hash("totoo"), Type = UserType.ADMIN, ProPhone = "0669492354" };
-                User u10 = new User() { Name = "Tataa", Email = "tataa@dawan.fr", Password = HashTools.ComputeSha256Hash("tataa"), Type = UserType.EMPLOYEE, ProPhone = "0669568954" };
-                User u11 = new User() { Name = "Titii", Email = "titii@dawan.fr", Password = HashTools.ComputeSha256Hash("titii"), Type = UserType.MANAGER, ProPhone = "0769272354" };
-                User u12 = new User() { Name = "Tutuu", Email = "tutuu@dawan.fr", Password = HashTools.ComputeSha256Hash("tutuu"), Type = UserType.EMPLOYEE, ProPhone = "0678566954" };
-                User u13 = new User() { Name = "Tootoo", Email = "tootoo@dawan.fr", Password = HashTools.ComputeSha256Hash("tootoo"), Type = UserType.ADMIN, ProPhone = "0672562454" };
-                User u14 = new User() { Name = "Taataa", Email = "taataa@dawan.fr", Password = HashTools.ComputeSha256Hash("taataa"), Type = UserType.EMPLOYEE, ProPhone = "0669562328" };
-                User u15 = new User() { Name = "Tiitii", Email = "tiitii@dawan.fr", Password = HashTools.ComputeSha256Hash("tiitii"), Type = UserType.RH, ProPhone = "0669562306" };
-                User u16 = new User() { Name = "Tuutuu", Email = "tuutuu@dawan.fr", Password = HashTools.ComputeSha256Hash("tuutuu"), Type = UserType.EMPLOYEE, ProPhone = "0769562379" };
-
-                db.Users.Add(u1);
-                db.Users.Add(u2);
-                db.Users.Add(u3);
-                db.Users.Add(u4);
-                db.Users.Add(u5);
-                db.Users.Add(u6);
-                db.Users.Add(u7);
-                db.Users.Add(u8);
-                db.Users.Add(u9);
-                db.Users.Add(u10);
-                db.Users.Add(u11);
-                db.Users.Add(u12);
-                db.Users.Add(u13);
-                db.Users.Add(u14);
-                db.Users.Add(u15);
-                db.Users.Add(u16);
-
+               
 
                 Skill s1 = new Skill("C");
                 Skill s2 = new Skill("C++");
@@ -205,11 +172,13 @@ namespace MiseEnSituation.Controllers
                 Address a2 = new Address(2, "rue 2", "city 2", 2222, "Pays2");
                 Address a3 = new Address(3, "rue 3", "city 3", 3333, "Pays3");
                 Address a4 = new Address(4, "rue 4", "city 4", 4444, "Pays4");
+                Address a5 = new Address() { City = "Paris", Country = "France", Number = 3, Street = "ter rue d'Arsonval", ZipCode = 75015 };
 
                 db.Addresses.Add(a1);
                 db.Addresses.Add(a2);
                 db.Addresses.Add(a3);
                 db.Addresses.Add(a4);
+                db.Addresses.Add(a5);
 
                 //Company
 
@@ -247,6 +216,40 @@ namespace MiseEnSituation.Controllers
                 db.Posts.Add(p8);
                 db.Posts.Add(p9);
 
+                Employee u1 = new Employee() { Name = "Toto", Email = "toto@dawan.fr", Password = HashTools.ComputeSha256Hash("toto"), Type = UserType.ADMIN, ProPhone = "0669563654", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress = a5, Company=c1, Post = p1, Skills= new List<Skill>() { s10,s1,s5 }, Courses=new List<TrainingCourse>() { tc1,tc2 }, PersonalPhone= "0614151617"  };
+                Employee u2 = new Employee() { Name = "Tata", Email = "tata@dawan.fr", Password = HashTools.ComputeSha256Hash("tata"), Type = UserType.MANAGER, ProPhone = "0756562354", IsManager = true, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress =a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u3 = new Employee() { Name = "Titi", Email = "titi@dawan.fr", Password = HashTools.ComputeSha256Hash("titi"), Type = UserType.EMPLOYEE, ProPhone = "0669262354", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress = a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u4 = new Employee() { Name = "Tutu", Email = "tutu@dawan.fr", Password = HashTools.ComputeSha256Hash("tutu"), Type = UserType.MANAGER, ProPhone = "0653562354", IsManager = true, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress =a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u5 = new Employee() { Name = "Tooto", Email = "tooto@dawan.fr", Password = HashTools.ComputeSha256Hash("tooto"), Type = UserType.ADMIN, ProPhone = "0723562354", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress = a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u6 = new Employee() { Name = "Taata", Email = "taata@dawan.fr", Password = HashTools.ComputeSha256Hash("taata"), Type = UserType.RH, ProPhone = "0669422354", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress = a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u7 = new Employee() { Name = "Tiiti", Email = "tiiti@dawan.fr", Password = HashTools.ComputeSha256Hash("tiiti"), Type = UserType.EMPLOYEE, ProPhone = "0674532354", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress =a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u8 = new Employee() { Name = "Tuutu", Email = "tuutu@dawan.fr", Password = HashTools.ComputeSha256Hash("tuutu"), Type = UserType.RH, ProPhone = "0712982354", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress = a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u9 = new Employee() { Name = "Totoo", Email = "totoo@dawan.fr", Password = HashTools.ComputeSha256Hash("totoo"), Type = UserType.ADMIN, ProPhone = "0669492354", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress = a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u10 = new Employee() { Name = "Tataa", Email = "tataa@dawan.fr", Password = HashTools.ComputeSha256Hash("tataa"), Type = UserType.EMPLOYEE, ProPhone = "0669568954", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress = a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u11 = new Employee() { Name = "Titii", Email = "titii@dawan.fr", Password = HashTools.ComputeSha256Hash("titii"), Type = UserType.MANAGER, ProPhone = "0769272354", IsManager = true, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress = a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u12 = new Employee() { Name = "Tutuu", Email = "tutuu@dawan.fr", Password = HashTools.ComputeSha256Hash("tutuu"), Type = UserType.EMPLOYEE, ProPhone = "0678566954", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress =a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u13 = new Employee() { Name = "Tootoo", Email = "tootoo@dawan.fr", Password = HashTools.ComputeSha256Hash("tootoo"), Type = UserType.ADMIN, ProPhone = "0672562454", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress =a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u14 = new Employee() { Name = "Taataa", Email = "taataa@dawan.fr", Password = HashTools.ComputeSha256Hash("taataa"), Type = UserType.EMPLOYEE, ProPhone = "0669562328", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress = a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u15 = new Employee() { Name = "Tiitii", Email = "tiitii@dawan.fr", Password = HashTools.ComputeSha256Hash("tiitii"), Type = UserType.RH, ProPhone = "0669562306", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress = a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+                Employee u16 = new Employee() { Name = "Tuutuu", Email = "tuutuu@dawan.fr", Password = HashTools.ComputeSha256Hash("tuutuu"), Type = UserType.EMPLOYEE, ProPhone = "0769562379", IsManager = false, BirthDate = DateTime.Now, CreationDate = DateTime.Now, PersonalAdress =a5, Company = c1, Post = p1, Skills = new List<Skill>() { s10, s1, s5 }, Courses = new List<TrainingCourse>() { tc1, tc2 }, PersonalPhone = "0614151617" };
+
+                db.Employees.Add(u1);
+                db.Employees.Add(u2);
+                db.Employees.Add(u3);
+                db.Employees.Add(u4);
+                db.Employees.Add(u5);
+                db.Employees.Add(u6);
+                db.Employees.Add(u7);
+                db.Employees.Add(u8);
+                db.Employees.Add(u9);
+                db.Employees.Add(u10);
+                db.Employees.Add(u11);
+                db.Employees.Add(u12);
+                db.Employees.Add(u13);
+                db.Employees.Add(u14);
+                db.Employees.Add(u15);
+                db.Employees.Add(u16);
+
                 //CheckUpReport
 
                 CheckUpReport cur1 = new CheckUpReport("Report1");
@@ -264,31 +267,31 @@ namespace MiseEnSituation.Controllers
 
                 //CheckUp
 
-                Employee emp1 = new Employee("Employe1", "employe1@gmail.com", HashTools.ComputeSha256Hash("employee1"), UserType.EMPLOYEE, DateTime.Now, "123456789", c1, false, new List<Skill> { s1, s2 }, p1);
-                Employee emp2 = new Employee("Employe2", "employe2@gmail.com", HashTools.ComputeSha256Hash("employee2"), UserType.EMPLOYEE, DateTime.Now, "123456789", c2, false, new List<Skill> { s3, s4 }, p2);
+                //Employee emp1 = new Employee("Employe1", "employe1@gmail.com", HashTools.ComputeSha256Hash("employee1"), UserType.EMPLOYEE, DateTime.Now, "123456789", c1, false, new List<Skill> { s1, s2 }, p1);
+                //Employee emp2 = new Employee("Employe2", "employe2@gmail.com", HashTools.ComputeSha256Hash("employee2"), UserType.EMPLOYEE, DateTime.Now, "123456789", c2, false, new List<Skill> { s3, s4 }, p2);
 
-                Employee man1 = new Employee("Manager1", "manager1@gmail.com", HashTools.ComputeSha256Hash("manager1"), UserType.MANAGER, DateTime.Now, "456789123", c1, true, new List<Skill> { s1, s2, s3, s4 }, p1);
-                Employee man2 = new Employee("Manager2", "manager2@gmail.com", HashTools.ComputeSha256Hash("manager2"), UserType.MANAGER, DateTime.Now, "456789123", c2, true, new List<Skill> { s5, s6, s7, s8 }, p2);
+                //Employee man1 = new Employee("Manager1", "manager1@gmail.com", HashTools.ComputeSha256Hash("manager1"), UserType.MANAGER, DateTime.Now, "456789123", c1, true, new List<Skill> { s1, s2, s3, s4 }, p1);
+                //Employee man2 = new Employee("Manager2", "manager2@gmail.com", HashTools.ComputeSha256Hash("manager2"), UserType.MANAGER, DateTime.Now, "456789123", c2, true, new List<Skill> { s5, s6, s7, s8 }, p2);
 
-                Employee rh1 = new Employee("RH1", "rh1@gmail.com", HashTools.ComputeSha256Hash("rh1"), UserType.RH, DateTime.Now, "789123456", c1, false, new List<Skill> { s1 }, p1);
-                Employee rh2 = new Employee("Rh2", "rh2@gmail.com", HashTools.ComputeSha256Hash("rh2"), UserType.RH, DateTime.Now, "789123456", c2, false, new List<Skill> { s2 }, p2);
-
-
-                db.Employees.Add(emp1);
-                db.Employees.Add(emp2);
-
-                db.Employees.Add(man1);
-                db.Employees.Add(man2);
-
-                db.Employees.Add(rh1);
-                db.Employees.Add(rh2);
-
-                CheckUp cu1 = new CheckUp(DateTime.Now.AddDays(2), cur1, emp1, emp1.Id, man1, man1.Id, rh1, rh1.Id);
-                CheckUp cu2 = new CheckUp(DateTime.Now.AddDays(5), cur2, emp2, emp2.Id, man2, man2.Id, rh2, rh2.Id);
+                //Employee rh1 = new Employee("RH1", "rh1@gmail.com", HashTools.ComputeSha256Hash("rh1"), UserType.RH, DateTime.Now, "789123456", c1, false, new List<Skill> { s1 }, p1);
+                //Employee rh2 = new Employee("Rh2", "rh2@gmail.com", HashTools.ComputeSha256Hash("rh2"), UserType.RH, DateTime.Now, "789123456", c2, false, new List<Skill> { s2 }, p2);
 
 
-                db.CheckUps.Add(cu1);
-                db.CheckUps.Add(cu2);
+                //db.Employees.Add(emp1);
+                //db.Employees.Add(emp2);
+
+                //db.Employees.Add(man1);
+                //db.Employees.Add(man2);
+
+                //db.Employees.Add(rh1);
+                //db.Employees.Add(rh2);
+
+                //CheckUp cu1 = new CheckUp(DateTime.Now.AddDays(2), cur1, emp1, emp1.Id, man1, man1.Id, rh1, rh1.Id);
+                //CheckUp cu2 = new CheckUp(DateTime.Now.AddDays(5), cur2, emp2, emp2.Id, man2, man2.Id, rh2, rh2.Id);
+
+
+                //db.CheckUps.Add(cu1);
+                //db.CheckUps.Add(cu2);
 
                 db.SaveChanges();
             }

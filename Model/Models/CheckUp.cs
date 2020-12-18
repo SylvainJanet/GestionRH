@@ -13,7 +13,9 @@ namespace Model.Models
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
+        [ForeignKey("ReportId")]
         public CheckUpReport Report { get; set; }
+        public int? ReportId { get; set; }
         [ForeignKey("EmployeeId")]
         public Employee Employee { get; set; }
         public int? EmployeeId { get; set; }

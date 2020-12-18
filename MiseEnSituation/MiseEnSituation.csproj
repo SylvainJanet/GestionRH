@@ -388,6 +388,10 @@
     <Compile Include="Migrations\202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.Designer.cs">
       <DependentUpon>202011270343371_CorrectedManyToManyRelationshipsInvolvingSkillAndTrainingCourse.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012181256078_AddForeignKeyForReportInCheckUp.cs" />
+    <Compile Include="Migrations\202012181256078_AddForeignKeyForReportInCheckUp.Designer.cs">
+      <DependentUpon>202012181256078_AddForeignKeyForReportInCheckUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidationAttributes\EmployeeIsManager.cs" />
@@ -460,11 +464,6 @@
     <Content Include="Views\Company\Details.cshtml" />
     <Content Include="Views\Company\Edit.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
-    <Content Include="Views\Employee\Create.cshtml" />
-    <Content Include="Views\Employee\Delete.cshtml" />
-    <Content Include="Views\Employee\Details.cshtml" />
-    <Content Include="Views\Employee\Edit.cshtml" />
-    <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Post\Delete.cshtml" />
     <Content Include="Views\Post\Details.cshtml" />
@@ -542,6 +541,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012152143578_AddDescriptionToPost.resx">
       <DependentUpon>202012152143578_AddDescriptionToPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012181256078_AddForeignKeyForReportInCheckUp.resx">
+      <DependentUpon>202012181256078_AddForeignKeyForReportInCheckUp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
