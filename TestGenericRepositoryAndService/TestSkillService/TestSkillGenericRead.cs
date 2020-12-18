@@ -1,30 +1,26 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics;
 using TestGenericRepositoryAndService.TestInterfaces;
 
 namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
 {
     [TestClass]
-    public class TestSkillGenericRead : BaseTest, ITestRead, ITest
+    public class TestSkillGenericRead : BaseTest, ITestRead
     {
-        [TestMethod]
-        [TestCategory("Post")]
-        [TestProperty("CRUD", "Read")]
-        [Owner("Sylvain")]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void ClassCleanup()
+        [ClassCleanup]
+        public static void ClassCleanup()
         {
-            throw new NotImplementedException();
+            DBTestData.DBTestData.EmptyDb();
         }
 
-        [TestMethod]
-        [TestCategory("Post")]
-        [TestProperty("CRUD", "Read")]
-        [Owner("Sylvain")]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void ClassInitialize()
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext testContext)
         {
-            throw new NotImplementedException();
+            string message = "---------- " + testContext.FullyQualifiedTestClassName + " ----------";
+            Debug.WriteLine(message);
+            testContext.WriteLine(message);
+            DBTestData.DBTestData.EmptyDb();
         }
 
         [TestMethod]
@@ -34,6 +30,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Collection_CollectionSuccessfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -44,6 +41,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Count_CountSuccessfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -54,6 +52,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Count_ExceptionIncorrectPredicate()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -64,6 +63,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_FindAll_Successfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -74,6 +74,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_FindById_ExceptionIncorrectArgument()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -84,6 +85,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_FindById_NullResultNotFound()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -94,6 +96,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_FindById_Successfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -104,6 +107,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_FindManyById_ExceptionIncorrectArgument()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -114,6 +118,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_FindManyById_NullResultNotFound()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -124,6 +129,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_FindManyById_Successfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -134,6 +140,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_GetAllBy_ExceptionIncorrectPredicate()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -144,6 +151,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_GetAllBy_Successfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -154,6 +162,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_GetAll_ExceptionIncorrectPredicate()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -164,6 +173,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_GetAll_Successfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -174,6 +184,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_List_Successfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -184,6 +195,7 @@ namespace TestGenericRepositoryAndService.TestSkillService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_NextExist_Successfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
     }

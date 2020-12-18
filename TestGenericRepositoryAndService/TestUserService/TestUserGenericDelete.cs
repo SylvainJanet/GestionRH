@@ -1,30 +1,26 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics;
 using TestGenericRepositoryAndService.TestInterfaces;
 
 namespace TestGenericRepositoryAndService.TestUserService.GenericCRUD
 {
     [TestClass]
-    public class TestUserGenericDelete : BaseTest, ITestDelete, ITest
+    public class TestUserGenericDelete : BaseTest, ITestDelete
     {
-        [TestMethod]
-        [TestCategory("User")]
-        [TestProperty("CRUD", "Delete")]
-        [Owner("Sylvain")]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void ClassCleanup()
+        [ClassCleanup]
+        public static void ClassCleanup()
         {
-            throw new NotImplementedException();
+            DBTestData.DBTestData.EmptyDb();
         }
 
-        [TestMethod]
-        [TestCategory("User")]
-        [TestProperty("CRUD", "Delete")]
-        [Owner("Sylvain")]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void ClassInitialize()
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext testContext)
         {
-            throw new NotImplementedException();
+            string message = "---------- " + testContext.FullyQualifiedTestClassName + " ----------";
+            Debug.WriteLine(message);
+            testContext.WriteLine(message);
+            DBTestData.DBTestData.EmptyDb();
         }
 
         [TestMethod]
@@ -34,6 +30,7 @@ namespace TestGenericRepositoryAndService.TestUserService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Delete_objs_DeleteSuccessfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -44,6 +41,7 @@ namespace TestGenericRepositoryAndService.TestUserService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Delete_objs_ExceptionArgumentsNotKeys()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -54,6 +52,7 @@ namespace TestGenericRepositoryAndService.TestUserService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Delete_objs_ExceptionElementNotFound()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -64,6 +63,7 @@ namespace TestGenericRepositoryAndService.TestUserService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Delete_T_DeleteSuccessfullForElement()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -74,6 +74,7 @@ namespace TestGenericRepositoryAndService.TestUserService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Delete_T_ExceptionElementNotFound()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -84,6 +85,7 @@ namespace TestGenericRepositoryAndService.TestUserService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_UpdateOne_UpdateSuccessfullForDependent()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
     }

@@ -14,7 +14,7 @@ namespace TestGenericRepositoryAndService.TestInterfaces
         void Test_Update_UpdateSuccessfullForDependent();
 
         //void UpdateCrypted(T t);
-        void Test_UpdateCrypted__UpdateSuccessfull();
+        void Test_UpdateCrypted_UpdateSuccessfull();
 
         //void UpdateOne(T t, string propertyName, object newValue);
         void Test_UpdateOne_UpdateSuccessfullForElement();

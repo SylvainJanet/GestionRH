@@ -104,7 +104,6 @@
     <Compile Include="TestEmployeeService\TestEmployeeGenericDelete.cs" />
     <Compile Include="TestEmployeeService\TestEmployeeGenericRead.cs" />
     <Compile Include="TestEmployeeService\TestEmployeeGenericUpdate.cs" />
-    <Compile Include="TestInterfaces\ITest.cs" />
     <Compile Include="TestInterfaces\ITestCreate.cs" />
     <Compile Include="TestInterfaces\ITestDelete.cs" />
     <Compile Include="TestInterfaces\ITestRead.cs" />
