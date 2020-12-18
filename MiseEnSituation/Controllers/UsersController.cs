@@ -16,14 +16,14 @@ namespace MiseEnSituation.Controllers
 {
     [AdminFilter]
     //[EmployeFilter]
-    [RoutePrefix("Employees")]
+    [RoutePrefix("Users")]
     [Route("{action=index}")]
-    public class EmployeeController : Controller
+    public class UsersController : Controller
     {
         private readonly MyDbContext db = new MyDbContext();
         private readonly IGenericService<Employee> _employeeService;
 
-        public EmployeeController()
+        public UsersController()
         {
             _employeeService = new EmployeeService(new EmployeeRepository(db));
         }
