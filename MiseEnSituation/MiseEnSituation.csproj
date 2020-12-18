@@ -323,7 +323,6 @@
     <Compile Include="Controllers\CheckUpReportsController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\RHController.cs" />
-    <Compile Include="Exceptions\IncorrectUserEmailOrPasswordException.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Filters\JWTFilterAttribute.cs" />
@@ -339,36 +338,12 @@
     <Compile Include="Migrations\202012152143578_AddDescriptionToPost.Designer.cs">
       <DependentUpon>202012152143578_AddDescriptionToPost.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\AddressRepository.cs" />
-    <Compile Include="Repositories\CheckUpReportRepository.cs" />
-    <Compile Include="Repositories\CheckUpRepository.cs" />
-    <Compile Include="Repositories\CompanyRepository.cs" />
-    <Compile Include="Repositories\IAddressRepository.cs" />
-    <Compile Include="Repositories\ICheckUpRepository.cs" />
-    <Compile Include="Repositories\ICompanyRepository.cs" />
-    <Compile Include="Repositories\EmployeeRepository.cs" />
-    <Compile Include="Repositories\IEmployeeRepository.cs" />
-    <Compile Include="Repositories\IPostRepository.cs" />
-    <Compile Include="Repositories\PostRepository.cs" />
-    <Compile Include="Repositories\RhRepository.cs" />
-    <Compile Include="Services\AddressService.cs" />
-    <Compile Include="Services\CheckUpReportService.cs" />
-    <Compile Include="Services\CheckUpService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Repositories\ICheckUpReportRepository.cs" />
-    <Compile Include="Services\CompanyService.cs" />
-    <Compile Include="Services\EmployeeService.cs" />
-    <Compile Include="Services\IAddressService.cs" />
-    <Compile Include="Services\ICheckUpReportService.cs" />
-    <Compile Include="Services\ICheckUpService.cs" />
     <Compile Include="Controllers\MyConstants.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\TestDataController.cs" />
     <Compile Include="Controllers\TrainingCoursesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="EntityConfigurations\SkillConfiguration.cs" />
-    <Compile Include="EntityConfigurations\TrainingCourseConfiguration.cs" />
-    <Compile Include="Exceptions\_MyExceptionMessages.cs" />
     <Compile Include="Filters\AdminFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -415,26 +390,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ISkillRepository.cs" />
-    <Compile Include="Repositories\ITrainingCourseRepository.cs" />
-    <Compile Include="Repositories\IUserRepository.cs" />
-    <Compile Include="Repositories\MyDbContext.cs" />
-    <Compile Include="Repositories\SkillRepository.cs" />
-    <Compile Include="Repositories\TrainingCourseRepository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Services\ICompanyService.cs" />
-    <Compile Include="Services\IEmployeeService.cs" />
-    <Compile Include="Services\IPostService.cs" />
-    <Compile Include="Services\ISkillService.cs" />
-    <Compile Include="Services\ITrainingCourseService.cs" />
-    <Compile Include="Services\IUserService.cs" />
-    <Compile Include="Services\PostService.cs" />
-    <Compile Include="Services\RhService.cs" />
-    <Compile Include="Services\SkillService.cs" />
-    <Compile Include="Services\TrainingCourseService.cs" />
-    <Compile Include="Services\UserService.cs" />
-    <Compile Include="Tools\HashTools.cs" />
-    <Compile Include="Tools\TokenManager.cs" />
     <Compile Include="ValidationAttributes\EmployeeIsManager.cs" />
     <Compile Include="ValidationAttributes\EmployeeIsRH.cs" />
   </ItemGroup>
@@ -591,6 +546,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Exceptions\Exceptions.csproj">
+      <Project>{32677179-d820-402a-b9ef-a9e071ecc5c3}</Project>
+      <Name>Exceptions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GenericRepositoryAndService\GenericRepositoryAndService.csproj">
       <Project>{7f6810cd-82b0-4f52-a61e-122631e599d1}</Project>
       <Name>GenericRepositoryAndService</Name>
@@ -598,6 +557,14 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{373ce695-b943-4109-8f89-ce02d6e7b697}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RepositoriesAndServices\RepositoriesAndServices.csproj">
+      <Project>{d840abab-6451-47af-a3b7-d7a125ff760d}</Project>
+      <Name>RepositoriesAndServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\Tools.csproj">
+      <Project>{91f11f72-5e84-4c92-98b7-7280bb6ffb20}</Project>
+      <Name>Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

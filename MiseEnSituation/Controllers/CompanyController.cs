@@ -7,9 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GenericRepositoryAndService.Service;
-using MiseEnSituation.Models;
-using MiseEnSituation.Repositories;
-using MiseEnSituation.Services;
+using Model.Models;
+using RepositoriesAndServices.Repositories;
+using RepositoriesAndServices.Services;
 
 namespace MiseEnSituation.Controllers
 {

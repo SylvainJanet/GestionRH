@@ -1,6 +1,5 @@
 ﻿using MiseEnSituation.Filters;
-using MiseEnSituation.Repositories;
-using MiseEnSituation.Services;
+using RepositoriesAndServices.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,6 @@
-﻿using MiseEnSituation.Models;
-using MiseEnSituation.Repositories;
-using MiseEnSituation.Services;
+﻿using Model.Models;
+using RepositoriesAndServices.Repositories;
+using RepositoriesAndServices.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

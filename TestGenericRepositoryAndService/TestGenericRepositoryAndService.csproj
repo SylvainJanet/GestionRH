@@ -148,6 +148,10 @@
       <Project>{373CE695-B943-4109-8F89-CE02D6E7B697}</Project>
       <Name>Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RepositoriesAndServices\RepositoriesAndServices.csproj">
+      <Project>{d840abab-6451-47af-a3b7-d7a125ff760d}</Project>
+      <Name>RepositoriesAndServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
