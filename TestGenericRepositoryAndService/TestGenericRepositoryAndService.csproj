@@ -144,6 +144,10 @@
       <Project>{ff8ef602-51cc-4690-9dc7-60ae55fe7f82}</Project>
       <Name>MiseEnSituation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{373CE695-B943-4109-8F89-CE02D6E7B697}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

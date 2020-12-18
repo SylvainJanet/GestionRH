@@ -1,5 +1,4 @@
 ﻿using GenericRepositoryAndService.Models;
-using MiseEnSituation.ValidationAttributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
