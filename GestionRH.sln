@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRepositoryAndService
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGenericRepositoryAndService", "TestGenericRepositoryAndService\TestGenericRepositoryAndService.csproj", "{19AD1C17-608E-4363-B06C-AA82AEF40E5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{373CE695-B943-4109-8F89-CE02D6E7B697}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exceptions", "Exceptions\Exceptions.csproj", "{32677179-D820-402A-B9EF-A9E071ECC5C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{19AD1C17-608E-4363-B06C-AA82AEF40E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19AD1C17-608E-4363-B06C-AA82AEF40E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19AD1C17-608E-4363-B06C-AA82AEF40E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{373CE695-B943-4109-8F89-CE02D6E7B697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{373CE695-B943-4109-8F89-CE02D6E7B697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{373CE695-B943-4109-8F89-CE02D6E7B697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{373CE695-B943-4109-8F89-CE02D6E7B697}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32677179-D820-402A-B9EF-A9E071ECC5C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32677179-D820-402A-B9EF-A9E071ECC5C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32677179-D820-402A-B9EF-A9E071ECC5C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32677179-D820-402A-B9EF-A9E071ECC5C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
