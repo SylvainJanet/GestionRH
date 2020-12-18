@@ -350,21 +350,6 @@
     <Compile Include="Migrations\202012181011215_CompanyNotRequired.Designer.cs">
       <DependentUpon>202012181011215_CompanyNotRequired.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\AddressRepository.cs" />
-    <Compile Include="Repositories\CheckUpReportRepository.cs" />
-    <Compile Include="Repositories\CheckUpRepository.cs" />
-    <Compile Include="Repositories\CompanyRepository.cs" />
-    <Compile Include="Repositories\IAddressRepository.cs" />
-    <Compile Include="Repositories\ICheckUpRepository.cs" />
-    <Compile Include="Repositories\ICompanyRepository.cs" />
-    <Compile Include="Repositories\EmployeeRepository.cs" />
-    <Compile Include="Repositories\IEmployeeRepository.cs" />
-    <Compile Include="Repositories\IPostRepository.cs" />
-    <Compile Include="Repositories\PostRepository.cs" />
-    <Compile Include="Repositories\RhRepository.cs" />
-    <Compile Include="Services\AddressService.cs" />
-    <Compile Include="Services\CheckUpReportService.cs" />
-    <Compile Include="Services\CheckUpService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MyConstants.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
