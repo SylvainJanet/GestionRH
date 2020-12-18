@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RepositoriesAndServices.Repositories;
+using RepositoriesAndServices.Services;
 using System;
 using System.Diagnostics;
 using TestGenericRepositoryAndService.TestInterfaces;
@@ -8,6 +10,8 @@ namespace TestGenericRepositoryAndService.TestEmployeeService.GenericCRUD
     [TestClass]
     public class TestEmployeeGenericCreate : BaseTest, ITestCreate
     {
+        EmployeeService _EmployeeServiceToTest = new EmployeeService(new EmployeeRepository(new MyDbContext()));
+
         [ClassCleanup]
         public static void ClassCleanup()
         {

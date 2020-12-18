@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RepositoriesAndServices.Repositories;
+using RepositoriesAndServices.Services;
 using System;
 using System.Diagnostics;
 using TestGenericRepositoryAndService.TestInterfaces;
@@ -8,6 +10,8 @@ namespace TestGenericRepositoryAndService.TestAddressesService.GenericCRUD
     [TestClass]
     public class TestAddressDelete : BaseTest, ITestDelete
     {
+        AddressService _AddressServiceToTest = new AddressService(new AddressRepository(new MyDbContext()));
+
         [ClassCleanup]
         public static void ClassCleanup()
         {
