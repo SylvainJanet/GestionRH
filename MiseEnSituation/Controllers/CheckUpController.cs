@@ -17,11 +17,13 @@ namespace MiseEnSituation.Controllers
         private readonly MyDbContext db = new MyDbContext();
         private readonly ICheckUpService _checkUpService;
         private readonly IUserService userService;
+        private readonly IEmployeeService employeeService;
 
         public CheckUpController()
         {
             _checkUpService = new CheckUpService(new CheckUpRepository(db));
             userService = new UserService(new UserRepository(db));
+            employeeService = new EmployeeService(new EmployeeRepository(db));
         }
         // GET: CheckUp
         public ActionResult Index()
@@ -47,10 +49,11 @@ namespace MiseEnSituation.Controllers
         // GET: CheckUp/Create
         public ActionResult Create()
         {
-            ViewBag.Employee = userService.FindByType(UserType.EMPLOYEE);
-            ViewBag.Manager = userService.FindByType(UserType.MANAGER);
-            ViewBag.RH = userService.FindByType(UserType.RH);
-
+           
+            
+            ViewBag.Employee = employeeService.GetAllByExcludes(c => c.Type.ToString().Equals(UserType.EMPLOYEE.ToString()));
+            ViewBag.Manager = employeeService.GetAllByExcludes(c => c.Type.ToString().Equals(UserType.MANAGER.ToString()));
+            ViewBag.RH = employeeService.GetAllByExcludes(c => c.Type.ToString().Equals(UserType.RH.ToString()));
             return View(new CheckUp());
         }
 
@@ -63,15 +66,15 @@ namespace MiseEnSituation.Controllers
         {
             if (checkUp.EmployeeId.HasValue)
             {
-                checkUp.Employee = db.Users.OfType<Employee>().Single(e => e.Id == checkUp.EmployeeId);
+                checkUp.Employee =employeeService.FindById(false, true,checkUp.EmployeeId);
             }
             if (checkUp.ManagerId.HasValue)
             {
-                checkUp.Manager = db.Users.OfType<Employee>().Single(e => e.Id == checkUp.ManagerId);
+                checkUp.Manager = employeeService.FindById(false, true, checkUp.ManagerId);
             }
             if (checkUp.RHId.HasValue)
             {
-                checkUp.RH = db.Users.OfType<Employee>().Single(e => e.Id == checkUp.RHId);
+                checkUp.RH = employeeService.FindById(false, true, checkUp.RHId);
             }
             ModelState.Remove("checkUp.Employee");
             ModelState.Remove("checkUp.Manager");
@@ -97,6 +100,9 @@ namespace MiseEnSituation.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Employee = employeeService.GetAllByExcludes(c => c.Type.Equals(UserType.EMPLOYEE));
+            ViewBag.Manager = employeeService.GetAllByExcludes(c => c.Type.Equals(UserType.MANAGER));
+            ViewBag.RH = employeeService.GetAllByExcludes(c => c.Type.Equals(UserType.RH));
             return View(checkUp);
         }
 
@@ -107,11 +113,27 @@ namespace MiseEnSituation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Date,Employee,Manager,RH")] CheckUp checkUp)
         {
+            if (checkUp.EmployeeId.HasValue)
+            {
+                checkUp.Employee = employeeService.FindById(false, true, checkUp.EmployeeId);
+            }
+            if (checkUp.ManagerId.HasValue)
+            {
+                checkUp.Manager = employeeService.FindById(false, true, checkUp.ManagerId);
+            }
+            if (checkUp.RHId.HasValue)
+            {
+                checkUp.RH = employeeService.FindById(false, true, checkUp.RHId);
+            }
+            ModelState.Remove("checkUp.Employee");
+            ModelState.Remove("checkUp.Manager");
+
             if (ModelState.IsValid)
             {
-                _checkUpService.Update(checkUp);
+                _checkUpService.Save(checkUp);
                 return RedirectToAction("Index");
             }
+
             return View(checkUp);
         }
 
