@@ -1,20 +1,26 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics;
 using TestGenericRepositoryAndService.TestInterfaces;
 
 namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
 {
     [TestClass]
-    public class TestCompanyGenericUpdate : BaseTest, ITestUpdate, ITest
+    public class TestCompanyGenericUpdate : BaseTest, ITestUpdate
     {
-        [TestMethod]
-        [TestCategory("Company")]
-        [TestProperty("CRUD", "Update")]
-        [Owner("Sylvain")]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void ClassCleanup()
+        [ClassCleanup]
+        public static void ClassCleanup()
         {
-            throw new NotImplementedException();
+            DBTestData.DBTestData.EmptyDb();
+        }
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext testContext)
+        {
+            string message = "---------- " + testContext.FullyQualifiedTestClassName + " ----------";
+            Debug.WriteLine(message);
+            testContext.WriteLine(message);
+            DBTestData.DBTestData.EmptyDb();
         }
 
         [TestMethod]
@@ -22,18 +28,9 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
         [TestProperty("CRUD", "Update")]
         [Owner("Sylvain")]
         [ExpectedException(typeof(NotImplementedException))]
-        public void ClassInitialize()
+        public void Test_UpdateCrypted_UpdateSuccessfull()
         {
-            throw new NotImplementedException();
-        }
-
-        [TestMethod]
-        [TestCategory("Company")]
-        [TestProperty("CRUD", "Update")]
-        [Owner("Sylvain")]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void Test_UpdateCrypted__UpdateSuccessfull()
-        {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -44,6 +41,7 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_UpdateOneCrypted_UpdateSuccessfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -54,6 +52,7 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Updateone_ExceptionElementNotInDB()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -64,6 +63,7 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_UpdateOne_ExceptionNewValueIncorrect()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -74,6 +74,7 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_UpdateOne_ExceptionPropNameInvalid()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -84,6 +85,7 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_UpdateOne_ExceptionPropReadOnly()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -94,6 +96,7 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_UpdateOne_UpdateSuccessfullForDependent()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -104,6 +107,7 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_UpdateOne_UpdateSuccessfullForElement()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -114,6 +118,7 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Update_ExceptionElementNotInDB()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -124,6 +129,7 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Update_UpdateSuccessfullForDependent()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -134,6 +140,7 @@ namespace TestGenericRepositoryAndService.TestCompanyService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Update_UpdateSuccessfullForElement()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
     }

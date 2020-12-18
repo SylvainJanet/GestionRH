@@ -27,7 +27,7 @@ namespace TestGenericRepositoryAndService
 
             this.TestContext.WriteLine(message);
 
-            System.Diagnostics.Trace.WriteLine(message);
+            //System.Diagnostics.Trace.WriteLine(message);
 
             //Output.Testing.Trace.WriteLine(message);
         }
@@ -44,7 +44,7 @@ namespace TestGenericRepositoryAndService
             DBTestData.DBTestData.EmptyDb();
             Debug.WriteLine("AssemblyInitialize");
             TestContext.WriteLine("AssemblyInitialize");
-            System.Diagnostics.Trace.WriteLine("AssemblyInitialize");
+            //System.Diagnostics.Trace.WriteLine("AssemblyInitialize");
         }
 
         [AssemblyCleanup]
@@ -52,7 +52,7 @@ namespace TestGenericRepositoryAndService
         {
             DBTestData.DBTestData.EmptyDb();
             Debug.WriteLine("AssemblyCleanUp");
-            System.Diagnostics.Trace.WriteLine("AssemblyCleanUp");
+            //System.Diagnostics.Trace.WriteLine("AssemblyCleanUp");
         }
     }
 }

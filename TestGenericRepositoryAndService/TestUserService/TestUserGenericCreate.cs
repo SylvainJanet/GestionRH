@@ -1,30 +1,26 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Diagnostics;
 using TestGenericRepositoryAndService.TestInterfaces;
 
 namespace TestGenericRepositoryAndService.TestUserService.GenericCRUD
 {
     [TestClass]
-    public class TestUserGenericCreate : BaseTest, ITestCreate, ITest
+    public class TestUserGenericCreate : BaseTest, ITestCreate
     {
-        [TestMethod]
-        [TestCategory("User")]
-        [TestProperty("CRUD", "Create")]
-        [Owner("Sylvain")]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void ClassCleanup()
+        [ClassCleanup]
+        public static void ClassCleanup()
         {
-            throw new NotImplementedException();
+            DBTestData.DBTestData.EmptyDb();
         }
 
-        [TestMethod]
-        [TestCategory("User")]
-        [TestProperty("CRUD", "Create")]
-        [Owner("Sylvain")]
-        [ExpectedException(typeof(NotImplementedException))]
-        public void ClassInitialize()
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext testContext)
         {
-            throw new NotImplementedException();
+            string message = "---------- " + testContext.FullyQualifiedTestClassName + " ----------";
+            Debug.WriteLine(message);
+            testContext.WriteLine(message);
+            DBTestData.DBTestData.EmptyDb();
         }
 
         [TestMethod]
@@ -34,6 +30,7 @@ namespace TestGenericRepositoryAndService.TestUserService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_SaveCrypted_SaveSuccessfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
 
@@ -44,6 +41,7 @@ namespace TestGenericRepositoryAndService.TestUserService.GenericCRUD
         [ExpectedException(typeof(NotImplementedException))]
         public void Test_Save_SaveSuccessfull()
         {
+            Trace("...Testing... " + Class + " : " + Method);
             throw new NotImplementedException();
         }
     }
