@@ -24,6 +24,7 @@ namespace MiseEnSituation.Models
         public string Description { get; set; }
 
         [Required]
+
         [DataType(DataType.Date)]
         public DateTime HiringDate { get; set; }
 

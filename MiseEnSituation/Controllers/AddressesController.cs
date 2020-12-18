@@ -118,16 +118,16 @@ namespace MiseEnSituation.Controllers
             return View(address);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Route("Delete/{number?}/{street?}/{city?}/{zipcode?}/{country?}")]
-        public ActionResult DeleteConfirmed(int? number, string street, string city, int? zipcode, string country)
-        {
-            Address address = db.Addresses.Find(number, street, city, zipcode, country);
-            db.Addresses.Remove(address);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //[Route("Delete/{number?}/{street?}/{city?}/{zipcode?}/{country?}")]
+        //public ActionResult DeleteConfirmed(int? number, string street, string city, int? zipcode, string country)
+        //{
+        //    Address address = db.Addresses.Find(number, street, city, zipcode, country);
+        //    db.Addresses.Remove(address);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         [HttpGet]
         [Route("Search")]

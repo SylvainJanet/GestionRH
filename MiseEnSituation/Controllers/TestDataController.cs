@@ -16,10 +16,7 @@ namespace MiseEnSituation.Controllers
         {
             using (MyDbContext db = new MyDbContext())
             {
-                foreach (var obj in db.Addresses)
-                {
-                    db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
-                }
+                
                 foreach (var obj in db.CheckUps)
                 {
                     db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
@@ -206,10 +203,7 @@ namespace MiseEnSituation.Controllers
                 Address a3 = new Address(3, "rue 3", "city 3", 3333, "Pays3");
                 Address a4 = new Address(4, "rue 4", "city 4", 4444, "Pays4");
 
-                db.Addresses.Add(a1);
-                db.Addresses.Add(a2);
-                db.Addresses.Add(a3);
-                db.Addresses.Add(a4);
+                
 
                 //Company
 

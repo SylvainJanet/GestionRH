@@ -347,6 +347,10 @@
     <Compile Include="Migrations\202012171616270_addForeignKeyToCompany.Designer.cs">
       <DependentUpon>202012171616270_addForeignKeyToCompany.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012181011215_CompanyNotRequired.cs" />
+    <Compile Include="Migrations\202012181011215_CompanyNotRequired.Designer.cs">
+      <DependentUpon>202012181011215_CompanyNotRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\AddressRepository.cs" />
     <Compile Include="Repositories\CheckUpReportRepository.cs" />
     <Compile Include="Repositories\CheckUpRepository.cs" />
@@ -601,6 +605,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012171616270_addForeignKeyToCompany.resx">
       <DependentUpon>202012171616270_addForeignKeyToCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012181011215_CompanyNotRequired.resx">
+      <DependentUpon>202012181011215_CompanyNotRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

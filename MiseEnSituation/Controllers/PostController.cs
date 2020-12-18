@@ -96,6 +96,15 @@ namespace MiseEnSituation.Controllers
             
             ModelState.Remove("post.Company");
 
+            if (post.HiringDate.Year < 1970)
+            {
+                ModelState.AddModelError("HiringDate", "Date invalid");
+            }
+            if (post.EndDate.Year < 1970)
+            {
+                ModelState.AddModelError("EndDate", "Date invalid");
+            }
+
             if (ModelState.IsValid)
             {
                 _postService.Save(post);
@@ -107,7 +116,7 @@ namespace MiseEnSituation.Controllers
                                        .Where(y => y.Count > 0)
                                        .ToList();
             }
-
+            ViewBag.CompanyList = _companyService.GetAllExcludes();
             return View(post);
         }
 
@@ -136,6 +145,14 @@ namespace MiseEnSituation.Controllers
         [Route("Edit")]
         public ActionResult Edit([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract, Description")] Post post)
         {
+            if (post.HiringDate.Year < 1970)
+            {
+                ModelState.AddModelError("HiringDate", "Date invalid");
+            }
+            if (post.EndDate.Year < 1970)
+            {
+                ModelState.AddModelError("EndDate", "Date invalid");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(post).State = EntityState.Modified;

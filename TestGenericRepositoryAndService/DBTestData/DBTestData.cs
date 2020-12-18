@@ -28,7 +28,6 @@ namespace TestGenericRepositoryAndService.DBTestData
             long res = 0;
             using (MyDbContext db = new MyDbContext())
             {
-                res += db.Addresses.Count(); 
                 res += db.CheckUpReports.Count();
                 res += db.CheckUps.Count();
                 res += db.Companies.Count();

@@ -51,7 +51,6 @@ namespace TestGenericRepositoryAndService.TestAddressesService.GenericCRUD
             using (MyDbContext db = new MyDbContext())
             {
                 var watch = System.Diagnostics.Stopwatch.StartNew();
-                db.Addresses.Add(a);
                 watch.Stop();
                 var elapsedTicks = watch.ElapsedTicks;
                 Trace("Specific method time : " + elapsedTicks);
