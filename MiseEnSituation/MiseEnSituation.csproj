@@ -334,6 +334,15 @@
     <Compile Include="Migrations\202012152143578_AddDescriptionToPost.Designer.cs">
       <DependentUpon>202012152143578_AddDescriptionToPost.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012171436241_DeleteTableAddress.cs" />
+    <Compile Include="Migrations\202012171436241_DeleteTableAddress.Designer.cs">
+      <DependentUpon>202012171436241_DeleteTableAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012171616270_addForeignKeyToCompany.cs" />
+    <Compile Include="Migrations\202012171616270_addForeignKeyToCompany.Designer.cs">
+      <DependentUpon>202012171616270_addForeignKeyToCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\AddressRepository.cs" />
     <Compile Include="Repositories\CheckUpReportRepository.cs" />
     <Compile Include="Repositories\CheckUpRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
@@ -344,6 +353,7 @@
     <Compile Include="Repositories\IPostRepository.cs" />
     <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Repositories\RhRepository.cs" />
+    <Compile Include="Services\AddressService.cs" />
     <Compile Include="Services\CheckUpReportService.cs" />
     <Compile Include="Services\CheckUpService.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -579,6 +589,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012152143578_AddDescriptionToPost.resx">
       <DependentUpon>202012152143578_AddDescriptionToPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012171436241_DeleteTableAddress.resx">
+      <DependentUpon>202012171436241_DeleteTableAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012171616270_addForeignKeyToCompany.resx">
+      <DependentUpon>202012171616270_addForeignKeyToCompany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

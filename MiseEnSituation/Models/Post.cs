@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -31,14 +32,15 @@ namespace MiseEnSituation.Models
 
         public DateTime EndDate { get; set; }
 
-        [Required]
         public double WeeklyWorkLoad { get; set; }
 
         [Required]
         public string FileForContract { get; set; }
 
-        [Required]
+        [ForeignKey("CompanyId")]
         public Company Company { get; set; }
+
+        public int CompanyId { get; set; }
 
         public Employee Manager { get; set; }
 

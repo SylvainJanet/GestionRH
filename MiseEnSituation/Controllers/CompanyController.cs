@@ -20,9 +20,13 @@ namespace MiseEnSituation.Controllers
     {
         private readonly MyDbContext db = new MyDbContext();
         private readonly IGenericService<Company> _companyService;
+        private readonly IGenericService<Address> _AddressService;
+        public Company OldData { get; set; }
         public CompanyController()
         {
             _companyService = new CompanyService(new CompanyRepository(db));
+            _AddressService = new AddressService(new AddressRepository(db));
+
         }
 
         // GET: Company
@@ -45,7 +49,7 @@ namespace MiseEnSituation.Controllers
             return View("Index", lstCompanies);
 
         }
-
+        [HttpGet]
         // GET: Company/Details/5
         public ActionResult Details(int? id)
         {
@@ -95,6 +99,7 @@ namespace MiseEnSituation.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Company company = _companyService.FindByIdIncludes(id);
+            OldData = company;
             if (company == null)
             {
                 return HttpNotFound();
@@ -110,9 +115,9 @@ namespace MiseEnSituation.Controllers
         [Route("Edit")]
         public ActionResult Edit([Bind(Include = "Id,Name,Adress")] Company company)
         {
+
             if (ModelState.IsValid)
             {
-                db.Entry(company).State = EntityState.Modified;
                 _companyService.Update(company);
                 return RedirectToAction("Index");
             }

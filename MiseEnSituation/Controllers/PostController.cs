@@ -28,12 +28,16 @@ namespace MiseEnSituation.Controllers
         {
             _postService = new PostService(new PostRepository(db));
             _companyService = new CompanyService(new CompanyRepository(db));
-
         }
         // GET: Post
+
+        [HttpGet]
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            lstPost = _postService.FindAllIncludes();
+
+            return View(lstPost);
+
         }
 
 
@@ -69,12 +73,13 @@ namespace MiseEnSituation.Controllers
         [Route("Create")]
         public ActionResult Create()
         {
-            ViewBag.CompanyList = _companyService.GetAllExcludes().Select(c => new SelectListItem
-            {
-                Value = c.Id.ToString(),
-                Text = c.Name
-            });
-            //companyService.FindAllIncludes(page, maxByPage, SearchField);
+            ViewBag.CompanyList = _companyService.GetAllExcludes();
+            //    .Select(c => new List
+            //{
+            //    Value = c.Id.ToString(),
+            //    Text = c.Name
+            //});
+            ////companyService.FindAllIncludes(page, maxByPage, SearchField);
 
             return View(new Post());
         }
@@ -84,8 +89,14 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Post post)
+        public ActionResult Create([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract,Description,CompanyId")] Post post)
         {
+            if (post.CompanyId.HasValue)
+            {
+                post.Company = _companyService.FindByIdIncludes(post.CompanyId);
+            }
+            ModelState.Remove("post.Company");
+
             if (ModelState.IsValid)
             {
                 _postService.Save(post);
@@ -124,7 +135,7 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit")]
-        public ActionResult Edit([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract")] Post post)
+        public ActionResult Edit([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract, Description")] Post post)
         {
             if (ModelState.IsValid)
             {
