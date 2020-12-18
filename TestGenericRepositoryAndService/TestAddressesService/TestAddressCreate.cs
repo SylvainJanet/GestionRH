@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MiseEnSituation.Models;
-using MiseEnSituation.Repositories;
-using MiseEnSituation.Services;
+using Model.Models;
+using RepositoriesAndServices.Repositories;
+using RepositoriesAndServices.Services;
 using System;
 using System.Diagnostics;
 using TestGenericRepositoryAndService.TestInterfaces;
@@ -54,7 +54,7 @@ namespace TestGenericRepositoryAndService.TestAddressesService.GenericCRUD
                 db.Addresses.Add(a);
                 watch.Stop();
                 var elapsedTicks = watch.ElapsedTicks;
-                Trace("Specific method time : " + elapsedTicks);
+                Trace("Specific method time : " + elapsedTicks+ "ticks");
             }
             DBTestData.DBTestData.ResetDB();
             long oldcount = DBTestData.DBTestData.TotalCount();
@@ -62,7 +62,7 @@ namespace TestGenericRepositoryAndService.TestAddressesService.GenericCRUD
             _AddressServiceToTest.Save(a);
             watch2.Stop();
             var elapsedTicks2 = watch2.ElapsedTicks;
-            Trace("Generic method time : " + elapsedTicks2);
+            Trace("Generic method time : " + elapsedTicks2 + "ticks");
             long newCount = DBTestData.DBTestData.TotalCount();
             Assert.AreEqual(oldcount + 1, newCount);
         }

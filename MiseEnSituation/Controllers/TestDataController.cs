@@ -1,12 +1,12 @@
-﻿using MiseEnSituation.Models;
-using MiseEnSituation.Repositories;
-using MiseEnSituation.Tools;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using RepositoriesAndServices.Repositories;
+using Model.Models;
+using Tools.Tools;
 
 namespace MiseEnSituation.Controllers
 {
