@@ -20,9 +20,11 @@ namespace MiseEnSituation.Controllers
     {
         private readonly MyDbContext db = new MyDbContext();
         private readonly IGenericService<Company> _companyService;
+        private readonly IGenericService<Address> _adressService;
         public CompanyController()
         {
             _companyService = new CompanyService(new CompanyRepository(db));
+            _adressService = new AddressService(new AddressRepository(db));
         }
 
         // GET: Company
@@ -76,6 +78,7 @@ namespace MiseEnSituation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Adress")] Company company)
         {
+            _adressService.Save(company.Adress);
             if (ModelState.IsValid)
             {
                 _companyService.Save(company);
@@ -110,18 +113,13 @@ namespace MiseEnSituation.Controllers
         [Route("Edit")]
         public ActionResult Edit([Bind(Include = "Id,Name,Adress")] Company company)
         {
+            _adressService.Update(company.Adress);
             if (ModelState.IsValid)
             {
-                db.Entry(company).State = EntityState.Modified;
                 _companyService.Update(company);
                 return RedirectToAction("Index");
             }
-            else
-            {
-                var errors = ModelState.Select(x => x.Value.Errors)
-                                       .Where(y => y.Count > 0)
-                                       .ToList();
-            }
+
             return View(company);
         }
 
@@ -148,7 +146,9 @@ namespace MiseEnSituation.Controllers
         [Route("Delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
+
             Company company = _companyService.FindByIdIncludes(id);
+            _adressService.Delete(company.Adress);
             _companyService.Delete(company);
             return RedirectToAction("Index");
         }

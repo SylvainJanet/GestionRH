@@ -22,10 +22,10 @@ namespace Model.Models
         public string PersonalPhone { get; set; }
 
         [Required]
-       // [ForeignKey("CompagnyId")]
+        [ForeignKey("CompagnyId")]
         public Company Company { get; set; }
 
-       // public int? CompagnyId { get; set; }
+       public int? CompagnyId { get; set; }
         
        // public bool IsManager { get; set; }
         private bool isManager;
@@ -47,7 +47,9 @@ namespace Model.Models
         public List<TrainingCourse> Courses { get; set; }
 
         [Required]
+        [ForeignKey("PostId")]
         public Post Post { get; set; }
+        public int? PostId { get; set; }
 
         public Employee(string name, string email, string password, UserType type, DateTime birthDate, string personalPhone, Company company, bool isManager, List<Skill> skills, Post post) : base(name, email, password, type)
         {

@@ -15,35 +15,27 @@ using RepositoriesAndServices.Services;
 namespace MiseEnSituation.Controllers
 {
     [AdminFilter]
-    //[EmployeFilter]
-    [RoutePrefix("Users")]
+    [RoutePrefix("User")]
     [Route("{action=index}")]
-    public class UsersController : Controller
+    public class UserController : Controller
     {
-        private readonly MyDbContext db = new MyDbContext();
-        private readonly IGenericService<Employee> _employeeService;
+        private MyDbContext db = new MyDbContext();
 
-        public UsersController()
+        private IGenericService<Employee> _employeeService;  
+        private IGenericService<Post> _postService;  
+        private IGenericService<Company> _companyService;  
+
+        public UserController()
         {
             _employeeService = new EmployeeService(new EmployeeRepository(db));
+            _postService = new PostService(new PostRepository(db));
+            _companyService = new CompanyService(new CompanyRepository(db));
         }
-        // GET: Employee
+        // GET: User
+        
         public ActionResult Index()
         {
             return View(_employeeService.GetAll(false, true, 1, 857458));
-        }
-
-        [HttpGet]
-        [Route("{page?}/{maxByPage?}/{searchField?}")]
-        public ActionResult Index(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE, string SearchField = "")
-        {
-            List<Employee> lstEmployees = _employeeService.FindAllIncludes(page, maxByPage, SearchField);
-
-            ViewBag.NextExist = _employeeService.NextExist(page, maxByPage, SearchField);
-            ViewBag.Page = page;
-            ViewBag.MaxByPage = maxByPage;
-            ViewBag.SearchField = SearchField;
-            return View("Index", lstEmployees);
         }
         [HttpGet]
         public ActionResult Home()
@@ -51,7 +43,8 @@ namespace MiseEnSituation.Controllers
             return View();
         }
 
-        // GET: Employee/Details/5
+        // GET: User/Details/5
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -65,21 +58,33 @@ namespace MiseEnSituation.Controllers
             }
             return View(employee);
         }
+
         [HttpGet]
         [Route("Create")]
-        // GET: Employee/Create
+        // GET: User/Create
         public ActionResult Create()
         {
+            ViewBag.Post = _postService.GetAll(false, true, 1, 85241);
+            ViewBag.Company = _companyService.GetAll(false, true, 1, 85241);
             return View();
         }
 
-        // POST: Employee/Create
+        // POST: User/Create
         // Afin de déjouer les attaques par survalidation, activez les propriétés spécifiques auxquelles vous voulez établir une liaison. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Email,Password,ProPhone,Type,BirthDate,PersonalPhone,IsManager")] Employee employee)
+        public ActionResult Create([Bind(Include = "Id,Name,Email,Password,ProPhone,Type,BirthDate,PersonalPhone,IsManager,CompagnyId,PostId")] Employee employee)
         {
+            employee.CreationDate = DateTime.Now;
+            if (employee.CompagnyId.HasValue)
+            {
+                employee.Company = _companyService.FindByIdIncludes(employee.CompagnyId);
+            }
+            if (employee.PostId.HasValue)
+            {
+                employee.Post = _postService.FindByIdIncludes(employee.PostId);
+            }
             if (ModelState.IsValid)
             {
                 _employeeService.Save(employee);
@@ -89,7 +94,8 @@ namespace MiseEnSituation.Controllers
             return View(employee);
         }
 
-        // GET: Employee/Edit/5
+        // GET: User/Edit/5
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -101,26 +107,39 @@ namespace MiseEnSituation.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Post = _postService.GetAll(false, true, 1, 85241);
+            ViewBag.Company = _companyService.GetAll(false, true, 1, 85241);
             return View(employee);
         }
 
-        // POST: Employee/Edit/5
+        // POST: User/Edit/5
         // Afin de déjouer les attaques par survalidation, activez les propriétés spécifiques auxquelles vous voulez établir une liaison. Pour 
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Email,Password,CreationDate,ProPhone,Type,BirthDate,PersonalPhone,IsManager")] Employee employee)
+        public ActionResult Edit([Bind(Include = "Id,Name,Email,Password,CreationDate,ProPhone,Type,BirthDate,PersonalPhone,IsManager,CompagnyId,PostId")] Employee employee)
         {
+            employee.CreationDate = DateTime.Now;
+            if (employee.CompagnyId.HasValue)
+            {
+                employee.Company = _companyService.FindByIdIncludes(employee.CompagnyId);
+            }
+            if (employee.PostId.HasValue)
+            {
+                employee.Post = _postService.FindByIdIncludes(employee.PostId);
+            }
             if (ModelState.IsValid)
             {
-                db.Entry(employee).State = EntityState.Modified;
-                _employeeService.Update(employee);
+                _employeeService.Save(employee);
                 return RedirectToAction("Index");
             }
+
             return View(employee);
         }
 
-        // GET: Employee/Delete/5
+        // GET: User/Delete/5
+        [HttpGet]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -135,7 +154,7 @@ namespace MiseEnSituation.Controllers
             return View(employee);
         }
 
-        // POST: Employee/Delete/5
+        // POST: User/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -143,15 +162,6 @@ namespace MiseEnSituation.Controllers
             Employee employee = _employeeService.FindByIdIncludes(id);
             _employeeService.Delete(employee);
             return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        [Route("Search")]
-        public ActionResult Search([Bind(Include = ("page, maxByPage, SearchField"))] int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE, string searchField = "")
-        {
-            if (searchField.Trim().Equals(""))
-                return RedirectToAction("Index");
-            return Index(page, maxByPage, searchField);
         }
 
         protected override void Dispose(bool disposing)
