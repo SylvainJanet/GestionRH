@@ -113,10 +113,13 @@ namespace MiseEnSituation.Controllers
         [Route("Edit")]
         public ActionResult Edit([Bind(Include = "Id,Name,Adress")] Company company)
         {
-            _adressService.Update(company.Adress);
+            var addressSave = _companyService.FindByIdIncludes(company.Id).Adress;
+            _adressService.Save(company.Adress);
             if (ModelState.IsValid)
             {
+
                 _companyService.Update(company);
+                _adressService.Delete(addressSave);
                 return RedirectToAction("Index");
             }
 
@@ -147,7 +150,7 @@ namespace MiseEnSituation.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
 
-            Company company = _companyService.FindByIdIncludes(id);
+             Company company = _companyService.FindByIdIncludes(id);
             Address address = _adressService.FindByIdIncludes(company.Adress.Id);
             _adressService.Delete(address);
             _companyService.Delete(company);
