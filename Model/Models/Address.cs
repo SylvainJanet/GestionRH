@@ -8,34 +8,30 @@ using System.Web;
 
 namespace Model.Models
 {
-    public class Address : EntityWithKeys
+    public class Address : BaseEntity
     {
         [Required]
-        [Key]
+        
         [Column(Order = 1)]
         public int Number { get; set; }
 
         [Required]
         [MaxLength(200)]
-        [Key]
         [Column(Order = 2)]
         public string Street { get; set; }
 
         [Required]
         [MaxLength(200)]
-        [Key]
         [Column(Order = 3)]
         public string City { get; set; }
 
         [Required]
         [DataType(DataType.PostalCode)]
-        [Key]
         [Column(Order = 4)]
         public int ZipCode { get; set; }
 
         [Required]
         [MaxLength(200)]
-        [Key]
         [Column(Order = 5)]
         public string Country { get; set; }
 
@@ -73,27 +69,27 @@ namespace Model.Models
             return hashCode;
         }
 
-        public override string KeysToDisplayString()
-        {
-            string res = "";
-            res += Number.ToString();
-            res += "\t" + Street;
-            res += "\t" + City;
-            res += "\t" + ZipCode.ToString();
-            res += "\t" + Country;
-            return res;
-        }
+        //public override string KeysToDisplayString()
+        //{
+        //    string res = "";
+        //    res += Number.ToString();
+        //    res += "\t" + Street;
+        //    res += "\t" + City;
+        //    res += "\t" + ZipCode.ToString();
+        //    res += "\t" + Country;
+        //    return res;
+        //}
 
-        public static new object[] DisplayStringToKeys(string s)
-        {
-            string[] resstring = s.Split('\t');
-            int number = Convert.ToInt32(resstring[0]);
-            string street = resstring[1];
-            string city = resstring[2];
-            int zipcode = Convert.ToInt32(resstring[3]);
-            string country = resstring[4];
-            object[] res = new object[] { number, street, city, zipcode, country };
-            return res;
-        }
+        //public static new object[] DisplayStringToKeys(string s)
+        //{
+        //    string[] resstring = s.Split('\t');
+        //    int number = Convert.ToInt32(resstring[0]);
+        //    string street = resstring[1];
+        //    string city = resstring[2];
+        //    int zipcode = Convert.ToInt32(resstring[3]);
+        //    string country = resstring[4];
+        //    object[] res = new object[] { number, street, city, zipcode, country };
+        //    return res;
+        //}
     }
 }

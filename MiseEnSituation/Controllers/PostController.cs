@@ -23,7 +23,7 @@ namespace MiseEnSituation.Controllers
         private readonly IGenericService<Post> _postService;
         private readonly IGenericService<Company> _companyService;
 
-        public List<Post> lstPost { get; set; }
+        public List<Post> LstPost { get; set; }
         public PostController()
         {
             _postService = new PostService(new PostRepository(db));
@@ -41,13 +41,13 @@ namespace MiseEnSituation.Controllers
         [Route("{page?}/{maxByPage?}/{searchField?}")]
         public ActionResult Index(int page = 1, int maxByPage = MyConstants.MAX_BY_PAGE, string SearchField = "")
         {
-            lstPost = _postService.FindAllIncludes(page, maxByPage, SearchField);
+            LstPost = _postService.FindAllIncludes(page, maxByPage, SearchField);
 
             ViewBag.NextExist = _postService.NextExist(page, maxByPage, SearchField);
             ViewBag.Page = page;
             ViewBag.MaxByPage = maxByPage;
             ViewBag.SearchField = SearchField;
-            return View("Index", lstPost);
+            return View("Index", LstPost);
         }
             // GET: Post/Details/5
             public ActionResult Details(int? id)
@@ -66,14 +66,10 @@ namespace MiseEnSituation.Controllers
 
         // GET: Post/Create
         [HttpGet]
-        [Route("Create")]
         public ActionResult Create()
         {
-            ViewBag.CompanyList = _companyService.GetAllExcludes().Select(c => new SelectListItem
-            {
-                Value = c.Id.ToString(),
-                Text = c.Name
-            });
+            
+            ViewBag.CompanyList = _companyService.FindAllExcludes(1, 5412, "");
             //companyService.FindAllIncludes(page, maxByPage, SearchField);
 
             return View(new Post());
@@ -84,8 +80,14 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Post post)
+        public ActionResult Create([Bind(Include = "Id,Description,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract,CompanyId")] Post post)
         {
+            if (post.CompanyId.HasValue)
+            {
+                post.Company = _companyService.FindByIdIncludes(post.CompanyId);
+            }
+            ModelState.Remove("checkUp.Company");
+
             if (ModelState.IsValid)
             {
                 _postService.Save(post);
@@ -115,6 +117,7 @@ namespace MiseEnSituation.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CompanyList = _companyService.FindAllExcludes(1, 5412, "");
             return View(post);
         }
 
@@ -124,12 +127,15 @@ namespace MiseEnSituation.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edit")]
-        public ActionResult Edit([Bind(Include = "Id,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract")] Post post)
+        public ActionResult Edit([Bind(Include = "Id,Description,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract,CompanyId")] Post post)
         {
+            if (post.CompanyId.HasValue)
+            {
+                post.Company = _companyService.FindByIdIncludes(post.CompanyId);
+            }
             if (ModelState.IsValid)
             {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
+                _postService.Save(post);
                 return RedirectToAction("Index");
             }
             return View(post);

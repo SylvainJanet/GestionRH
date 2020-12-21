@@ -19,17 +19,19 @@ namespace MiseEnSituation.Controllers
     [Route("{action=index}")]
     public class UserController : Controller
     {
-        private MyDbContext db = new MyDbContext();
+        private readonly MyDbContext db = new MyDbContext();
 
-        private IGenericService<Employee> _employeeService;  
-        private IGenericService<Post> _postService;  
-        private IGenericService<Company> _companyService;  
+        private readonly IGenericService<Employee> _employeeService;  
+        private readonly IGenericService<Post> _postService;  
+        private readonly IGenericService<Company> _companyService;  
+        private readonly IGenericService<Address> _adressService;  
 
         public UserController()
         {
             _employeeService = new EmployeeService(new EmployeeRepository(db));
             _postService = new PostService(new PostRepository(db));
             _companyService = new CompanyService(new CompanyRepository(db));
+            _adressService = new AddressService(new AddressRepository(db));
         }
         // GET: User
         
@@ -64,8 +66,8 @@ namespace MiseEnSituation.Controllers
         // GET: User/Create
         public ActionResult Create()
         {
-            ViewBag.Post = _postService.GetAll(false, true, 1, 85241);
-            ViewBag.Company = _companyService.GetAll(false, true, 1, 85241);
+            ViewBag.Post = _postService.GetAll(true, true, 1, 85241);
+            ViewBag.Company = _companyService.GetAll(true, true, 1, 85241);
             return View();
         }
 
@@ -74,9 +76,12 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Email,Password,ProPhone,Type,BirthDate,PersonalPhone,IsManager,CompagnyId,PostId")] Employee employee)
+        public ActionResult Create([Bind(Include = "Id,Name,Email,Password,ProPhone,Type,BirthDate,PersonalPhone,IsManager,CompagnyId,PostId,PersonalAdress")] Employee employee)
         {
             employee.CreationDate = DateTime.Now;
+
+
+            _adressService.Save(employee.PersonalAdress);
             if (employee.CompagnyId.HasValue)
             {
                 employee.Company = _companyService.FindByIdIncludes(employee.CompagnyId);
@@ -85,6 +90,9 @@ namespace MiseEnSituation.Controllers
             {
                 employee.Post = _postService.FindByIdIncludes(employee.PostId);
             }
+            ModelState.Remove("employee.Company");
+            ModelState.Remove("employee.Post");
+            ModelState.Remove("employee.PersonalAdress");
             if (ModelState.IsValid)
             {
                 _employeeService.Save(employee);
@@ -108,8 +116,8 @@ namespace MiseEnSituation.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Post = _postService.GetAll(false, true, 1, 85241);
-            ViewBag.Company = _companyService.GetAll(false, true, 1, 85241);
+            ViewBag.Post = _postService.GetAll(true, true, 1, 85241);
+            ViewBag.Company = _companyService.GetAll(true, true, 1, 85241);
             return View(employee);
         }
 
@@ -118,9 +126,14 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Email,Password,CreationDate,ProPhone,Type,BirthDate,PersonalPhone,IsManager,CompagnyId,PostId")] Employee employee)
+        public ActionResult Edit([Bind(Include = "Id,Name,Email,Password,CreationDate,ProPhone,Type,BirthDate,PersonalPhone,IsManager,CompagnyId,PostId,PersonalAdress")] Employee employee)
         {
             employee.CreationDate = DateTime.Now;
+            //if (employee.AdresseId.HasValue)
+            //{
+            //    _adressService.Update(employee.PersonalAdress);
+                
+            //}
             if (employee.CompagnyId.HasValue)
             {
                 employee.Company = _companyService.FindByIdIncludes(employee.CompagnyId);

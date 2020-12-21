@@ -37,14 +37,13 @@ namespace MiseEnSituation.Controllers
         }
 
         [HttpGet]
-        [Route("Details/{number?}/{street?}/{city?}/{zipcode?}/{country?}")]
-        public ActionResult Details(int? number, string street, string city, int? zipcode, string country)
+        public ActionResult Details(int? id)
         {
-            if (number == null || street == null || city == null || zipcode == null || country == null)
+            if (id==null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Address address = _AddressService.FindByIdIncludes(number, street, city, zipcode, country);
+            Address address = _AddressService.FindByIdIncludes(id);
             if (address == null)
             {
                 return HttpNotFound();
@@ -74,14 +73,13 @@ namespace MiseEnSituation.Controllers
         }
 
         [HttpGet]
-        [Route("Edit/{number?}/{street?}/{city?}/{zipcode?}/{country?}")]
-        public ActionResult Edit(int? number, string street, string city, int? zipcode, string country)
+        public ActionResult Edit(int? id)
         {
-            if (number == null || street == null || city == null || zipcode == null || country == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Address address = _AddressService.FindByIdIncludes(number, street, city, zipcode, country);
+            Address address = _AddressService.FindByIdIncludes(id);
             if (address == null)
             {
                 return HttpNotFound();
@@ -91,7 +89,6 @@ namespace MiseEnSituation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Edit")]
         public ActionResult Edit([Bind(Include = "Number,Street,City,ZipCode,Country")] Address address)
         {
             if (ModelState.IsValid)
@@ -103,14 +100,13 @@ namespace MiseEnSituation.Controllers
         }
 
         [HttpGet]
-        [Route("Delete/{number?}/{street?}/{city?}/{zipcode?}/{country?}")]
-        public ActionResult Delete(int? number, string street, string city, int? zipcode, string country)
+        public ActionResult Delete(int? id)
         {
-            if (number == null || street == null || city == null || zipcode == null || country == null)
+            if (id==null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Address address = _AddressService.FindByIdIncludes(number, street, city, zipcode, country);
+            Address address = _AddressService.FindByIdIncludes(id);
             if (address == null)
             {
                 return HttpNotFound();
@@ -120,12 +116,10 @@ namespace MiseEnSituation.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Route("Delete/{number?}/{street?}/{city?}/{zipcode?}/{country?}")]
-        public ActionResult DeleteConfirmed(int? number, string street, string city, int? zipcode, string country)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Address address = db.Addresses.Find(number, street, city, zipcode, country);
-            db.Addresses.Remove(address);
-            db.SaveChanges();
+           Address address= _AddressService.FindByIdIncludes(id);
+            _AddressService.Delete(address);
             return RedirectToAction("Index");
         }
 
