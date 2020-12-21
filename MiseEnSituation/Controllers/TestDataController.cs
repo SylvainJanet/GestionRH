@@ -20,31 +20,31 @@ namespace MiseEnSituation.Controllers
                 {
                     db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
                 }
-                foreach (var obj in db.CheckUps)
+                foreach (var obj in db.CheckUps.Include(c=>c.Report).Include(c=>c.Employee).Include(c=>c.Manager).Include(c=>c.RH))
                 {
                     db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
                 }
-                foreach (var obj in db.CheckUpReports)
+                foreach (var obj in db.CheckUpReports.Include(c=>c.FinishedCourses).Include(c=>c.WishedCourses))
                 {
                     db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
                 }
-                foreach (var obj in db.Companies)
+                foreach (var obj in db.Companies.Include(c=>c.Adress))
                 {
                     db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
                 }
-                foreach (var obj in db.Employees.Include(e => e.Skills))
+                foreach (var obj in db.Employees.Include(e => e.Skills).Include(e=>e.Company).Include(e=>e.Courses).Include(e=>e.PersonalAdress).Include(e=>e.Post))
                 {
                     db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
                 }
-                foreach (var obj in db.Posts.Include(p => p.RequiredSkills))
+                foreach (var obj in db.Posts.Include(p => p.RequiredSkills).Include(p=>p.Company).Include(p=>p.Employees).Include(p=>p.Manager))
                 {
                     db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
                 }
-                foreach (var obj in db.Skills.Include(s => s.Posts).Include(s => s.Employees))
+                foreach (var obj in db.Skills.Include(s => s.Posts).Include(s => s.Employees).Include(s=>s.Courses))
                 {
                     db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
                 }
-                foreach (var obj in db.TrainingCourses)
+                foreach (var obj in db.TrainingCourses.Include(t=>t.EnrolledEmployees).Include(t=>t.ReportsFinished).Include(t=>t.ReportsWished).Include(t=>t.TrainedSkills))
                 {
                     db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
                 }
