@@ -321,9 +321,9 @@
     <Compile Include="Controllers\CheckUpController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CheckUpReportsController.cs" />
+    <Compile Include="Controllers\EmployeController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\RHController.cs" />
-    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\JWTFilterAttribute.cs" />
@@ -493,13 +493,13 @@
     <Content Include="Views\CheckUp\Details.cshtml" />
     <Content Include="Views\CheckUp\Edit.cshtml" />
     <Content Include="Views\CheckUp\Index.cshtml" />
-    <Content Include="Views\Employee\Home.cshtml" />
+    <Content Include="Views\Employe\Index.cshtml" />
     <Content Include="Views\Addresses\Create.cshtml" />
     <Content Include="Views\Addresses\Delete.cshtml" />
     <Content Include="Views\Addresses\Details.cshtml" />
     <Content Include="Views\Addresses\Edit.cshtml" />
     <Content Include="Views\Addresses\Index.cshtml" />
-    <Content Include="Views\Employee\Formation.cshtml" />
+    <Content Include="Views\Employe\Formation.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Details.cshtml" />

@@ -11,7 +11,7 @@ namespace MiseEnSituation.Controllers
         // GET: RH
         [AdminFilter]
         //[RhFilter]
-        [RoutePrefix("rh")]
+        [RoutePrefix("Rh")]
         [Route("{action=index}")]
         public class RHController : Controller
         {
