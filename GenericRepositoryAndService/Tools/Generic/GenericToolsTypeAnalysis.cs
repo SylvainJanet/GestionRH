@@ -186,7 +186,7 @@ namespace GenericRepositoryAndService.Tools.Generic
                 {
                     keystotest[j] = objs[i * nbrkeys + j];
                 }
-                CheckIfObjectIsKey<T>(objs);
+                CheckIfObjectIsKey<T>(keystotest);
             }
         }
 
