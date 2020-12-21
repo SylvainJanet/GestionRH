@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,7 +15,10 @@ namespace Model.Models
         public string Name { get; set; }
 
         [Required]
+        [ForeignKey("AdressId")]
         public Address Adress { get; set; }
+
+        public int? AdressId { get; set; }
 
         public Company(string name, Address adress)
         {

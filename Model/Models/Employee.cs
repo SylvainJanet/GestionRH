@@ -14,9 +14,9 @@ namespace Model.Models
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
-       // [ForeignKey("AdresseId")]
+        //[ForeignKey("AdresseId")]
         public Address PersonalAdress { get; set; }
-       // public int? AdresseId { get; set; }
+        //public int? AdresseId { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]
         public string PersonalPhone { get; set; }
@@ -25,9 +25,9 @@ namespace Model.Models
         [ForeignKey("CompagnyId")]
         public Company Company { get; set; }
 
-       public int? CompagnyId { get; set; }
+        public int? CompagnyId { get; set; }
         
-       // public bool IsManager { get; set; }
+        // public bool IsManager { get; set; }
         private bool isManager;
         [Required]
         public bool IsManager
@@ -49,6 +49,7 @@ namespace Model.Models
         [Required]
         [ForeignKey("PostId")]
         public Post Post { get; set; }
+
         public int? PostId { get; set; }
 
         public Employee(string name, string email, string password, UserType type, DateTime birthDate, string personalPhone, Company company, bool isManager, List<Skill> skills, Post post) : base(name, email, password, type)

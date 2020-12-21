@@ -344,7 +344,6 @@
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\TestDataController.cs" />
     <Compile Include="Controllers\TrainingCoursesController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Filters\AdminFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -396,6 +395,22 @@
     <Compile Include="Migrations\202012201655259_AddForeignKeyInEmployeeForPostAndCompany.cs" />
     <Compile Include="Migrations\202012201655259_AddForeignKeyInEmployeeForPostAndCompany.Designer.cs">
       <DependentUpon>202012201655259_AddForeignKeyInEmployeeForPostAndCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012211056093_AddBaseEntityToAdressForAnId.cs" />
+    <Compile Include="Migrations\202012211056093_AddBaseEntityToAdressForAnId.Designer.cs">
+      <DependentUpon>202012211056093_AddBaseEntityToAdressForAnId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012211101059_AddForeignForAdressInEmployeeAndCompany.cs" />
+    <Compile Include="Migrations\202012211101059_AddForeignForAdressInEmployeeAndCompany.Designer.cs">
+      <DependentUpon>202012211101059_AddForeignForAdressInEmployeeAndCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012211143115_RemoveAdressForeignKeyInEmployee.cs" />
+    <Compile Include="Migrations\202012211143115_RemoveAdressForeignKeyInEmployee.Designer.cs">
+      <DependentUpon>202012211143115_RemoveAdressForeignKeyInEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012211548135_AddForeignKeyInPostForCompany.cs" />
+    <Compile Include="Migrations\202012211548135_AddForeignKeyInPostForCompany.Designer.cs">
+      <DependentUpon>202012211548135_AddForeignKeyInPostForCompany.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -553,6 +568,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012201655259_AddForeignKeyInEmployeeForPostAndCompany.resx">
       <DependentUpon>202012201655259_AddForeignKeyInEmployeeForPostAndCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012211056093_AddBaseEntityToAdressForAnId.resx">
+      <DependentUpon>202012211056093_AddBaseEntityToAdressForAnId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012211101059_AddForeignForAdressInEmployeeAndCompany.resx">
+      <DependentUpon>202012211101059_AddForeignForAdressInEmployeeAndCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012211143115_RemoveAdressForeignKeyInEmployee.resx">
+      <DependentUpon>202012211143115_RemoveAdressForeignKeyInEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012211548135_AddForeignKeyInPostForCompany.resx">
+      <DependentUpon>202012211548135_AddForeignKeyInPostForCompany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

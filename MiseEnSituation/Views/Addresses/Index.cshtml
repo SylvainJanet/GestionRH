@@ -71,9 +71,9 @@
                 @Html.DisplayFor(modelItem => item.Country)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { number = item.Number, street = item.Street, city = item.City, zipcode = item.ZipCode, country = item.Country }) |
-                @Html.ActionLink("Details", "Details", new { number = item.Number, street = item.Street, city = item.City, zipcode = item.ZipCode, country = item.Country }) |
-                @Html.ActionLink("Delete", "Delete", new { number = item.Number, street = item.Street, city = item.City, zipcode = item.ZipCode, country = item.Country })
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

@@ -31,7 +31,7 @@ namespace MiseEnSituation.Controllers
         public ActionResult Index()
         {
 
-            return View(db.Companies.ToList());
+            return View(_companyService.GetAll(true, true, 1,5241));
         }
 
         [HttpGet]
@@ -150,11 +150,10 @@ namespace MiseEnSituation.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
 
-            Company company = _companyService.FindByIdIncludes(id);
-            var addressSave = company.Adress;
+             Company company = _companyService.FindByIdIncludes(id);
+            Address address = _adressService.FindByIdIncludes(company.Adress.Id);
+            _adressService.Delete(address);
             _companyService.Delete(company);
-            _adressService.Delete(addressSave);
-
             return RedirectToAction("Index");
         }
 
