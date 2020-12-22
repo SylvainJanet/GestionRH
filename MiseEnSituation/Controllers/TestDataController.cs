@@ -169,25 +169,25 @@ namespace MiseEnSituation.Controllers
                 //Address
 
 
-                Address a1 = new Address(1, "rue 1", "city 1", 1111, "Pays1");
-                Address a2 = new Address(2, "rue 2", "city 2", 2222, "Pays2");
-                Address a3 = new Address(3, "rue 3", "city 3", 3333, "Pays3");
-                Address a4 = new Address(4, "rue 4", "city 4", 4444, "Pays4");
+                //Address a1 = new Address(1, "rue 1", "city 1", 1111, "Pays1");
+                //Address a2 = new Address(2, "rue 2", "city 2", 2222, "Pays2");
+                //Address a3 = new Address(3, "rue 3", "city 3", 3333, "Pays3");
+                //Address a4 = new Address(4, "rue 4", "city 4", 4444, "Pays4");
                 Address a5 = new Address() { City = "Paris", Country = "France", Number = 3, Street = "ter rue d'Arsonval", ZipCode = 75015 };
 
 
-                db.Addresses.Add(a1);
-                db.Addresses.Add(a2);
-                db.Addresses.Add(a3);
-                db.Addresses.Add(a4);
+                //db.Addresses.Add(a1);
+                //db.Addresses.Add(a2);
+                //db.Addresses.Add(a3);
+                //db.Addresses.Add(a4);
                 db.Addresses.Add(a5);
 
                 //Company
 
-                Company c1 = new Company("Dawan", a1);
-                Company c2 = new Company("Jehann", a2);
-                Company c3 = new Company("Solares", a3);
-                Company c4 = new Company("Company 4", a4);
+                Company c1 = new Company("Dawan", new Address(1, "rue 1", "city 1", 1111, "Pays1"));
+                Company c2 = new Company("Jehann", new Address(2, "rue 2", "city 2", 2222, "Pays2"));
+                Company c3 = new Company("Solares", new Address(3, "rue 3", "city 3", 3333, "Pays3"));
+                Company c4 = new Company("Company 4", new Address(4, "rue 4", "city 4", 4444, "Pays4"));
 
 
                 db.Companies.Add(c1);

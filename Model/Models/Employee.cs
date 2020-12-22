@@ -21,7 +21,7 @@ namespace Model.Models
         [DataType(DataType.PhoneNumber)]
         public string PersonalPhone { get; set; }
 
-        [Required]
+        
         [ForeignKey("CompagnyId")]
         public Company Company { get; set; }
 
@@ -46,7 +46,7 @@ namespace Model.Models
 
         public List<TrainingCourse> Courses { get; set; }
 
-        [Required]
+        
         [ForeignKey("PostId")]
         public Post Post { get; set; }
 

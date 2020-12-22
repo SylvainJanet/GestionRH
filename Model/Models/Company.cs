@@ -14,7 +14,7 @@ namespace Model.Models
         [MaxLength(200)]
         public string Name { get; set; }
 
-        [Required]
+        
         [ForeignKey("AdressId")]
         public Address Adress { get; set; }
 
