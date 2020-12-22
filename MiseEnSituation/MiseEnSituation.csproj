@@ -505,6 +505,10 @@
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Employe\Profil.cshtml" />
+    <Content Include="Views\Shared\_LayoutRh.cshtml" />
+    <Content Include="Views\Shared\_LayoutEmploye.cshtml" />
+    <Content Include="Views\Shared\_LayoutManager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
