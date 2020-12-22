@@ -33,7 +33,7 @@ namespace MiseEnSituation.Controllers
         // GET: Post
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            return View(_postService.GetAll(true,true,1,8541));
         }
 
 
@@ -49,8 +49,8 @@ namespace MiseEnSituation.Controllers
             ViewBag.SearchField = SearchField;
             return View("Index", LstPost);
         }
-            // GET: Post/Details/5
-            public ActionResult Details(int? id)
+        // GET: Post/Details/5
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
