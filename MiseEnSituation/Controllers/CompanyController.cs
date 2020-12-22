@@ -151,8 +151,8 @@ namespace MiseEnSituation.Controllers
         {
 
              Company company = _companyService.FindByIdIncludes(id);
-            Address address = _adressService.FindByIdIncludes(company.Adress.Id);
-            _adressService.Delete(address);
+            //Address address = _adressService.FindByIdIncludes(company.Adress.Z);
+            //_adressService.Delete(address);
             _companyService.Delete(company);
             return RedirectToAction("Index");
         }
