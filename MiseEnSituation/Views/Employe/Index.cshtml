@@ -1,10 +1,12 @@
-﻿@model IEnumerable<Model.Models.Employee>
-
-@{
-    ViewBag.Title = "Home";
+﻿@{
+    Layout = "~/Views/Shared/_LayoutEmploye.cshtml";
 }
 
-<h2 class="text-center">Welcome Page Employe</h2>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Welcome Page Employee</h2>
 
 <style>
 
@@ -97,6 +99,7 @@
         $('.tbl-header').css({ 'padding-right': scrollWidth });
     }).resize();
 </script>
+
 <section>
     <div class="row">
         <div class="col-sm-6">
@@ -104,7 +107,7 @@
                 <div class="card-body">
                     <h3 class="card-title text-info text-center text-uppercase">Mes check-ups</h3>
                     <p class="card-text text-center">Liste de mes futurs check-ups</p>
-                    @Html.ActionLink("Voir mes check-up", "Home", "Employee", null, new { @class = "btn btn-lg btn-info center-block" })
+                    @Html.ActionLink("Voir mes check-ups", "Index", "Employe", null, new { @class = "btn btn-lg btn-info center-block" })
                 </div>
             </div>
         </div>
@@ -113,7 +116,7 @@
                 <div class="card-body">
                     <h3 class="card-title text-info text-center text-uppercase">Mes Formations prévus</h3>
                     <p class="card-text text-center">Listes des trainningcourses prévu</p>
-                    @Html.ActionLink("Voir mes formations", "Formation", "Employee", null, new { @class = "btn btn-lg btn-info center-block" })
+                    @Html.ActionLink("Voir mes formations", "Formation", "Employe", null, new { @class = "btn btn-lg btn-info center-block" })
                 </div>
             </div>
         </div>
@@ -122,7 +125,7 @@
                 <div class="card-body">
                     <h3 class="card-title text-info text-center text-uppercase">Mes Réunion prévus</h3>
                     <p class="card-text text-center">Descriptions de la card, contenu de la card</p>
-                    @Html.ActionLink("Voir mes Réunions", "Home", "Employee", null, new { @class = "btn btn-lg btn-info center-block" })
+                    @Html.ActionLink("Voir mes Réunions", "Index", "Employe", null, new { @class = "btn btn-lg btn-info center-block" })
                 </div>
             </div>
         </div>
@@ -131,9 +134,19 @@
                 <div class="card-body">
                     <h3 class="card-title text-info text-center text-uppercase">Mes entretiens pévus</h3>
                     <p class="card-text text-center">Liste de mes prochains entretiens</p>
-                    @Html.ActionLink("Voir mes Entretien", "Home", "Employee", null, new { @class = "btn btn-lg btn-info center-block" })
+                    @Html.ActionLink("Voir mes Entretiens", "Index", "Employe", null, new { @class = "btn btn-lg btn-info center-block" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-info text-center text-uppercase">Mon Profil</h3>
+                    <p class="card-text text-center">Mon profil, modifier mon profil</p>
+                    @Html.ActionLink("Voir mon Profil", "Profil", "Employe", null, new { @class = "btn btn-lg btn-info center-block" })
                 </div>
             </div>
         </div>
     </div>
 </section>
+
