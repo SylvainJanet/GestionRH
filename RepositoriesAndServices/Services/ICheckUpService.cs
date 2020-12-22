@@ -1,15 +1,11 @@
-﻿using Model.Models;
+﻿using GenericRepositoryAndService.Service;
+using Model.Models;
 using System.Collections.Generic;
 
 namespace RepositoriesAndServices.Services
 {
-    public interface ICheckUpService
+    public interface ICheckUpService : IGenericService<CheckUp>
     {
-        List<CheckUp> FindAll(int page, int maxByPage);
-        bool NextExist(int page, int maxByPage);
-        CheckUp Find(int? id);
-        void Save(CheckUp checkUp);
-        void Update(CheckUp checkUp);
-        void Remove(int id);
+        
     }
 }

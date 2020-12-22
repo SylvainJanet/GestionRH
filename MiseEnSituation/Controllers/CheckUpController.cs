@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GenericRepositoryAndService.Service;
 using Model.Models;
 using RepositoriesAndServices.Repositories;
 using RepositoriesAndServices.Services;
@@ -15,21 +16,20 @@ namespace MiseEnSituation.Controllers
     public class CheckUpController : Controller
     {
         private readonly MyDbContext db = new MyDbContext();
-        private readonly ICheckUpService _checkUpService;
-        private readonly IUserService userService;
-        private readonly IEmployeeService employeeService;
+        private readonly IGenericService<CheckUp> _checkUpService;
+        private readonly IGenericService<Employee> employeeService;
 
         public CheckUpController()
         {
             _checkUpService = new CheckUpService(new CheckUpRepository(db));
-            userService = new UserService(new UserRepository(db));
             employeeService = new EmployeeService(new EmployeeRepository(db));
         }
         // GET: CheckUp
         public ActionResult Index()
         {
-            return View(_checkUpService.FindAll(1,5241));
+            return View(_checkUpService.GetAll(true,true,1,5241));
         }
+       
 
         // GET: CheckUp/Details/5
         public ActionResult Details(int? id)
@@ -38,7 +38,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CheckUp checkUp = _checkUpService.Find(id);
+            CheckUp checkUp = _checkUpService.FindByIdIncludes(id);
             if (checkUp == null)
             {
                 return HttpNotFound();
@@ -96,7 +96,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CheckUp checkUp = _checkUpService.Find(id);
+            CheckUp checkUp = _checkUpService.FindByIdIncludes(id);
             if (checkUp == null)
             {
                 return HttpNotFound();
@@ -145,7 +145,7 @@ namespace MiseEnSituation.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CheckUp checkUp = _checkUpService.Find(id);
+            CheckUp checkUp = _checkUpService.FindByIdIncludes(id);
             if (checkUp == null)
             {
                 return HttpNotFound();
@@ -158,7 +158,8 @@ namespace MiseEnSituation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _checkUpService.Remove(id);
+            CheckUp checkUp = _checkUpService.FindByIdIncludes(id);
+            _checkUpService.Delete(checkUp);
             
             return RedirectToAction("Index");
         }
