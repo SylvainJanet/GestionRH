@@ -82,11 +82,12 @@ namespace MiseEnSituation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Description,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract,CompanyId")] Post post)
         {
+
             if (post.CompanyId.HasValue)
             {
                 post.Company = _companyService.FindByIdIncludes(post.CompanyId);
             }
-            ModelState.Remove("checkUp.Company");
+            ModelState.Remove("Company");
 
             if (ModelState.IsValid)
             {
@@ -105,7 +106,6 @@ namespace MiseEnSituation.Controllers
 
         // GET: Post/Edit/5
         [HttpGet]
-        [Route("Edit/{id?}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -126,7 +126,6 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Edit")]
         public ActionResult Edit([Bind(Include = "Id,Description,HiringDate,ContractType,EndDate,WeeklyWorkLoad,FileForContract,CompanyId")] Post post)
         {
             if (post.CompanyId.HasValue)
@@ -143,7 +142,6 @@ namespace MiseEnSituation.Controllers
 
         // GET: Post/Delete/5
         [HttpGet]
-        [Route("Delete/{id?}")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -161,7 +159,6 @@ namespace MiseEnSituation.Controllers
         // POST: Post/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Route("Delete/{id}")]
         public ActionResult DeleteConfirmed(int id)
         {
             Post post = _postService.FindByIdIncludes(id);
