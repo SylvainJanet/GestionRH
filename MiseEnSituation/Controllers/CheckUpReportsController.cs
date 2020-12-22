@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using GenericRepositoryAndService.Service;
 using MiseEnSituation.Filters;
 using Model.Models;
 using RepositoriesAndServices.Repositories;
@@ -19,14 +20,13 @@ namespace MiseEnSituation.Controllers
     public class CheckUpReportsController : Controller
     {
         private readonly MyDbContext db = new MyDbContext();
-        private readonly ICheckUpReportService _checkUpReport;
-        private readonly ITrainingCourseService trainingCourseService;
-        private readonly ITrainingCourseService _TrainedCoursesService;
+        private readonly IGenericService<CheckUpReport> _checkUpReport;
+        private readonly IGenericService<TrainingCourse> trainingCourseService;
         public CheckUpReportsController()
         {
             _checkUpReport = new CheckUpReportService(new CheckUpReportRepository(db));
             trainingCourseService = new TrainingCourseService(new TrainingCourseRepository(db));
-            _TrainedCoursesService = new TrainingCourseService(new TrainingCourseRepository(db));
+           
         }
         // GET: CheckUpReports
         public ActionResult Index()
@@ -72,12 +72,12 @@ namespace MiseEnSituation.Controllers
             List<TrainingCourse> _whishedCourses;
             if (FinishedCourses != null)
             {
-                _finishedCourses = _TrainedCoursesService.FindManyByIdExcludes(FinishedCourses);
+                _finishedCourses = trainingCourseService.FindManyByIdExcludes(FinishedCourses);
                 checkUpReport.FinishedCourses = _finishedCourses;
             }
             if (WishedCourses!=null)
             {
-                _whishedCourses = _TrainedCoursesService.FindManyByIdExcludes(WishedCourses);
+                _whishedCourses = trainingCourseService.FindManyByIdExcludes(WishedCourses);
                 checkUpReport.WishedCourses = _whishedCourses;
             }
             else
@@ -126,12 +126,12 @@ namespace MiseEnSituation.Controllers
             List<TrainingCourse> _whishedCourses;
             if (FinishedCourses != null)
             {
-                _finishedCourses = _TrainedCoursesService.FindManyByIdExcludes(FinishedCourses);
+                _finishedCourses = trainingCourseService.FindManyByIdExcludes(FinishedCourses);
                 checkUpReport.FinishedCourses = _finishedCourses;
             }
             if (WishedCourses != null)
             {
-                _whishedCourses = _TrainedCoursesService.FindManyByIdExcludes(WishedCourses);
+                _whishedCourses = trainingCourseService.FindManyByIdExcludes(WishedCourses);
                 checkUpReport.WishedCourses = _whishedCourses;
             }
             else
