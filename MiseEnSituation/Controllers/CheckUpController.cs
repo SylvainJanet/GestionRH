@@ -78,6 +78,7 @@ namespace MiseEnSituation.Controllers
             }
             ModelState.Remove("checkUp.Employee");
             ModelState.Remove("checkUp.Manager");
+            ModelState.Remove("checkUp.RH");
            
             if (ModelState.IsValid)
             {

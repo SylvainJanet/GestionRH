@@ -82,6 +82,7 @@ namespace MiseEnSituation.Controllers
 
 
             _adressService.Save(employee.PersonalAdress);
+
             if (employee.CompagnyId.HasValue)
             {
                 employee.Company = _companyService.FindByIdIncludes(employee.CompagnyId);
@@ -90,9 +91,8 @@ namespace MiseEnSituation.Controllers
             {
                 employee.Post = _postService.FindByIdIncludes(employee.PostId);
             }
-            ModelState.Remove("employee.Company");
-            ModelState.Remove("employee.Post");
-            ModelState.Remove("employee.PersonalAdress");
+            ModelState.Remove("Company");
+            ModelState.Remove("Post");
             if (ModelState.IsValid)
             {
                 _employeeService.Save(employee);
