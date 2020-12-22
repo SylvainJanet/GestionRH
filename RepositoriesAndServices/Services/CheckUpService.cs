@@ -1,48 +1,31 @@
-﻿using Model.Models;
+﻿using GenericRepositoryAndService.Repository;
+using GenericRepositoryAndService.Service;
+using Model.Models;
 using RepositoriesAndServices.Repositories;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace RepositoriesAndServices.Services
 {
-    public class CheckUpService : ICheckUpService
+    public class CheckUpService : GenericService<CheckUp> ,ICheckUpService
     {
-        private readonly ICheckUpRepository _checkUpRepository;
+         protected IGenericRepository<CheckUp> _checkUpRepository;
 
-        public CheckUpService(ICheckUpRepository checkUpRepository)
+        public CheckUpService(IGenericRepository<CheckUp> checkUpRepository) : base(checkUpRepository)
         {
             this._checkUpRepository = checkUpRepository;
         }
 
-        public CheckUp Find(int? id)
+        public override Expression<Func<IQueryable<CheckUp>, IOrderedQueryable<CheckUp>>> OrderExpression()
         {
-            return _checkUpRepository.Find(id);
+            return req => req.OrderBy(s => s.Date);
         }
 
-        public List<CheckUp> FindAll(int page, int maxByPage)
+        public override Expression<Func<CheckUp, bool>> SearchExpression(string searchField = "")
         {
-            int start = (page - 1) * maxByPage;
-            return _checkUpRepository.FindAll(start, maxByPage);
-        }
-
-        public bool NextExist(int page, int maxByPage)
-        {
-            return (page * maxByPage) < _checkUpRepository.Count();
-        }
-
-        public void Remove(int id)
-        {
-            _checkUpRepository.Remove(id);
-        }
-
-        public void Save(CheckUp checkUp)
-        {
-            _checkUpRepository.Save(checkUp);
-        }
-
-        public void Update(CheckUp checkUp)
-        {
-            _checkUpRepository.Update(checkUp);
-
+            throw new NotImplementedException();
         }
     }
 }

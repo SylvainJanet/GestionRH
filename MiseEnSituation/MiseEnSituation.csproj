@@ -416,10 +416,6 @@
     <Compile Include="Migrations\202012221418222_DeleteRequiredFromCompanyPostEmployee.Designer.cs">
       <DependentUpon>202012221418222_DeleteRequiredFromCompanyPostEmployee.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012221428126_AddDataTypeForEndDate.cs" />
-    <Compile Include="Migrations\202012221428126_AddDataTypeForEndDate.Designer.cs">
-      <DependentUpon>202012221428126_AddDataTypeForEndDate.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidationAttributes\EmployeeIsManager.cs" />
@@ -595,9 +591,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012221418222_DeleteRequiredFromCompanyPostEmployee.resx">
       <DependentUpon>202012221418222_DeleteRequiredFromCompanyPostEmployee.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012221428126_AddDataTypeForEndDate.resx">
-      <DependentUpon>202012221428126_AddDataTypeForEndDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
