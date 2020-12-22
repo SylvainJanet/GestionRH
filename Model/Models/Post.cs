@@ -30,6 +30,7 @@ namespace Model.Models
         [Required]
         public ContractType ContractType { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
         [Required]
@@ -38,7 +39,7 @@ namespace Model.Models
         [Required]
         public string FileForContract { get; set; }
 
-        [Required]
+        
         [ForeignKey("CompanyId")]
         public Company Company { get; set; }
 

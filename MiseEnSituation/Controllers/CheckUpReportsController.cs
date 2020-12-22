@@ -52,10 +52,13 @@ namespace MiseEnSituation.Controllers
         // GET: CheckUpReports/Create
         public ActionResult Create()
         {
-            ViewBag.FinishedCourses = new MultiSelectList(trainingCourseService.GetAllExcludes(), "Id", "Name", null);
-            ViewBag.WishedCourses = new MultiSelectList(trainingCourseService.GetAllExcludes(), "Id", "Name", null);
+
+            IEnumerable<SelectListItem> finished =  new MultiSelectList(trainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            IEnumerable<SelectListItem> wished =  new MultiSelectList(trainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            ViewBag.FinishedCourses = finished;
+            ViewBag.WishedCourses = wished;
             
-            return View();
+            return View(new CheckUpReport());
         }
 
         // POST: CheckUpReports/Create
@@ -65,11 +68,28 @@ namespace MiseEnSituation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Content,TrainedCourses,WishedCourses")] CheckUpReport checkUpReport, int?[] FinishedCourses,int?[] WishedCourses)
         {
-            if (ModelState.IsValid && FinishedCourses!= null && WishedCourses!=null)
+            List<TrainingCourse> _finishedCourses;
+            List<TrainingCourse> _whishedCourses;
+            if (FinishedCourses != null)
             {
-                List<TrainingCourse> _finishedCourses = _TrainedCoursesService.FindManyByIdExcludes(FinishedCourses);
-                List<TrainingCourse>_whishedCourses = _TrainedCoursesService.FindManyByIdExcludes(WishedCourses);
-               // _checkUpReport.Update(checkUpReport, _finishedCourses, _whishedCourses);
+                _finishedCourses = _TrainedCoursesService.FindManyByIdExcludes(FinishedCourses);
+                checkUpReport.FinishedCourses = _finishedCourses;
+            }
+            if (WishedCourses!=null)
+            {
+                _whishedCourses = _TrainedCoursesService.FindManyByIdExcludes(WishedCourses);
+                checkUpReport.WishedCourses = _whishedCourses;
+            }
+            else
+            {
+                checkUpReport.FinishedCourses = null;
+            }
+            // _checkUpReport.Update(checkUpReport, _finishedCourses, _whishedCourses);
+            
+            
+            if (ModelState.IsValid )
+            {
+                _checkUpReport.Save(checkUpReport);
                 return RedirectToAction("Index");
             }
 
@@ -88,6 +108,10 @@ namespace MiseEnSituation.Controllers
             {
                 return HttpNotFound();
             }
+            IEnumerable<SelectListItem> finished = new MultiSelectList(trainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            IEnumerable<SelectListItem> wished = new MultiSelectList(trainingCourseService.GetAllExcludes(), "Id", "Name", null);
+            ViewBag.FinishedCourses = finished;
+            ViewBag.WishedCourses = wished;
             return View(checkUpReport);
         }
 
@@ -96,13 +120,32 @@ namespace MiseEnSituation.Controllers
         // plus de détails, consultez https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Content")] CheckUpReport checkUpReport)
+        public ActionResult Edit([Bind(Include = "Id,Content,TrainedCourses,WishedCourses")] CheckUpReport checkUpReport, int?[] FinishedCourses, int?[] WishedCourses)
         {
+            List<TrainingCourse> _finishedCourses;
+            List<TrainingCourse> _whishedCourses;
+            if (FinishedCourses != null)
+            {
+                _finishedCourses = _TrainedCoursesService.FindManyByIdExcludes(FinishedCourses);
+                checkUpReport.FinishedCourses = _finishedCourses;
+            }
+            if (WishedCourses != null)
+            {
+                _whishedCourses = _TrainedCoursesService.FindManyByIdExcludes(WishedCourses);
+                checkUpReport.WishedCourses = _whishedCourses;
+            }
+            else
+            {
+                checkUpReport.FinishedCourses = null;
+            }
+
+
             if (ModelState.IsValid)
             {
                 _checkUpReport.Update(checkUpReport);
                 return RedirectToAction("Index");
             }
+
             return View(checkUpReport);
         }
 
@@ -126,7 +169,9 @@ namespace MiseEnSituation.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _checkUpReport.Delete(id);
+
+            CheckUpReport checkUpReport = _checkUpReport.FindByIdExcludes(id);
+            _checkUpReport.Delete(checkUpReport);
             return RedirectToAction("Index");
         }
 
