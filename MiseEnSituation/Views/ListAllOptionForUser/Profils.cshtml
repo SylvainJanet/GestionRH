@@ -1,14 +1,13 @@
-﻿@{
-    Layout = "~/Views/Shared/_LayoutManager.cshtml";
-}
+﻿@model Model.Models.Employee
 @{
-    ViewBag.Title = "index";
+    Layout = "~/Views/Shared/_LayoutEmploye.cshtml";
 }
 
-<h2 class="text-center">Welcome Page Manager</h2>
+@{
+    ViewBag.Title = "Profils";
+}
 
 <style>
-
     h1 {
         font-size: 30px;
         color: #fff;
@@ -64,6 +63,8 @@
         color: ghostwhite;
     }
 
+
+
     body {
         background: -webkit-linear-gradient(left, #25c481, #25b7c4);
         background: linear-gradient(to right, #25c481, #25b7c4);
@@ -97,33 +98,45 @@
     }).resize();
 </script>
 <section>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title text-info text-center text-uppercase">Mes check-ups</h3>
-                    <p class="card-text text-center">Liste de mes futurs check-ups</p>
-                    @Html.ActionLink("Voir mes check-ups", "CheckUps", "Manager", null, new { @class = "btn btn-lg btn-info center-block" })
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title text-info text-center text-uppercase">Mes Formations prévus</h3>
-                    <p class="card-text text-center">Listes des trainningcourses prévu</p>
-                    @Html.ActionLink("Voir mes formations", "Formations", "Manager", null, new { @class = "btn btn-lg btn-info center-block" })
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="card-title text-info text-center text-uppercase">Mon Profil</h3>
-                    <p class="card-text text-center">Mon profil, modifier mon profil</p>
-                    @Html.ActionLink("Voir mon Profil", "Profil", "Manager", null, new { @class = "btn btn-lg btn-info center-block" })
-                </div>
-            </div>
-        </div>
+    <!--for demo wrap-->
+    <h1>ViewBag.Title</h1>
+    <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.PersonalAdress)</th>
+                    <th>@Html.DisplayNameFor(model => model.PersonalPhone)</th>
+                    <th>@Html.DisplayNameFor(model => model.ProPhone)</th>
+                    <th>@Html.DisplayNameFor(model => model.Company)</th>
+                    <th>@Html.DisplayNameFor(model => model.CreationDate)</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+                    <tr>
+                        <th>@ViewBag.User.Name</th>
+                        <th>@ViewBag.User.PersonalAdress</th>
+                        <th>@ViewBag.User.PersonalPhone</th>
+                        <th>@ViewBag.User.ProPhone</th>
+                        <th>@ViewBag.User.Company</th>
+                        <th>@ViewBag.User.CreationDate</th>
+                    </tr>
+            </tbody>
+        </table>
     </div>
 </section>
+
+@*<body>
+        <div>
+            @{
+                String nom = ;
+                String message = "Salut " + nom;
+            }
+
+            <p>@message</p>
+        </div>
+    </body>*@

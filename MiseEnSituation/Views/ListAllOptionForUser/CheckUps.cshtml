@@ -100,16 +100,15 @@
 </script>
 <section>
     <!--for demo wrap-->
-    <h1>Mes Formations</h1>
+    <h1>Mes Réunion</h1>
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.Name)</th>
-                    <th>@Html.DisplayNameFor(model => model.Price)</th>
-                    <th>@Html.DisplayNameFor(model => model.StartingDate)</th>
-                    <th>@Html.DisplayNameFor(model => model.ReportsWished)</th>
-                    <th>@Html.DisplayNameFor(model => model.ReportsFinished)</th>
+                    <th>@Html.DisplayNameFor(model => model.Date)</th>
+                    <th>@Html.DisplayNameFor(model => model.Employee)</th>
+                    <th>@Html.DisplayNameFor(model => model.Manager)</th>
+                    <th>@Html.DisplayNameFor(model => model.RH)</th>
                 </tr>
             </thead>
         </table>
@@ -117,14 +116,23 @@
     <div class="tbl-content">
         <table cellpadding="0" cellspacing="0" border="0">
             <tbody>
-                @foreach (var item in ViewBag.lsTc)
+                @if (ViewBag.lstCU != null)
                 {
+                    foreach (var item in ViewBag.lstCU)
+                    {
+                        <tr>
+                            <th>@item.Date</th>
+                            <th>@item.Employee.Name</th>
+                            <th>@item.RH</th>
+                            <th>@item.Manager</th>
+                        </tr>
+                    }
+                }else { 
                     <tr>
-                        <th> @item.Name</th>
-                        <th>@item.StartingDate</th>
-                        <th>@item.EndingDate</th>
-                        <th>@item.DurationInHours</th>
-                        <th>@item.Price</th>
+                        <th>Vide</th>
+                        <th>Vide</th>
+                        <th>Vide</th>
+                        <th>Vide</th>
                     </tr>
                 }
             </tbody>

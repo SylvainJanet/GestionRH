@@ -50,6 +50,7 @@ namespace MiseEnSituation.Controllers
             return View("Index", LstPost);
         }
         // GET: Post/Details/5
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)

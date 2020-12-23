@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,35 +15,25 @@ namespace MiseEnSituation.Controllers
             return View();
         }
 
-        public ActionResult Formation()
+        public ActionResult Formations()
         {
-            ViewBag.lsTc = Session["lstTc"];
+            ViewBag.lstTc = Session["lstTc"];
             return View();
         }
 
         [HttpGet]
-        public ActionResult CheckUp()
+        public ActionResult CheckUps()
         {
-            ViewBag.lsTc = Session["lstCU"];
-            return RedirectToAction("CheckUp", "ListAllOptionForUser"); // /Admin/Index             
-            //return View();
+            ViewBag.User = (User)Session["user"];
+            return View();
         }
 
 
         [HttpGet]
-        public ActionResult Profil(int? id)
+        public ActionResult Profils(int? id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-
-            //Employee employee = _employeeService.FindByIdIncludes(id);
-            //if (employee == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(employee);
+            var user = (Employee)Session["user"];
+            ViewBag.User = user;
             return View();
         }
     }

@@ -26,6 +26,7 @@ namespace MiseEnSituation.Controllers
 
         public EmployeController()
         {
+
             _employeeService = new EmployeeService(new EmployeeRepository(db));
             _postService = new PostService(new PostRepository(db));
             _companyService = new CompanyService(new CompanyRepository(db));
@@ -40,39 +41,31 @@ namespace MiseEnSituation.Controllers
         }
 
         [HttpGet]
-        public ActionResult Formation ()
+        public ActionResult Formations ()
         {
             User user = (User)Session["user"];
             List<TrainingCourse> lstTc = _trainingService.GetAllByIncludes(t => t.Id == user.Id);
             Session["lstTc"] = lstTc;
-            return RedirectToAction("Formation", "ListAllOptionForUser"); // /Admin/Index             
+            return RedirectToAction("Formations", "ListAllOptionForUser"); // /Admin/Index             
             //return View();
         }
 
         [HttpGet]
-        public ActionResult CheckUp()
+        public ActionResult CheckUps()
         {
             User user = (User)Session["user"];
             List<CheckUp> lstCU = _checkUpService.GetAllByIncludes(t => t.Id == user.Id);
             Session["lstCu"] = lstCU;
-            return RedirectToAction("CheckUp", "ListAllOptionForUser"); // /Admin/Index             
+            return RedirectToAction("CheckUps", "ListAllOptionForUser"); // /Admin/Index             
             //return View();
         }
 
-        [HttpGet]
-        public ActionResult Profil(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
-            Employee employee = _employeeService.FindByIdIncludes(id);
-            if (employee == null)
-            {
-                return HttpNotFound();
-            }
-            return View(employee);
+        [HttpGet]
+        public ActionResult Profil()
+        {
+            //Employee user = (Employee)Session["user"];
+            return RedirectToAction("profils", "ListAllOptionForUser"); // /Admin/Index          
         }
 
         [HttpPost]
