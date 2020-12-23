@@ -504,7 +504,7 @@
     <Content Include="Views\Addresses\Details.cshtml" />
     <Content Include="Views\Addresses\Edit.cshtml" />
     <Content Include="Views\Addresses\Index.cshtml" />
-    <Content Include="Views\Employe\Formation.cshtml" />
+    <Content Include="Views\Employe\Formations.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
@@ -515,8 +515,9 @@
     <Content Include="Views\Shared\_LayoutEmploye.cshtml" />
     <Content Include="Views\Shared\_LayoutManager.cshtml" />
     <Content Include="Views\ListAllOptionForUser.cshtml" />
-    <Content Include="Views\ListAllOptionForUser\Formation.cshtml" />
-    <Content Include="Views\ListAllOptionForUser\ChechUp.cshtml" />
+    <Content Include="Views\ListAllOptionForUser\Formations.cshtml" />
+    <Content Include="Views\ListAllOptionForUser\CheckUps.cshtml" />
+    <Content Include="Views\ListAllOptionForUser\Profils.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
