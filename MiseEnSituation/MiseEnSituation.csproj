@@ -322,6 +322,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\CheckUpReportsController.cs" />
     <Compile Include="Controllers\EmployeController.cs" />
+    <Compile Include="Controllers\ListAllOptionForUserController.cs" />
     <Compile Include="Controllers\ManagerController.cs" />
     <Compile Include="Controllers\RHController.cs" />
     <Compile Include="Controllers\PostController.cs" />
@@ -513,6 +514,9 @@
     <Content Include="Views\Shared\_LayoutRh.cshtml" />
     <Content Include="Views\Shared\_LayoutEmploye.cshtml" />
     <Content Include="Views\Shared\_LayoutManager.cshtml" />
+    <Content Include="Views\ListAllOptionForUser.cshtml" />
+    <Content Include="Views\ListAllOptionForUser\Formation.cshtml" />
+    <Content Include="Views\ListAllOptionForUser\ChechUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
