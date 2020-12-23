@@ -100,98 +100,53 @@
         $('.tbl-header').css({ 'padding-right': scrollWidth });
     }).resize();
 </script>
+
 <section>
-    <!--for demo wrap-->
-    <h1>Mon Tableau Rh</h1>
-    <div class="tbl-header">
-        <table cellpadding="0" cellspacing="0" border="0">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Company ?</th>
-                    <th>COl3</th>
-                    <th>COl4</th>
-                    <th>COl5</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-    <div class="tbl-content">
-        <table cellpadding="0" cellspacing="0" border="0">
-            <tbody>
-                <tr>
-                    <td>AAC</td>
-                    <td>AUSTRALIAN COMPANY </td>
-                    <td>$1.38</td>
-                    <td>+2.01</td>
-                    <td>-0.36%</td>
-                </tr>
-                <tr>
-                    <td>AAD</td>
-                    <td>TURKISH COMPANY</td>
-                    <td>$2.38</td>
-                    <td>-0.01</td>
-                    <td>-1.36%</td>
-                </tr>
-                <tr>
-                    <td>AAX</td>
-                    <td>ITALIAN COMPANY</td>
-                    <td>$3.22</td>
-                    <td>+0.01</td>
-                    <td>+1.36%</td>
-                </tr>
-                <tr>
-                    <td>XXD</td>
-                    <td>FRENCH COMPANY</td>
-                    <td>$1.02</td>
-                    <td>-1.01</td>
-                    <td>+2.36%</td>
-                </tr>
-                <tr>
-                    <td>AAC</td>
-                    <td>GERMAN COMPANY </td>
-                    <td>$1.38</td>
-                    <td>+2.01</td>
-                    <td>-0.36%</td>
-                </tr>
-                <tr>
-                    <td>AAD</td>
-                    <td>US COMPANY</td>
-                    <td>$2.38</td>
-                    <td>-0.01</td>
-                    <td>-1.36%</td>
-                </tr>
-                <tr>
-                    <td>AAX</td>
-                    <td>ENGLAND COMPANY</td>
-                    <td>$3.22</td>
-                    <td>+0.01</td>
-                    <td>+1.36%</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <br />
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-info text-center text-uppercase">Entretiens à venir</h3>
-                    <p class="card-text text-center">Gestion des entretiens</p>
-                    <a href="#" class="btn btn-lg btn-info center-block">Voir les entretiens</a>
-
+                    <h3 class="card-title text-info text-center text-uppercase">Mes check-ups</h3>
+                    <p class="card-text text-center">Liste de mes futurs check-ups</p>
+                    @Html.ActionLink("Voir mes check-ups", "Index", "Rh", null, new { @class = "btn btn-lg btn-info center-block" })
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-info text-center text-uppercase">Check-up</h3>
-                    <p class="card-text text-center">Gestion des check-up</p>
-                    <a href="#" class="btn btn-lg btn-info center-block">Voir les Check-ups</a>
+                    <h3 class="card-title text-info text-center text-uppercase">Mes Formations prévus</h3>
+                    <p class="card-text text-center">Listes des trainningcourses prévu</p>
+                    @Html.ActionLink("Voir mes formations", "Formation", "Rh", null, new { @class = "btn btn-lg btn-info center-block" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-info text-center text-uppercase">Mes Réunion prévus</h3>
+                    <p class="card-text text-center">Descriptions de la card, contenu de la card</p>
+                    @Html.ActionLink("Voir mes Réunions", "Index", "Rh", null, new { @class = "btn btn-lg btn-info center-block" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-info text-center text-uppercase">Mes entretiens pévus</h3>
+                    <p class="card-text text-center">Liste de mes prochains entretiens</p>
+                    @Html.ActionLink("Voir mes Entretiens", "Index", "Rh", null, new { @class = "btn btn-lg btn-info center-block" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-info text-center text-uppercase">Mon Profil</h3>
+                    <p class="card-text text-center">Mon profil, modifier mon profil</p>
+                    @Html.ActionLink("Voir mon Profil", "Profil", "Rh", null, new { @class = "btn btn-lg btn-info center-block" })
                 </div>
             </div>
         </div>
     </div>
 </section>
-

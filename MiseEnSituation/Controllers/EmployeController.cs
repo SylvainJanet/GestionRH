@@ -20,23 +20,43 @@ namespace MiseEnSituation.Controllers
         private readonly IGenericService<Employee> _employeeService;
         private readonly IGenericService<Post> _postService;
         private readonly IGenericService<Company> _companyService;
+        private readonly IGenericService<TrainingCourse> _trainingService;
+        private readonly IGenericService<CheckUp> _checkUpService;
+
 
         public EmployeController()
         {
             _employeeService = new EmployeeService(new EmployeeRepository(db));
             _postService = new PostService(new PostRepository(db));
             _companyService = new CompanyService(new CompanyRepository(db));
+            _trainingService = new TrainingCourseService(new TrainingCourseRepository(db));
+            _checkUpService = new CheckUpService(new CheckUpRepository(db));
+
         }
         // GET: Employe
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Formation(/*int id*/)
+
+        [HttpGet]
+        public ActionResult Formation ()
         {
-            //var query = "SELECT * FROM TrainingCourse WHERE Id = " + id;
-            //var result = query.ExecuteSQL();
-            return View();
+            User user = (User)Session["user"];
+            List<TrainingCourse> lstTc = _trainingService.GetAllByIncludes(t => t.Id == user.Id);
+            Session["lstTc"] = lstTc;
+            return RedirectToAction("Formation", "ListAllOptionForUser"); // /Admin/Index             
+            //return View();
+        }
+
+        [HttpGet]
+        public ActionResult CheckUp()
+        {
+            User user = (User)Session["user"];
+            List<CheckUp> lstCU = _checkUpService.GetAllByIncludes(t => t.Id == user.Id);
+            Session["lstCu"] = lstCU;
+            return RedirectToAction("CheckUp", "ListAllOptionForUser"); // /Admin/Index             
+            //return View();
         }
 
         [HttpGet]

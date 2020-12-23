@@ -103,40 +103,45 @@
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-info text-center text-uppercase">Check-up report</h3>
-                    <p class="card-text text-center">Création d'un check-up, affection à un employe</p>
-                    @Html.ActionLink("Gestion des checkup", "Index", "CheckUp", null, new { @class = "btn btn-lg btn-info center-block" })
-
-
+                    <h3 class="card-title text-info text-center text-uppercase">Mes check-ups</h3>
+                    <p class="card-text text-center">Liste de mes futurs check-ups</p>
+                    @Html.ActionLink("Voir mes check-ups", "Index", "Rh", null, new { @class = "btn btn-lg btn-info center-block" })
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-info text-center text-uppercase">Planning</h3>
+                    <h3 class="card-title text-info text-center text-uppercase">Mes Formations prévus</h3>
+                    <p class="card-text text-center">Listes des trainningcourses prévu</p>
+                    @Html.ActionLink("Voir mes formations", "Formation", "Rh", null, new { @class = "btn btn-lg btn-info center-block" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-info text-center text-uppercase">Mes Réunion prévus</h3>
                     <p class="card-text text-center">Descriptions de la card, contenu de la card</p>
-                    <a href="#" class="btn btn-lg btn-info center-block">Voir les plannings</a>
-                    @*@Html.ActionLink("Gestion des Plannings", "Index", "", null, new { @class = "btn btn-lg btn-info center-block" })*@
+                    @Html.ActionLink("Voir mes Réunions", "Index", "Rh", null, new { @class = "btn btn-lg btn-info center-block" })
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-info text-center text-uppercase">Réunion</h3>
-                    <p class="card-text text-center">Descriptions de la card, contenu de la card</p>
-                    <a href="#" class="btn btn-lg btn-info center-block">Voir les réunions</a>
-                    @*@Html.ActionLink("Gestion des Réunions", "", "", null, new { @class = "btn btn-lg btn-info center-block" })*@
+                    <h3 class="card-title text-info text-center text-uppercase">Mes entretiens pévus</h3>
+                    <p class="card-text text-center">Liste de mes prochains entretiens</p>
+                    @Html.ActionLink("Voir mes Entretiens", "Index", "Rh", null, new { @class = "btn btn-lg btn-info center-block" })
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title text-info text-center text-uppercase">Formation</h3>
-                    <p class="card-text text-center">Création d'une formation, affection à un employe</p>
-                    @Html.ActionLink("Gestion des Formations", "Index", "TrainingCourses", null, new { @class = "btn btn-lg btn-info center-block" })
+                    <h3 class="card-title text-info text-center text-uppercase">Mon Profil</h3>
+                    <p class="card-text text-center">Mon profil, modifier mon profil</p>
+                    @Html.ActionLink("Voir mon Profil", "Profil", "Rh", null, new { @class = "btn btn-lg btn-info center-block" })
                 </div>
             </div>
         </div>

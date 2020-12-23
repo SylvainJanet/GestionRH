@@ -1,4 +1,4 @@
-﻿@model Model.Models.TrainingCourse
+﻿@model Model.Models.CheckUp
 @{
     Layout = "~/Views/Shared/_LayoutEmploye.cshtml";
 }
@@ -106,10 +106,10 @@
             <thead>
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.Name)</th>
-                    <th>@Html.DisplayNameFor(model => model.StartingDate)</th>
-                    <th>@Html.DisplayNameFor(model => model.EndingDate)</th>
-                    <th>@Html.DisplayNameFor(model => model.DurationInHours)</th>
                     <th>@Html.DisplayNameFor(model => model.Price)</th>
+                    <th>@Html.DisplayNameFor(model => model.StartingDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.ReportsWished)</th>
+                    <th>@Html.DisplayNameFor(model => model.ReportsFinished)</th>
                 </tr>
             </thead>
         </table>

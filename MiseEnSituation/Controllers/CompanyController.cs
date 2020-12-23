@@ -49,6 +49,7 @@ namespace MiseEnSituation.Controllers
         }
 
         // GET: Company/Details/5
+        [HttpGet]
         public ActionResult Details(int? id)
         {
             if (id == null)

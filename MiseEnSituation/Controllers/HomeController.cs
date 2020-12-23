@@ -76,27 +76,27 @@ namespace MiseEnSituation.Controllers
 
                     if (fu != null && fu.Type.ToString().Equals(UserType.ADMIN.ToString()))
                     {
-                        Session["user_id"] = fu.Id;
+                        Session["user"] = fu;
                         Session["user_connected"] = true;
                         return RedirectToAction("Index", "Admin"); // /Admin/Index             
                     }
 
                     else if(fu != null && fu.Type == UserType.MANAGER)
                     {
-                        Session["user_id"] = fu.Id;
+                        Session["user"] = fu;
                         Session["user_connected"] = true;
                         return RedirectToAction("Index", "Manager"); // /Manager/Index             
                     }
 
                     else if (fu != null && fu.Type == UserType.EMPLOYEE)
                     {
-                        Session["user_id"] = fu.Id;
+                        Session["user"] = fu;
                         Session["user_connected"] = true;
                         return RedirectToAction("Index", "Employe"); // /Employee/Index    
                 }
                     else if (fu != null && fu.Type == UserType.RH)
                     {
-                        Session["user_id"] = fu.Id;
+                        Session["user"] = fu;
                         Session["user_connected"] = true;
                         return RedirectToAction("Index", "RH"); // /RH/Index    
                 }
